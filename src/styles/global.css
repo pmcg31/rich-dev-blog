@@ -1,0 +1,13 @@
+html {
+  background-color: rgb(48, 48, 48);
+  color: rgb(120, 120, 120);
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  font-size: 14px;
+}
+a {
+  text-shadow: none;
+  background-image: none;
+  text-decoration: none;
+  color: inherit;
+}
