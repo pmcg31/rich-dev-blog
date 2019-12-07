@@ -13,6 +13,7 @@ const PostContent = styled.section`
   }
   p {
     font-family: "Solway", serif;
+    line-height: 24px;
   }
   img {
     width: 100%;
