@@ -10,6 +10,7 @@ const PostContent = styled.section`
   color: rgb(160, 160, 160);
   font-size: 16px;
   display: inline-block;
+  width: 100%;
   .language-text {
     background-color: #98562d;
     border-radius: 3px;
