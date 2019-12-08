@@ -25,12 +25,13 @@ const PostContent = styled.section`
   pre {
     code {
       padding: 0;
-      line-height: 18px;
+      line-height: 13px;
     }
     margin: 10px;
     background-color: rgb(64, 64, 64);
-    border-radius: 3px;
-    padding: 3px;
+    border-radius: 10px;
+    padding: 5px;
+    padding-left: 10px;
     font-size: 14px;
     overflow: scroll;
     max-height: 500px;
@@ -39,8 +40,8 @@ const PostContent = styled.section`
     background-color: rgb(64, 64, 64);
     border-radius: 3px;
     padding: 3px;
-    font-size: 14px;
-    line-height: 30px;
+    font-size: 13px;
+    line-height: 26px;
   }
 `
 
