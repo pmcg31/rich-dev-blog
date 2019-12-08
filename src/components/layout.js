@@ -21,7 +21,6 @@ const Layout = ({ title, children }) => {
     `
   )
   let pageTitle = title || data.site.siteMetadata.title
-  console.log(title)
   return (
     <div style={{ margin: `3rem auto`, maxWidth: 600, padding: `0 1rem` }}>
       <Helmet>
