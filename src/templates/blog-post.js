@@ -10,6 +10,17 @@ const PostContent = styled.section`
   color: rgb(160, 160, 160);
   font-size: 16px;
   display: inline-block;
+  .language-text {
+    background-color: #98562d;
+    border-radius: 3px;
+    padding: 3px;
+    font-size: 13px;
+    line-height: 26px;
+  }
+  span.line-numbers-rows {
+    padding-top: 6px;
+    padding-left: 10px;
+  }
   h3 {
     color: coral;
     font-size: 20px;
