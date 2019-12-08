@@ -5,7 +5,6 @@ import BlogHeadline from "../components/blog-headline"
 import IconElectronics from "../components/icon-electronics"
 
 export default ({ data }) => {
-  console.log(data)
   return (
     <Layout>
       {data.allMarkdownRemark.edges.map(({ node }, index) => (
