@@ -8,7 +8,7 @@ const ListLink = props => (
   </li>
 )
 
-export default ({ children }) => {
+const Layout = ({ title, children }) => {
   const data = useStaticQuery(
     graphql`
       query {
@@ -20,9 +20,12 @@ export default ({ children }) => {
       }
     `
   )
+  let pageTitle = title || data.site.siteMetadata.title
+  console.log(title)
   return (
     <div style={{ margin: `3rem auto`, maxWidth: 600, padding: `0 1rem` }}>
       <Helmet>
+        <title>{pageTitle}</title>
         <link
           href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600|Solway:300,400,500|Titillium+Web:200i,200&display=swap"
           rel="stylesheet"
@@ -35,3 +38,5 @@ export default ({ children }) => {
     </div>
   )
 }
+
+export default Layout

@@ -122,7 +122,7 @@ class BlogPostTemplate extends React.Component {
     const { previous, next } = this.props.pageContext
 
     return (
-      <Layout>
+      <Layout title={post.frontmatter.title}>
         <article>
           <PostHeader>
             <IconFloat>
