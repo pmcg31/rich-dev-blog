@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import BlogHeadline from "../components/blog-headline"
+import IconElectronics from "../components/icon-electronics"
 
 export default ({ data }) => {
   console.log(data)

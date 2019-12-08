@@ -2,10 +2,14 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import styled from "styled-components"
+import IconElectronics from "../components/icon-electronics"
+import IconAstronomy from "../components/icon-astronomy"
+import IconPhotography from "../components/icon-photography"
 
 const PostContent = styled.section`
   color: rgb(160, 160, 160);
   font-size: 16px;
+  display: inline-block;
   h3 {
     color: coral;
     font-size: 20px;
@@ -21,7 +25,7 @@ const PostContent = styled.section`
   pre {
     code {
       padding: 0;
-      line-height: 14px;
+      line-height: 18px;
     }
     margin: 10px;
     background-color: rgb(64, 64, 64);
@@ -57,11 +61,46 @@ const PostTitle = styled.div`
   font-weight: 500;
 `
 
-const PostDescription = styled.div`
-  color: coral;
-  font-family: "Titillium Web", sans-serif;
-  font-size: 20px;
+const IconFloat = styled.div`
+  padding-right: 10px;
+  float: left;
 `
+
+const Headline = styled.div`
+  display: table;
+`
+
+function Icon(props) {
+  let square = 100
+  if ("electronics" === props.category) {
+    return (
+      <IconElectronics
+        width={square}
+        height={square}
+        borderColor="coral"
+        labelColor="coral"
+      />
+    )
+  } else if ("astronomy" === props.category) {
+    return (
+      <IconAstronomy
+        width={square}
+        height={square}
+        borderColor="coral"
+        labelColor="coral"
+      />
+    )
+  } else if ("photography" === props.category) {
+    return (
+      <IconPhotography
+        width={square}
+        height={square}
+        borderColor="coral"
+        labelColor="coral"
+      />
+    )
+  }
+}
 
 class BlogPostTemplate extends React.Component {
   render() {
@@ -73,8 +112,13 @@ class BlogPostTemplate extends React.Component {
       <Layout>
         <article>
           <PostHeader>
-            <PostTitle>{post.frontmatter.title}</PostTitle>
-            <PostDate>{post.frontmatter.date}</PostDate>
+            <IconFloat>
+              <Icon category={post.frontmatter.category} />
+            </IconFloat>
+            <Headline>
+              <PostTitle>{post.frontmatter.title}</PostTitle>
+              <PostDate>{post.frontmatter.date}</PostDate>
+            </Headline>
           </PostHeader>
           <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
           <hr />
@@ -127,6 +171,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         description
+        category
       }
     }
   }

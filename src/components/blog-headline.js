@@ -1,6 +1,9 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import IconElectronics from "../components/icon-electronics"
+import IconAstronomy from "../components/icon-astronomy"
+import IconPhotography from "../components/icon-photography"
 
 const PostDetails = styled.div`
   vertical-align: middle;
@@ -32,18 +35,65 @@ const PostDescription = styled.div`
   font-size: 18px;
 `
 
+const PostIcon = styled.div`
+  padding-top: 50px;
+  padding-right: 15px;
+  float: left;
+  display: table;
+`
+
+const PostHeadline = styled.section`
+  display: table;
+`
+
+function Icon(props) {
+  if ("electronics" === props.category) {
+    return (
+      <IconElectronics
+        width="50"
+        height="50"
+        borderColor="coral"
+        labelColor="coral"
+      />
+    )
+  } else if ("astronomy" === props.category) {
+    return (
+      <IconAstronomy
+        width="50"
+        height="50"
+        borderColor="coral"
+        labelColor="coral"
+      />
+    )
+  } else if ("photography" === props.category) {
+    return (
+      <IconPhotography
+        width="50"
+        height="50"
+        borderColor="coral"
+        labelColor="coral"
+      />
+    )
+  }
+}
+
 const BlogHeadline = ({ node, className }) => (
   <div className={className}>
-    <PostTitle>
-      <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-    </PostTitle>
-    <PostDetails>
-      <PostDescription>{node.frontmatter.description}</PostDescription>
-      <PostDate>
-        Posted <span>{node.frontmatter.date}</span> in{" "}
-        <span>{node.frontmatter.category}</span>
-      </PostDate>
-    </PostDetails>
+    <PostIcon>
+      <Icon category={node.frontmatter.category} />
+    </PostIcon>
+    <PostHeadline>
+      <PostTitle>
+        <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+      </PostTitle>
+      <PostDetails>
+        <PostDescription>{node.frontmatter.description}</PostDescription>
+        <PostDate>
+          Posted <span>{node.frontmatter.date}</span> in{" "}
+          <span>{node.frontmatter.category}</span>
+        </PostDate>
+      </PostDetails>
+    </PostHeadline>
   </div>
 )
 
