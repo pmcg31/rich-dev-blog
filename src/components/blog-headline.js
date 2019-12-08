@@ -13,7 +13,7 @@ const PostDetails = styled.div`
 `
 
 const PostDate = styled.div`
-  padding-top: 8px;
+  padding-top: 4px;
   font-size: 16px;
   span {
     color: rgb(160, 160, 160);
@@ -23,7 +23,7 @@ const PostDate = styled.div`
 
 const PostTTR = styled.div`
   text-align: right;
-  padding-top: 8px;
+  padding-top: 4px;
   font-size: 16px;
   span {
     color: rgb(160, 160, 160);
