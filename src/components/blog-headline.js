@@ -18,6 +18,16 @@ const PostDate = styled.div`
   span {
     color: rgb(160, 160, 160);
   }
+  float: left;
+`
+
+const PostTTR = styled.div`
+  text-align: right;
+  padding-top: 8px;
+  font-size: 16px;
+  span {
+    color: rgb(160, 160, 160);
+  }
 `
 
 const PostTitle = styled.div`
@@ -91,9 +101,13 @@ const BlogHeadline = ({ node, className }) => (
       <PostDetails>
         <PostDescription>{node.frontmatter.description}</PostDescription>
         <PostDate>
-          Posted <span>{node.frontmatter.date}</span> in{" "}
+          📆 <span>{node.frontmatter.date}</span> in{" "}
           <span>{node.frontmatter.category}</span>
         </PostDate>
+        <PostTTR>
+          ⏱ <span>{node.timeToRead}</span> min (
+          <span>{node.wordCount.words}</span> words)
+        </PostTTR>
       </PostDetails>
     </PostHeadline>
   </div>

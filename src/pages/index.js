@@ -26,6 +26,7 @@ export const query = graphql`
             }
           }
           id
+          timeToRead
           fields {
             slug
           }
@@ -34,6 +35,9 @@ export const query = graphql`
             description
             date(formatString: "MMMM DD, YYYY")
             category
+          }
+          wordCount {
+            words
           }
         }
       }
