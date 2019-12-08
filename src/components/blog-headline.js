@@ -13,7 +13,7 @@ const PostDetails = styled.div`
 `
 
 const PostDate = styled.div`
-  padding-top: 5px;
+  padding-top: 8px;
   font-size: 16px;
   span {
     color: rgb(160, 160, 160);
@@ -33,6 +33,7 @@ const PostDescription = styled.div`
   font-family: "Solway", sans-serif;
   font-weight: 300;
   font-size: 18px;
+  padding-top: 3px;
 `
 
 const PostIcon = styled.div`
@@ -47,11 +48,12 @@ const PostHeadline = styled.section`
 `
 
 function Icon(props) {
+  let square = 70
   if ("electronics" === props.category) {
     return (
       <IconElectronics
-        width="50"
-        height="50"
+        width={square}
+        height={square}
         borderColor="coral"
         labelColor="coral"
       />
@@ -59,8 +61,8 @@ function Icon(props) {
   } else if ("astronomy" === props.category) {
     return (
       <IconAstronomy
-        width="50"
-        height="50"
+        width={square}
+        height={square}
         borderColor="coral"
         labelColor="coral"
       />
@@ -68,8 +70,8 @@ function Icon(props) {
   } else if ("photography" === props.category) {
     return (
       <IconPhotography
-        width="50"
-        height="50"
+        width={square}
+        height={square}
         borderColor="coral"
         labelColor="coral"
       />
