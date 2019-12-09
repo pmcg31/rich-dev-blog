@@ -20,8 +20,6 @@ const SiteIcon = styled.div`
 `
 
 const Hulk = styled.div`
-  display: table-cell;
-  width: 100%;
   padding-left: 20px;
 `
 

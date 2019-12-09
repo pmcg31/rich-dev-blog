@@ -15,7 +15,6 @@ const Content = styled.div`
 const FootieArea = styled.div`
   display: grid;
   grid-template-columns: auto;
-  width: 100%;
   height: 25px;
   padding-top: 20px;
 `
