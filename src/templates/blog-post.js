@@ -22,10 +22,16 @@ const PostContent = styled.section`
     padding-top: 6px;
     padding-left: 10px;
   }
+  a {
+    color: #00abff;
+  }
   h3 {
     color: coral;
     font-size: 20px;
     font-family: "Dosis", sans-serif;
+  }
+  h4 {
+    color: rgb(160, 160, 160);
   }
   p {
     font-family: "Solway", serif;
