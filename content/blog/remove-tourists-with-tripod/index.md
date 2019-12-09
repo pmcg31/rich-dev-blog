@@ -129,6 +129,6 @@ You can use this technique to simulate long exposures. This is especially handy 
 
 ![London Bridge](https://res.cloudinary.com/pmcg31/image/upload/v1575835450/IMG_0230_d3hplj.jpg "London Bridge in Lake Havasu City, AZ")
 
-This is the London Bridge (in Arizona, of course!). The water was quite choppy the day this was taken and would have resulted in a very busy, distracting foreground. Thirty images were combined using the technique described in this post to simulate a long exposure. This softened the water and let the majesty of the bridge shine through.
+This is the London Bridge ([in Arizona](<https://en.wikipedia.org/wiki/London_Bridge_(Lake_Havasu_City)>), of course!). The water was quite choppy the day this was taken and would have resulted in a very busy, distracting foreground. Thirty images were combined using the technique described in this post to simulate a long exposure. This softened the water and let the majesty of the bridge shine through.
 
 It works well with waterfalls and other flowing water where you want to show a little motion. One advantage to this technique over a traditional long exposure is the ability to try different exposure lengths in post by combining more or fewer photos. The sky is the limit, use your imagination!
