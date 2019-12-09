@@ -11,7 +11,7 @@ You can't get that Eagles song out of your head...so you make the journey to go 
 
 This place is crawling with tourists; all day, every day. It's clear to see why, there are statues of Jackson Browne and Glenn Frey and a giant historic Route 66 sign painted in the intersection. Heck, there's even a girl, my lord, in a flatbed Ford! What's not to love?
 
-"Wait a minute," you say, "where are they?"
+"Wait a minute," you say, "where is everyone?"
 
 Oh, they were there, but with some planning and a little Photoshop magic they disappeared from the final image.
 
