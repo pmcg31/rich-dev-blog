@@ -36,7 +36,7 @@ const SmallText = styled.div`
   font-size: 22px;
 `
 
-const LayoutBannerFull = ({ siteTitle }) => {
+const LayoutBannerFull = () => {
   let siteIconSize = 120
   return (
     <Banner>

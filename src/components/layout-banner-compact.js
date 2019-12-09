@@ -40,7 +40,7 @@ const SmallText = styled.div`
   padding-bottom: 2px;
 `
 
-const LayoutBannerCompact = ({ siteTitle }) => {
+const LayoutBannerCompact = () => {
   let siteIconSize = 40
   return (
     <Banner>

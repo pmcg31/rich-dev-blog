@@ -44,7 +44,7 @@ const Layout = ({ title, showStyle, children }) => {
           rel="stylesheet"
         />
       </Helmet>
-      <Banner siteTitle={data.site.siteMetadata.title} />
+      <Banner />
       <Content>{children}</Content>
     </div>
   )
