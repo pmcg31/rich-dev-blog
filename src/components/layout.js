@@ -1,14 +1,17 @@
 import React from "react"
-import { useStaticQuery, Link, graphql } from "gatsby"
+import { useStaticQuery, graphql } from "gatsby"
 import { Helmet } from "react-helmet"
+import styled from "styled-components"
+import LayoutBannerFull from "../components/layout-banner-full"
+import LayoutBannerCompact from "../components/layout-banner-compact"
 
-const ListLink = props => (
-  <li style={{ display: `inline-block`, marginRight: `1rem` }}>
-    <Link to={props.to}>{props.children}</Link>
-  </li>
-)
+const Content = styled.div`
+  margin: auto;
+  max-width: 600px;
+  padding: 0px 1rem;
+`
 
-const Layout = ({ title, children }) => {
+const Layout = ({ title, showStyle, children }) => {
   const data = useStaticQuery(
     graphql`
       query {
@@ -20,9 +23,20 @@ const Layout = ({ title, children }) => {
       }
     `
   )
+
   let pageTitle = title || data.site.siteMetadata.title
+
+  let Banner
+  if ("full" === showStyle) {
+    Banner = LayoutBannerFull
+  } else if ("compact" === showStyle) {
+    Banner = LayoutBannerCompact
+  } else {
+    console.log("Unknown showStyle: " + showStyle)
+  }
+
   return (
-    <div style={{ margin: `3rem auto`, maxWidth: 600, padding: `0 1rem` }}>
+    <div>
       <Helmet>
         <title>{pageTitle}</title>
         <link
@@ -30,12 +44,14 @@ const Layout = ({ title, children }) => {
           rel="stylesheet"
         />
       </Helmet>
-      <Link to="/">
-        <h3 style={{ display: `inline` }}>{data.site.siteMetadata.title}</h3>
-      </Link>
-      {children}
+      <Banner siteTitle={data.site.siteMetadata.title} />
+      <Content>{children}</Content>
     </div>
   )
+}
+
+Layout.defaultProps = {
+  showStyle: "full",
 }
 
 export default Layout

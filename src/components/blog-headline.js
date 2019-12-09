@@ -101,11 +101,17 @@ const BlogHeadline = ({ node, className }) => (
       <PostDetails>
         <PostDescription>{node.frontmatter.description}</PostDescription>
         <PostDate>
-          📆 <span>{node.frontmatter.date}</span> in{" "}
+          <span role="img" aria-label="posted">
+            📆
+          </span>{" "}
+          <span>{node.frontmatter.date}</span> in{" "}
           <span>{node.frontmatter.category}</span>
         </PostDate>
         <PostTTR>
-          ⏱ <span>{node.timeToRead}</span> min (
+          <span role="img" aria-label="time to read">
+            ⏱
+          </span>{" "}
+          <span>{node.timeToRead}</span> min (
           <span>{node.wordCount.words}</span> words)
         </PostTTR>
       </PostDetails>
