@@ -19,7 +19,7 @@ const SiteIcon = styled.div`
 
 const Hulk = styled.div`
   display: grid;
-  grid-template-columns: min-content auto;
+  grid-template-columns: auto;
   width: 100%;
 `
 
@@ -58,9 +58,6 @@ const LayoutBannerCompact = ({ siteTitle }) => {
         <BigText>
           <Link to="/">IdeaUp</Link>
         </BigText>
-        <SmallText>
-          <Link to="/">Rich’s Design &amp; Creativity Blog</Link>
-        </SmallText>
       </Hulk>
     </Banner>
   )
