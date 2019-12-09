@@ -31,7 +31,7 @@ const PostContent = styled.section`
     font-family: "Dosis", sans-serif;
   }
   h4 {
-    color: rgb(160, 160, 160);
+    color: rgb(192, 192, 192);
   }
   p {
     font-family: "Solway", serif;
