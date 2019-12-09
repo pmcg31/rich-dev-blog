@@ -57,7 +57,7 @@ Thus the idea is to be opportunistic in capturing photos as bits and pieces of t
 
 This can take some time, but it is still much faster and infinitely easier than trying to edit objects (like tourists!) out of your photos manually.
 
-Note that some kind of remote shutter release is highly recommended for this to keep the camera as still as possible.
+Note that some kind of remote shutter release is highly recommended for this to keep the camera as still as possible. **iPhone/iPad users**: Did you know that your wired earbuds can be used as a remote shutter release? Just have them plugged in, open the camera app, and use the volume buttons to shoot. Up or down, it's up to you, either works!
 
 ### Loading Your Images (Lightroom Classic)
 
