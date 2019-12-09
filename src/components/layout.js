@@ -4,11 +4,20 @@ import { Helmet } from "react-helmet"
 import styled from "styled-components"
 import LayoutBannerFull from "../components/layout-banner-full"
 import LayoutBannerCompact from "../components/layout-banner-compact"
+import LayoutFooter from "../components/layout-footer"
 
 const Content = styled.div`
   margin: auto;
   max-width: 600px;
   padding: 0px 1rem;
+`
+
+const FootieArea = styled.div`
+  display: grid;
+  grid-template-columns: auto;
+  width: 100%;
+  height: 25px;
+  padding-top: 20px;
 `
 
 const Layout = ({ title, showStyle, children }) => {
@@ -46,6 +55,9 @@ const Layout = ({ title, showStyle, children }) => {
       </Helmet>
       <Banner />
       <Content>{children}</Content>
+      <FootieArea>
+        <LayoutFooter />
+      </FootieArea>{" "}
     </div>
   )
 }
