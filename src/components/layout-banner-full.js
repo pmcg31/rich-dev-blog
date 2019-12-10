@@ -3,10 +3,17 @@ import { Link } from "gatsby"
 import styled from "styled-components"
 import IconIdeaUp from "../components/icon-idea-up"
 
+// This file creates a full size banner for the header
+
 const Banner = styled.div`
   display: grid;
+  justify-content: stretch;
+  align-content: stretch;
+  justify-items: stretch;
+  align-items: center;
   grid-template-columns: min-content auto;
-  width: 100%;
+  grid-template-rows: auto;
+  grid-template-areas: "icon hulk";
   border-bottom-style: solid;
   border-bottom-width: thin;
   border-bottom-color: rgb(160, 160, 160);
@@ -14,28 +21,32 @@ const Banner = styled.div`
 `
 
 const SiteIcon = styled.div`
-  display: grid;
-  grid-template-rows: min-content auto;
-  padding: 5px;
+  grid-area: icon;
 `
 
 const Hulk = styled.div`
+  grid-area: hulk;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   padding-left: 20px;
 `
 
 const BigText = styled.div`
+  order: 1;
   color: coral;
   font-size: 70px;
 `
 
 const SmallText = styled.div`
+  order: 2;
   color: rgb(176, 176, 176);
   font-family: Solway, sans-serif;
   font-size: 22px;
 `
 
 const LayoutBannerFull = () => {
-  let siteIconSize = 120
+  let siteIconSize = 200
   return (
     <Banner>
       <SiteIcon>
