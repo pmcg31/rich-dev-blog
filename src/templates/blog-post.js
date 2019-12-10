@@ -7,10 +7,9 @@ import IconAstronomy from "../components/icon-astronomy"
 import IconPhotography from "../components/icon-photography"
 
 const PostContent = styled.section`
+  order: 2;
   color: rgb(160, 160, 160);
   font-size: 16px;
-  display: inline-block;
-  width: 100%;
   .language-text {
     background-color: #98562d;
     border-radius: 3px;
@@ -64,29 +63,63 @@ const PostContent = styled.section`
 `
 
 const PostHeader = styled.header`
+  order: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
   padding-top: 20px;
   padding-bottom: 20px;
 `
 
 const PostDate = styled.div`
+  order: 2;
   font-size: 16px;
 `
 
 const PostTitle = styled.div`
-  align: center;
+  order: 1;
   color: coral;
   font-family: "Dosis", sans-serif;
   font-size: 36px;
   font-weight: 500;
 `
 
-const IconFloat = styled.div`
-  padding-right: 10px;
-  float: left;
+const IconWrapper = styled.div`
+  order: 1;
+  padding-top: 8px;
+  padding-right: 15px;
 `
 
 const Headline = styled.div`
-  display: table;
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+`
+
+const StyledArticle = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
+`
+
+const NavContainer = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  padding: 0;
+`
+
+const NavPrevious = styled.li`
+  order: 1;
+`
+
+const NavNext = styled.li`
+  order: 2;
 `
 
 function Icon(props) {
@@ -128,45 +161,37 @@ class BlogPostTemplate extends React.Component {
 
     return (
       <Layout title={post.frontmatter.title} showStyle="compact">
-        <article>
+        <StyledArticle>
           <PostHeader>
-            <IconFloat>
+            <IconWrapper>
               <Icon category={post.frontmatter.category} />
-            </IconFloat>
+            </IconWrapper>
             <Headline>
               <PostTitle>{post.frontmatter.title}</PostTitle>
               <PostDate>{post.frontmatter.date}</PostDate>
             </Headline>
           </PostHeader>
           <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
-          <hr />
-        </article>
+        </StyledArticle>
+        <hr />
 
         <nav>
-          <ul
-            style={{
-              display: `flex`,
-              flexWrap: `wrap`,
-              justifyContent: `space-between`,
-              listStyle: `none`,
-              padding: 0,
-            }}
-          >
-            <li>
+          <NavContainer>
+            <NavPrevious>
               {previous && (
                 <Link to={previous.fields.slug} rel="prev">
                   ← {previous.frontmatter.title}
                 </Link>
               )}
-            </li>
-            <li>
+            </NavPrevious>
+            <NavNext>
               {next && (
                 <Link to={next.fields.slug} rel="next">
                   {next.frontmatter.title} →
                 </Link>
               )}
-            </li>
-          </ul>
+            </NavNext>
+          </NavContainer>
         </nav>
       </Layout>
     )
