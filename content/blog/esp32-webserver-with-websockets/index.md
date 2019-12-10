@@ -47,7 +47,7 @@ To get the basic sketch up and running, connect the potentiometer wiper to GPIO 
 
 <blockquote><a href="code_v1.ino">First code version</a></blockquote>
 
-```c{numberLines: true}
+```c
 #define POT_PIN 36
 #define POT_AVG_MAX 30
 
@@ -98,7 +98,7 @@ Here's the new code (edits required!):
 
 <blockquote><a href="code_v2.ino">Second code version</a></blockquote>
 
-```c{numberLines: true}
+```c
 #include <WiFi.h>
 #include <AsyncTCP.h>
 #include <ESPAsyncWebServer.h>
@@ -185,7 +185,7 @@ Let's add a name tag to our little server. Here's the code (don't forget to edit
 
 <blockquote><a href="code_v3.ino">Third code version</a></blockquote>
 
-```c{numberLines: true}
+```c
 #include <WiFi.h>
 #include <ESPmDNS.h>
 #include <AsyncTCP.h>
@@ -275,7 +275,7 @@ Here's the new code (no edits required! HA!):
 
 <blockquote><a href="code_v4.ino">Fourth code version</a></blockquote>
 
-```c{numberLines: true}
+```c
 #include <WiFi.h>
 #include <ESPmDNS.h>
 #include <AsyncTCP.h>
@@ -412,7 +412,7 @@ That brings us to the final version of the code:
 
 <blockquote><a href="code_final.ino">Final code version</a></blockquote>
 
-```c{numberLines: true}
+```c
 #include <WiFi.h>
 #include <ESPmDNS.h>
 #include <AsyncTCP.h>
