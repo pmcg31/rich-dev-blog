@@ -46,7 +46,7 @@ const SmallText = styled.div`
 `
 
 const LayoutBannerFull = () => {
-  let siteIconSize = 200
+  let siteIconSize = 120
   return (
     <Banner>
       <SiteIcon>

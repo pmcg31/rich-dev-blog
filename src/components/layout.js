@@ -38,69 +38,52 @@ const Grid = styled.div`
   justify-items: stretch;
   align-items: stretch;
   grid-template-columns: min-content auto min-content;
-  grid-template-rows: auto auto 45px;
+  grid-template-rows: auto auto auto;
   grid-template-areas:
     "header header header"
     "sb_left content sb_right"
     "footer footer footer";
 `
-// Creates space for the header. But,
-// put a max-width here and it will just
-// justify left and not center like I want
+// Creates space for the header.
+// The justify-items style will switch from
+// stretch to center when the width
+// exceeds 1000 px (event handler in render)
 const HeaderArea = styled.div`
   grid-area: header;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
   justify-items: stretch;
-
-  @media only screen and (min-width: 1000px) {
-    justify-items: center;
-  }
 `
 
-// Wrapper to center the header in the stretched
-// area the grid provides. max-width kills the
-// center. Sigh.
-const HeaderFlexCenterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`
-
-// Seems max-width doesn't mix with grid or flex,
-// so, YAAAD (yet another div). All this
-// nonsense seems necessary if I want to enforce
-// the max-width at this level. It belongs here
-// because it is a layout thing to me
+// This component will have its width switched to
+// 1000 px when its HeaderArea exceeds 1000 px wide
+// (event handler in render)
 const HeaderMaxWidthWrapper = styled.div`
   width: initial;
-
-  @media only screen and (min-width: 1000px) {
-    width: 1000px;
-  }
 `
 
 // Creates space for the left side bar. Someday...
 const SBLeftArea = styled.div`
   grid-area: sb_left;
 `
-// Same sad story as the Header for these three,
-// see above
+// Creates space for the content
+// The justify-items style will switch from
+// stretch to center when the width
+// exceeds 600 px (event handler in render)
 const ContentArea = styled.div`
   grid-area: content;
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: auto;
+  justify-items: stretch;
 `
 
-// Yep
-const ContentFlexCenterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`
-
-// I know...
+// This component will have its width switched to
+// 600 px when ContentArea exceeds 600 px wide
+// (event handler in render)
 const ContentMaxWidthWrapper = styled.div`
-  max-width: 600px;
+  width: initial;
 `
 
 // Creates space for the right side bar. Someday...
@@ -126,6 +109,47 @@ const Layout = ({ title, showStyle, children }) => {
       }
     `
   )
+
+  // Hook the window resize event
+  React.useEffect(() => {
+    let previousHeaderAreaWidth = 0
+    let previousContentAreaWidth = 0
+
+    function handleResize() {
+      let headerArea = document.getElementById("header-area")
+      if (headerArea.clientWidth > 1000 && previousHeaderAreaWidth <= 1000) {
+        headerArea.style.justifyItems = "center"
+        document.getElementById("header-max-width-wrapper").style.width =
+          "1000px"
+      }
+
+      if (headerArea.clientWidth <= 1000 && previousHeaderAreaWidth > 1000) {
+        headerArea.style.justifyItems = "stretch"
+        document.getElementById("header-max-width-wrapper").style.width =
+          "initial"
+      }
+
+      previousHeaderAreaWidth = headerArea.clientWidth
+
+      let contentArea = document.getElementById("content-area")
+      if (contentArea.clientWidth > 600 && previousContentAreaWidth <= 600) {
+        contentArea.style.justifyItems = "center"
+        document.getElementById("content-max-width-wrapper").style.width =
+          "600px"
+      }
+
+      if (contentArea.clientWidth <= 600 && previousContentAreaWidth > 600) {
+        contentArea.style.justifyItems = "stretch"
+        document.getElementById("content-max-width-wrapper").style.width =
+          "initial"
+      }
+
+      previousContentAreaWidth = contentArea.clientWidth
+    }
+
+    window.addEventListener("resize", handleResize)
+    handleResize()
+  })
 
   let pageTitle = title || data.site.siteMetadata.title
 
@@ -153,20 +177,18 @@ const Layout = ({ title, showStyle, children }) => {
         />
       </Helmet>
 
-      <HeaderArea>
-        {/* <HeaderFlexCenterWrapper> */}
-        <HeaderMaxWidthWrapper>
+      <HeaderArea id="header-area">
+        <HeaderMaxWidthWrapper id="header-max-width-wrapper">
           <Banner />
         </HeaderMaxWidthWrapper>
-        {/* </HeaderFlexCenterWrapper> */}
       </HeaderArea>
 
       <SBLeftArea />
 
-      <ContentArea>
-        <ContentFlexCenterWrapper>
-          <ContentMaxWidthWrapper>{children}</ContentMaxWidthWrapper>
-        </ContentFlexCenterWrapper>
+      <ContentArea id="content-area">
+        <ContentMaxWidthWrapper id="content-max-width-wrapper">
+          {children}
+        </ContentMaxWidthWrapper>
       </ContentArea>
 
       <SBRightArea />
