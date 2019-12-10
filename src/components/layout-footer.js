@@ -18,9 +18,11 @@ const FootieContent = styled.div`
 `
 
 const LayoutFooter = () => {
+  const year = new Date().getFullYear()
+
   return (
     <Footie>
-      <FootieContent>© 2019 Rich Seiffert</FootieContent>
+      <FootieContent>© {year} Rich Seiffert</FootieContent>
     </Footie>
   )
 }
