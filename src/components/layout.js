@@ -60,6 +60,7 @@ const HeaderArea = styled.div`
 // 1000 px when its HeaderArea exceeds 1000 px wide
 // (event handler in render)
 const HeaderMaxWidthWrapper = styled.div`
+  display: none;
   width: initial;
 `
 
@@ -83,6 +84,7 @@ const ContentArea = styled.div`
 // 600 px when ContentArea exceeds 600 px wide
 // (event handler in render)
 const ContentMaxWidthWrapper = styled.div`
+  display: none;
   width: initial;
 `
 
@@ -149,6 +151,10 @@ const Layout = ({ title, showStyle, children }) => {
 
     window.addEventListener("resize", handleResize)
     handleResize()
+    document.getElementById("content-max-width-wrapper").style.display =
+      "initial"
+    document.getElementById("header-max-width-wrapper").style.display =
+      "initial"
   })
 
   let pageTitle = title || data.site.siteMetadata.title
