@@ -35,6 +35,14 @@ const PostContent = styled.section`
   p {
     font-family: "Solway", serif;
     line-height: 24px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+  blockquote {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
   }
   img {
     width: 100%;
@@ -51,6 +59,7 @@ const PostContent = styled.section`
     padding-left: 10px;
     font-size: 14px;
     overflow: scroll;
+    white-space: pre-wrap;
     max-height: 500px;
   }
   code {
