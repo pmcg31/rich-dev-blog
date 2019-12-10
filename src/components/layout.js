@@ -60,7 +60,6 @@ const HeaderArea = styled.div`
 // 1000 px when its HeaderArea exceeds 1000 px wide
 // (event handler in render)
 const HeaderMaxWidthWrapper = styled.div`
-  display: none;
   width: initial;
 `
 
@@ -84,7 +83,6 @@ const ContentArea = styled.div`
 // 600 px when ContentArea exceeds 600 px wide
 // (event handler in render)
 const ContentMaxWidthWrapper = styled.div`
-  display: none;
   width: initial;
 `
 
@@ -96,6 +94,15 @@ const SBRightArea = styled.div`
 // Creates space for the footer
 const FooterArea = styled.div`
   grid-area: footer;
+`
+
+const Curtain = styled.div`
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: ;
 `
 
 // The Main Event..er..Function
@@ -149,12 +156,17 @@ const Layout = ({ title, showStyle, children }) => {
       previousContentAreaWidth = contentArea.clientWidth
     }
 
+    // Set up a window resize handler
     window.addEventListener("resize", handleResize)
+
+    // Call it once now to fix the layout
     handleResize()
-    document.getElementById("content-max-width-wrapper").style.display =
-      "initial"
-    document.getElementById("header-max-width-wrapper").style.display =
-      "initial"
+
+    // Raise the curtains now that layout is settled
+    var curtains = document.getElementsByClassName("curtain")
+    Array.prototype.filter.call(curtains, function(curtain) {
+      curtain.style.display = "none"
+    })
   })
 
   let pageTitle = title || data.site.siteMetadata.title
@@ -182,7 +194,7 @@ const Layout = ({ title, showStyle, children }) => {
           rel="stylesheet"
         />
       </Helmet>
-
+      <Curtain className="curtain" />
       <HeaderArea id="header-area">
         <HeaderMaxWidthWrapper id="header-max-width-wrapper">
           <Banner />
