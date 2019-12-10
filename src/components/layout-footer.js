@@ -2,16 +2,19 @@ import React from "react"
 import styled from "styled-components"
 
 const Footie = styled.div`
-  display: grid;
-  align-self: stretch;
-  justify-self: stretch;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+  padding-top: 25px;
+  padding-bottom: 10px;
 `
 
 const FootieContent = styled.div`
+  order: 1;
   color: rgb(120, 120, 120);
   font-size: 12px;
-  align-self: center;
-  justify-self: center;
 `
 
 const LayoutFooter = () => {
