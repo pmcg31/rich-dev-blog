@@ -6,24 +6,38 @@ import IconAstronomy from "../components/icon-astronomy"
 import IconPhotography from "../components/icon-photography"
 
 const PostDetails = styled.div`
-  vertical-align: middle;
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
   padding-left: 10px;
   padding-right: 10px;
   font-family: "Dosis", sans-serif;
 `
 
-const PostDate = styled.div`
+const PostDateTTRWrapper = styled.div`
+  order: 2;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-content: center;
   padding-top: 4px;
+`
+
+const PostDate = styled.div`
+  order: 1;
   font-size: 16px;
+  padding-right: 5px;
   span {
     color: rgb(160, 160, 160);
   }
-  float: left;
 `
 
 const PostTTR = styled.div`
+  order: 2;
   text-align: right;
-  padding-top: 4px;
   font-size: 16px;
   span {
     color: rgb(160, 160, 160);
@@ -31,7 +45,7 @@ const PostTTR = styled.div`
 `
 
 const PostTitle = styled.div`
-  padding-top: 40px;
+  order: 1;
   color: coral;
   font-family: "Dosis", sans-serif;
   font-size: 30px;
@@ -39,6 +53,7 @@ const PostTitle = styled.div`
 `
 
 const PostDescription = styled.div`
+  order: 1;
   color: rgb(176, 176, 176);
   font-family: "Solway", sans-serif;
   font-weight: 300;
@@ -46,19 +61,30 @@ const PostDescription = styled.div`
   padding-top: 3px;
 `
 
+const PostWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-content: center;
+  padding-top: 40px;
+`
+
 const PostIcon = styled.div`
-  padding-top: 50px;
-  padding-right: 15px;
-  float: left;
-  display: table;
+  order: 1;
+  padding-top: 8px;
+  padding-right: 10px;
 `
 
 const PostHeadline = styled.section`
-  display: table;
+  order: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-content: flex-start;
 `
 
 function Icon(props) {
-  let square = 70
+  let square = 50
   if ("electronics" === props.category) {
     return (
       <IconElectronics
@@ -90,7 +116,7 @@ function Icon(props) {
 }
 
 const BlogHeadline = ({ node, className }) => (
-  <div className={className}>
+  <PostWrapper className={className}>
     <PostIcon>
       <Icon category={node.frontmatter.category} />
     </PostIcon>
@@ -100,23 +126,25 @@ const BlogHeadline = ({ node, className }) => (
       </PostTitle>
       <PostDetails>
         <PostDescription>{node.frontmatter.description}</PostDescription>
-        <PostDate>
-          <span role="img" aria-label="posted">
-            📆
-          </span>{" "}
-          <span>{node.frontmatter.date}</span> in{" "}
-          <span>{node.frontmatter.category}</span>
-        </PostDate>
-        <PostTTR>
-          <span role="img" aria-label="time to read">
-            ⏱
-          </span>{" "}
-          <span>{node.timeToRead}</span> min (
-          <span>{node.wordCount.words}</span> words)
-        </PostTTR>
+        <PostDateTTRWrapper>
+          <PostDate>
+            <span role="img" aria-label="posted">
+              📆
+            </span>{" "}
+            <span>{node.frontmatter.date}</span> in{" "}
+            <span>{node.frontmatter.category}</span>
+          </PostDate>
+          <PostTTR>
+            <span role="img" aria-label="time to read">
+              ⏱
+            </span>{" "}
+            <span>{node.timeToRead}</span> min (
+            <span>{node.wordCount.words}</span> words)
+          </PostTTR>
+        </PostDateTTRWrapper>
       </PostDetails>
     </PostHeadline>
-  </div>
+  </PostWrapper>
 )
 
 export default BlogHeadline
