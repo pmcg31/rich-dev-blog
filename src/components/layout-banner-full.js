@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import IconIdeaUp from "../components/icon-idea-up"
@@ -20,8 +20,14 @@ const Banner = styled.div`
   padding-bottom: 10px;
 `
 
-const SiteIcon = styled.div`
+const SiteIcon = styled(IconIdeaUp)`
   grid-area: icon;
+  width: 120px;
+  height: 120px;
+  .icon-idea-up-rays {
+    stroke: rgba(255, 127, 80, 0);
+    transition: stroke 0.75s ease-in-out;
+  }
 `
 
 const Hulk = styled.div`
@@ -46,19 +52,21 @@ const SmallText = styled.div`
 `
 
 const LayoutBannerFull = () => {
-  let siteIconSize = 120
+  useEffect(() => {
+    var rays = document
+      .getElementById("site-icon")
+      .getElementsByClassName("icon-idea-up-rays")
+    var raysLen = rays.length
+
+    for (var i = 0; i < raysLen; i++) {
+      rays[i].style.stroke = "coral"
+    }
+  })
   return (
     <Banner>
-      <SiteIcon>
-        <Link to="/">
-          <IconIdeaUp
-            width={siteIconSize}
-            height={siteIconSize}
-            labelColor="coral"
-            borderColor="coral"
-          />
-        </Link>
-      </SiteIcon>
+      <Link to="/">
+        <SiteIcon id="site-icon" />
+      </Link>
       <Hulk>
         <BigText>
           <Link to="/">IdeaUp</Link>

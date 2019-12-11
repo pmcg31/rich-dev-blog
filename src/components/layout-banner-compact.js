@@ -15,8 +15,10 @@ const Banner = styled.div`
   padding-bottom: 5px;
 `
 
-const StyledLink = styled(Link)`
+const SiteIcon = styled(IconIdeaUp)`
   order: 1;
+  width: 40px;
+  height: 40px;
 `
 
 const BigText = styled.div`
@@ -27,17 +29,11 @@ const BigText = styled.div`
 `
 
 const LayoutBannerCompact = () => {
-  let siteIconSize = 40
   return (
     <Banner>
-      <StyledLink to="/">
-        <IconIdeaUp
-          width={siteIconSize}
-          height={siteIconSize}
-          labelColor="coral"
-          borderColor="coral"
-        />
-      </StyledLink>
+      <Link to="/">
+        <SiteIcon id="site-icon" />
+      </Link>
       <BigText>
         <Link to="/">IdeaUp</Link>
       </BigText>
