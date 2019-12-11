@@ -35,7 +35,7 @@ const LayoutBannerCompact = () => {
         <SiteIcon id="site-icon" />
       </Link>
       <BigText>
-        <Link to="/">IdeaUp</Link>
+        <Link to="/">IdeaUP</Link>
       </BigText>
     </Banner>
   )

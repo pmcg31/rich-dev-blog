@@ -24,7 +24,7 @@ const SiteIcon = styled(IconIdeaUp)`
   grid-area: icon;
   width: 120px;
   height: 120px;
-  .icon-idea-up-rays {
+  .idea-up-site-icon-rays {
     stroke: rgba(255, 127, 80, 0);
     transition: stroke 0.75s ease-in-out;
   }
@@ -55,7 +55,7 @@ const LayoutBannerFull = () => {
   useEffect(() => {
     var rays = document
       .getElementById("site-icon")
-      .getElementsByClassName("icon-idea-up-rays")
+      .getElementsByClassName("idea-up-site-icon-rays")
     var raysLen = rays.length
 
     for (var i = 0; i < raysLen; i++) {
@@ -69,7 +69,7 @@ const LayoutBannerFull = () => {
       </Link>
       <Hulk>
         <BigText>
-          <Link to="/">IdeaUp</Link>
+          <Link to="/">IdeaUP</Link>
         </BigText>
         <SmallText>
           <Link to="/">Rich’s Design &amp; Creativity Blog</Link>
