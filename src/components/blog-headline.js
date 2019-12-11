@@ -138,8 +138,8 @@ const BlogHeadline = ({ node, className }) => (
             <span role="img" aria-label="time to read">
               ⏱
             </span>{" "}
-            <span>{node.timeToRead}</span> min (
-            <span>{node.wordCount.words}</span> words)
+            <span>{node.timeToRead}</span> min ▹&nbsp;
+            <span>{node.wordCount.words}</span> words
           </PostTTR>
         </PostDateTTRWrapper>
       </PostDetails>
