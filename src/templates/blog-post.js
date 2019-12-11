@@ -10,6 +10,8 @@ const PostContent = styled.section`
   order: 2;
   color: rgb(160, 160, 160);
   font-size: 16px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   code.language-text {
     background-color: #98562d;
     border-radius: 3px;
@@ -35,9 +37,8 @@ const PostContent = styled.section`
   p {
     font-family: "Solway", serif;
     line-height: 24px;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
+    margin-block-start: 10px;
+    margin-block-end: 10px;
   }
   blockquote {
     overflow-wrap: break-word;
@@ -60,7 +61,6 @@ const PostContent = styled.section`
     padding-left: 10px;
     font-size: 14px;
     overflow: scroll;
-    white-space: pre-wrap;
     max-height: 500px;
   }
   code {
