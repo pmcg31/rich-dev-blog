@@ -2,9 +2,9 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import styled from "styled-components"
-import IconElectronics from "../components/icon-electronics"
-import IconAstronomy from "../components/icon-astronomy"
-import IconPhotography from "../components/icon-photography"
+import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
+import IdeaUpAstronomyIcon from "../components/icons/idea-up-astronomy-icon"
+import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
 
 const PostContent = styled.section`
   order: 2;
@@ -148,7 +148,7 @@ function Icon(props) {
   let square = 100
   if ("electronics" === props.category) {
     return (
-      <IconElectronics
+      <IdeaUpElectronicsIcon
         width={square}
         height={square}
         borderColor="coral"
@@ -157,7 +157,7 @@ function Icon(props) {
     )
   } else if ("astronomy" === props.category) {
     return (
-      <IconAstronomy
+      <IdeaUpAstronomyIcon
         width={square}
         height={square}
         borderColor="coral"
@@ -166,7 +166,7 @@ function Icon(props) {
     )
   } else if ("photography" === props.category) {
     return (
-      <IconPhotography
+      <IdeaUpPhotographyIcon
         width={square}
         height={square}
         borderColor="coral"

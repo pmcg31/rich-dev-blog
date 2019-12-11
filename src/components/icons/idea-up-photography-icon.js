@@ -1,6 +1,6 @@
 import React from "react"
 
-class IconPhotography extends React.Component {
+class IdeaUpPhotographyIcon extends React.Component {
   static defaultProps = {
     width: "50",
     height: "50",
@@ -35,4 +35,4 @@ class IconPhotography extends React.Component {
   }
 }
 
-export default IconPhotography
+export default IdeaUpPhotographyIcon
