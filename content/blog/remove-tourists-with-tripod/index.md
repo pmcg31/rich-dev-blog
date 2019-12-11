@@ -5,7 +5,7 @@ category: photography
 description: "Use your tripod and median blending in Photoshop to remove tourists (and other moving objects) from your photos like magic."
 ---
 
-<img src="https://res.cloudinary.com/pmcg31/image/upload/v1575825299/IMG_0241_fykntl.jpg" style="width: 40%; float: left; padding-right: 20px; padding-top: 20px"/>
+<div style="width: 40%; float: left; padding-right: 20px; padding-top: 20px"><img src="https://res.cloudinary.com/pmcg31/image/upload/v1575825299/IMG_0241_fykntl.jpg" alt="Winslow AZ" title="Corner Park in Winslow, AZ"></div>
 
 You can't get that Eagles song out of your head...so you make the journey to go stand on a corner in Winslow, AZ and see what all the fuss is about. However, when you arrive you quickly realize you were not the only person to have this notion.
 
