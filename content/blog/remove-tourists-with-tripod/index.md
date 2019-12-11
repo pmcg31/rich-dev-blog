@@ -5,11 +5,11 @@ category: photography
 description: "Use your tripod and median blending in Photoshop to remove tourists (and other moving objects) from your photos like magic."
 ---
 
-![Winslow AZ](https://res.cloudinary.com/pmcg31/image/upload/v1575825299/IMG_0241_fykntl.jpg "Corner Park in Winslow, AZ")
-
 You can't get that Eagles song out of your head...so you make the journey to go stand on a corner in Winslow, AZ and see what all the fuss is about. However, when you arrive you quickly realize you were not the only person to have this notion.
 
 This place is crawling with tourists; all day, every day. It's clear to see why, there are statues of Jackson Browne and Glenn Frey and a giant historic Route 66 sign painted in the intersection. Heck, there's even a girl, my lord, in a flatbed Ford! What's not to love?
+
+![Winslow AZ](https://res.cloudinary.com/pmcg31/image/upload/v1575825299/IMG_0241_fykntl.jpg "Corner Park in Winslow, AZ")
 
 "Wait a minute," you say, "where is everyone?"
 
