@@ -1,7 +1,7 @@
 import React, { useEffect } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import IconIdeaUp from "../components/icon-idea-up"
+import IdeaUpSiteIcon from "../components/icons/idea-up-site-icon"
 
 // This file creates a full size banner for the header
 
@@ -20,7 +20,7 @@ const Banner = styled.div`
   padding-bottom: 10px;
 `
 
-const SiteIcon = styled(IconIdeaUp)`
+const SiteIcon = styled(IdeaUpSiteIcon)`
   grid-area: icon;
   width: 120px;
   height: 120px;

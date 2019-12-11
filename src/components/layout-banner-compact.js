@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import IconIdeaUp from "../components/icon-idea-up"
+import IdeaUpSiteIcon from "../components/icons/idea-up-site-icon"
 
 const Banner = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const Banner = styled.div`
   padding-bottom: 5px;
 `
 
-const SiteIcon = styled(IconIdeaUp)`
+const SiteIcon = styled(IdeaUpSiteIcon)`
   order: 1;
   width: 40px;
   height: 40px;

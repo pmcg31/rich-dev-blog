@@ -40,7 +40,7 @@ const BorderCircle = styled.circle`
   stroke-width: 54px;
 `
 
-class IconIdeaUp extends React.Component {
+class IdeaUpSiteIcon extends React.Component {
   render() {
     return (
       <div>
@@ -146,4 +146,4 @@ class IconIdeaUp extends React.Component {
   }
 }
 
-export default IconIdeaUp
+export default IdeaUpSiteIcon
