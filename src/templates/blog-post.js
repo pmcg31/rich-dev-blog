@@ -10,7 +10,7 @@ const PostContent = styled.section`
   order: 2;
   color: rgb(160, 160, 160);
   font-size: 16px;
-  .language-text {
+  code.language-text {
     background-color: #98562d;
     border-radius: 3px;
     padding: 3px;
@@ -45,7 +45,8 @@ const PostContent = styled.section`
     word-break: break-word;
   }
   img {
-    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
   }
   pre {
     code {
