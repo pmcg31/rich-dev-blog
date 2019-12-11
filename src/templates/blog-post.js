@@ -12,6 +12,18 @@ const PostContent = styled.section`
   font-size: 16px;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  .gatsby-highlight-code-line::after {
+    content: " ";
+  }
+  .gatsby-highlight-code-line {
+    display: block;
+    margin-right: -1em;
+    margin-left: -4em;
+    padding-right: 1em;
+    padding-left: 3.75em;
+    border-left: 0.25em solid coral;
+    line-height: 21px;
+  }
   code.language-text {
     background-color: #98562d;
     border-radius: 3px;
