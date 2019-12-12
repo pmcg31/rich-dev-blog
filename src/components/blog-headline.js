@@ -39,12 +39,11 @@ const StyledPhotographyIcon = styled(IdeaUpPhotographyIcon)`
 `
 
 const PostDetails = styled.div`
-  order: 2;
+  grid-area: details;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-content: flex-start;
-  padding-left: 10px;
   padding-right: 10px;
   font-family: "Dosis", sans-serif;
 `
@@ -78,7 +77,7 @@ const PostTTR = styled.div`
 `
 
 const PostTitle = styled.div`
-  order: 1;
+  grid-area: title;
   color: coral;
   font-family: "Dosis", sans-serif;
   font-size: 30px;
@@ -96,17 +95,24 @@ const PostDescription = styled.div`
 `
 
 const PostWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-content: center;
-  padding-top: 40px;
+  display: grid;
+  justify-content: stretch;
+  align-content: stretch;
+  justify-items: stretch;
+  align-items: center;
+  grid-template-columns: min-content auto;
+  grid-template-rows: min-content auto;
+  grid-template-areas:
+    "icon title"
+    ". details";
+  padding-top: 10px;
+  padding-bottom: 10px;
 `
 
 const PostIcon = styled.div`
-  order: 1;
-  padding-top: 4px;
+  grid-area: icon;
   padding-right: 10px;
+  padding-top: 5px;
 `
 
 const PostHeadline = styled.section`
@@ -132,30 +138,28 @@ const BlogHeadline = ({ node, className }) => (
     <PostIcon>
       <Icon category={node.frontmatter.category} />
     </PostIcon>
-    <PostHeadline>
-      <PostTitle>
-        <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
-      </PostTitle>
-      <PostDetails>
-        <PostDescription>{node.frontmatter.description}</PostDescription>
-        <PostDateTTRWrapper>
-          <PostDate>
-            <span role="img" aria-label="posted">
-              📆
-            </span>{" "}
-            <span>{node.frontmatter.date}</span> in{" "}
-            <span>{node.frontmatter.category}</span>
-          </PostDate>
-          <PostTTR>
-            <span role="img" aria-label="time to read">
-              ⏱
-            </span>{" "}
-            <span>{node.timeToRead}</span> min ▹&nbsp;
-            <span>{node.wordCount.words}</span> words
-          </PostTTR>
-        </PostDateTTRWrapper>
-      </PostDetails>
-    </PostHeadline>
+    <PostTitle>
+      <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+    </PostTitle>
+    <PostDetails>
+      <PostDescription>{node.frontmatter.description}</PostDescription>
+      <PostDateTTRWrapper>
+        <PostDate>
+          <span role="img" aria-label="posted">
+            📆
+          </span>{" "}
+          <span>{node.frontmatter.date}</span> in{" "}
+          <span>{node.frontmatter.category}</span>
+        </PostDate>
+        <PostTTR>
+          <span role="img" aria-label="time to read">
+            ⏱
+          </span>{" "}
+          <span>{node.timeToRead}</span> min ▹&nbsp;
+          <span>{node.wordCount.words}</span> words
+        </PostTTR>
+      </PostDateTTRWrapper>
+    </PostDetails>
   </PostWrapper>
 )
 

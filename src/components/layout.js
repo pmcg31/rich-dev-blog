@@ -105,6 +105,9 @@ const Curtain = styled.div`
   background-color: ;
 `
 
+const headerAreaMaxWidth = 800
+const contentAreaMaxWidth = 500
+
 // The Main Event..er..Function
 const Layout = ({ title, showStyle, children }) => {
   const data = useStaticQuery(
@@ -126,13 +129,19 @@ const Layout = ({ title, showStyle, children }) => {
 
     function handleResize() {
       let headerArea = document.getElementById("header-area")
-      if (headerArea.clientWidth > 1000 && previousHeaderAreaWidth <= 1000) {
+      if (
+        headerArea.clientWidth > headerAreaMaxWidth &&
+        previousHeaderAreaWidth <= headerAreaMaxWidth
+      ) {
         headerArea.style.justifyItems = "center"
         document.getElementById("header-max-width-wrapper").style.width =
-          "1000px"
+          headerAreaMaxWidth + "px"
       }
 
-      if (headerArea.clientWidth <= 1000 && previousHeaderAreaWidth > 1000) {
+      if (
+        headerArea.clientWidth <= headerAreaMaxWidth &&
+        previousHeaderAreaWidth > headerAreaMaxWidth
+      ) {
         headerArea.style.justifyItems = "stretch"
         document.getElementById("header-max-width-wrapper").style.width =
           "initial"
@@ -141,13 +150,19 @@ const Layout = ({ title, showStyle, children }) => {
       previousHeaderAreaWidth = headerArea.clientWidth
 
       let contentArea = document.getElementById("content-area")
-      if (contentArea.clientWidth > 600 && previousContentAreaWidth <= 600) {
+      if (
+        contentArea.clientWidth > contentAreaMaxWidth &&
+        previousContentAreaWidth <= contentAreaMaxWidth
+      ) {
         contentArea.style.justifyItems = "center"
         document.getElementById("content-max-width-wrapper").style.width =
-          "600px"
+          contentAreaMaxWidth + "px"
       }
 
-      if (contentArea.clientWidth <= 600 && previousContentAreaWidth > 600) {
+      if (
+        contentArea.clientWidth <= contentAreaMaxWidth &&
+        previousContentAreaWidth > contentAreaMaxWidth
+      ) {
         contentArea.style.justifyItems = "stretch"
         document.getElementById("content-max-width-wrapper").style.width =
           "initial"

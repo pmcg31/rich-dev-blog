@@ -122,9 +122,9 @@ const PostHeader = styled.header`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `
 
 const PostDate = styled.div`
@@ -144,7 +144,6 @@ const PostTitle = styled.div`
 
 const IconWrapper = styled.div`
   order: 1;
-  padding-top: 8px;
   padding-right: 15px;
 `
 
@@ -153,14 +152,14 @@ const Headline = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-content: flex-start;
+  align-items: flex-start;
 `
 
 const StyledArticle = styled.article`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-content: flex-start;
+  align-items: flex-start;
 `
 
 const NavContainer = styled.ul`
