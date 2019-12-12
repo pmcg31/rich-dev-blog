@@ -169,7 +169,10 @@ const Layout = ({ title, showStyle, children }) => {
     })
   })
 
-  let pageTitle = title || data.site.siteMetadata.title
+  let pageTitle = data.site.siteMetadata.title
+  if (title) {
+    pageTitle = pageTitle + " | " + title
+  }
 
   // Set the header height and select the proper banner
   // layout based on the showStyle prop

@@ -5,7 +5,7 @@ import BlogHeadline from "../components/blog-headline"
 
 export default ({ data }) => {
   return (
-    <Layout>
+    <Layout title="Home">
       {data.allMarkdownRemark.edges.map(({ node }, index) => (
         <BlogHeadline node={node} key={node.id} />
       ))}

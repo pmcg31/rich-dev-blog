@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
 import IdeaUpSiteIcon from "../components/icons/idea-up-site-icon"
+import IdeaUpTextLogo from "../components/idea-up-text-logo"
 
 // This file creates a full size banner for the header
 
@@ -18,6 +19,7 @@ const Banner = styled.div`
   border-bottom-width: thin;
   border-bottom-color: rgb(160, 160, 160);
   padding-bottom: 10px;
+  padding-top: 5px;
 `
 
 const SiteIcon = styled(IdeaUpSiteIcon)`
@@ -30,18 +32,17 @@ const SiteIcon = styled(IdeaUpSiteIcon)`
   }
 `
 
+const SiteLogo = styled(IdeaUpTextLogo)`
+  order: 1;
+  height: 70px;
+`
+
 const Hulk = styled.div`
   grid-area: hulk;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   padding-left: 20px;
-`
-
-const BigText = styled.div`
-  order: 1;
-  color: coral;
-  font-size: 70px;
 `
 
 const SmallText = styled.div`
@@ -68,11 +69,11 @@ const LayoutBannerFull = () => {
         <SiteIcon id="site-icon" />
       </Link>
       <Hulk>
-        <BigText>
-          <Link to="/">IdeaUP</Link>
-        </BigText>
+        <Link to="/">
+          <SiteLogo />
+        </Link>
         <SmallText>
-          <Link to="/">Rich’s Design &amp; Creativity Blog</Link>
+          <Link to="/">Rich’s Design &amp; Creativity Sandbox</Link>
         </SmallText>
       </Hulk>
     </Banner>
