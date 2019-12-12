@@ -138,6 +138,8 @@ const PostTitle = styled.div`
   font-family: "Dosis", sans-serif;
   font-size: 36px;
   font-weight: 500;
+  line-height: 1.1;
+  padding-top: 10px;
 `
 
 const IconWrapper = styled.div`

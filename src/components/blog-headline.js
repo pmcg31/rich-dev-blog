@@ -83,6 +83,7 @@ const PostTitle = styled.div`
   font-family: "Dosis", sans-serif;
   font-size: 30px;
   font-weight: 500;
+  line-height: 1.1;
 `
 
 const PostDescription = styled.div`
@@ -104,7 +105,7 @@ const PostWrapper = styled.div`
 
 const PostIcon = styled.div`
   order: 1;
-  padding-top: 8px;
+  padding-top: 4px;
   padding-right: 10px;
 `
 
