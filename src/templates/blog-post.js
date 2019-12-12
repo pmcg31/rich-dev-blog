@@ -6,6 +6,39 @@ import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
 import IdeaUpAstronomyIcon from "../components/icons/idea-up-astronomy-icon"
 import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
 
+const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
+  width: 100px;
+  height: 100px;
+  .icon-label {
+    stroke: coral;
+  }
+  .icon-border {
+    stroke: coral;
+  }
+`
+
+const StyledAstronomyIcon = styled(IdeaUpAstronomyIcon)`
+  width: 100px;
+  height: 100px;
+  .icon-label {
+    stroke: coral;
+  }
+  .icon-border {
+    stroke: coral;
+  }
+`
+
+const StyledPhotographyIcon = styled(IdeaUpPhotographyIcon)`
+  width: 100px;
+  height: 100px;
+  .icon-label {
+    stroke: coral;
+  }
+  .icon-border {
+    stroke: coral;
+  }
+`
+
 const PostContent = styled.section`
   order: 2;
   color: rgb(160, 160, 160);
@@ -145,34 +178,12 @@ const NavNext = styled.li`
 `
 
 function Icon(props) {
-  let square = 100
   if ("electronics" === props.category) {
-    return (
-      <IdeaUpElectronicsIcon
-        width={square}
-        height={square}
-        borderColor="coral"
-        labelColor="coral"
-      />
-    )
+    return <StyledElectronicsIcon />
   } else if ("astronomy" === props.category) {
-    return (
-      <IdeaUpAstronomyIcon
-        width={square}
-        height={square}
-        borderColor="coral"
-        labelColor="coral"
-      />
-    )
+    return <StyledAstronomyIcon />
   } else if ("photography" === props.category) {
-    return (
-      <IdeaUpPhotographyIcon
-        width={square}
-        height={square}
-        borderColor="coral"
-        labelColor="coral"
-      />
-    )
+    return <StyledPhotographyIcon />
   }
 }
 
