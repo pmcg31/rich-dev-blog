@@ -44,7 +44,7 @@ class IdeaUpPhotographyIcon extends React.Component {
       >
         <title>Photography Category</title>
         <g
-          id="idea-up-photography-icon-label"
+          className="idea-up-photography-icon-label"
           data-name="IdeaUP Photography Icon Label"
         >
           <CameraBody
@@ -70,7 +70,7 @@ class IdeaUpPhotographyIcon extends React.Component {
           />
         </g>
         <g
-          id="idea-up-photography-icon-border"
+          className="idea-up-photography-icon-border"
           data-name="IdeaUP Photography Icon Border"
         >
           <BorderCircle

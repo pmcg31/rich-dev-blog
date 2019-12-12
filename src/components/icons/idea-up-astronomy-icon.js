@@ -44,7 +44,7 @@ class IdeaUpAstronomyIcon extends React.Component {
       >
         <title>Astronomy Category</title>
         <g
-          id="idea-up-astronomy-icon-label"
+          className="idea-up-astronomy-icon-label"
           data-name="IdeaUP Astronomy Icon Label"
         >
           <Tripod
@@ -91,7 +91,7 @@ class IdeaUpAstronomyIcon extends React.Component {
           />
         </g>
         <g
-          id="idea-up-astronomy-icon-border"
+          className="idea-up-astronomy-icon-border"
           data-name="IdeaUP Astronomy Icon Border"
         >
           <BorderCircle

@@ -51,7 +51,10 @@ class IdeaUpSiteIcon extends React.Component {
         data-name="IdeaUP Site Icon"
       >
         <title>"Idea Up!"</title>
-        <g id="idea-up-site-icon-label" data-name="IdeaUP Site Icon Label">
+        <g
+          className="idea-up-site-icon-label"
+          data-name="IdeaUP Site Icon Label"
+        >
           <Arrow
             className="idea-up-site-icon-arrow icon-label"
             d="M500.27,283c11.44,0,19.5,7,26.81,15.56S707.37,499.16,713.59,505.8c21.21,22.59,2.18,43-10.26,43H628.2c-11.72,0-19.36,3.13-19.36,20.61s-.12,29.69-.12,46.83-13.9,22.81-21.42,22.81H412.75c-7.52,0-21.41-5.67-21.41-22.81s.13-29.34.13-46.83-7.64-20.61-19.36-20.61H297c-12.44,0-31.47-20.43-10.26-43,6.22-6.64,179.19-198.69,186.51-207.26S488.6,283,500,283"
@@ -131,7 +134,10 @@ class IdeaUpSiteIcon extends React.Component {
             y2="577.91"
           />
         </g>
-        <g id="idea-up-site-icon-border" data-name="IdeaUP Site Icon Border">
+        <g
+          className="idea-up-site-icon-border"
+          data-name="IdeaUP Site Icon Border"
+        >
           <BorderCircle
             className="idea-up-site-icon-border-circle icon-border"
             cx="438.11"

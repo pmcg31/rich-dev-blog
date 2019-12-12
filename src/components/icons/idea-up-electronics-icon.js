@@ -44,7 +44,7 @@ class IdeaUpElectronicsIcon extends React.Component {
       >
         <title>Electronics Category</title>
         <g
-          id="idea-up-electronics-icon-label"
+          className="idea-up-electronics-icon-label"
           data-name="IdeaUP Electronics Icon Label"
         >
           <Battery
@@ -82,7 +82,7 @@ class IdeaUpElectronicsIcon extends React.Component {
           />
         </g>
         <g
-          id="idea-up-electronics-icon-border"
+          className="idea-up-electronics-icon-border"
           data-name="IdeaUP Electronics Icon Border"
         >
           <BorderCircle
