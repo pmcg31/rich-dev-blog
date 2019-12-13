@@ -5,6 +5,7 @@ import styled from "styled-components"
 import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
 import IdeaUpAstronomyIcon from "../components/icons/idea-up-astronomy-icon"
 import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
+import { MDXRenderer } from "gatsby-plugin-mdx"
 
 const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
   width: 100px;
@@ -190,8 +191,16 @@ function Icon(props) {
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
+    const data = this.props.data
     const { previous, next } = this.props.pageContext
+
+    var post
+
+    if (data.markdownRemark) {
+      post = data.markdownRemark
+    } else if (data.mdx) {
+      post = data.mdx
+    }
 
     return (
       <Layout title={post.frontmatter.title} showStyle="compact">
@@ -205,7 +214,16 @@ class BlogPostTemplate extends React.Component {
               <PostDate>{post.frontmatter.date}</PostDate>
             </Headline>
           </PostHeader>
-          <PostContent dangerouslySetInnerHTML={{ __html: post.html }} />
+          {data.markdownRemark && (
+            <PostContent
+              dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
+            />
+          )}
+          {data.mdx && (
+            <PostContent>
+              <MDXRenderer>{data.mdx.body}</MDXRenderer>
+            </PostContent>
+          )}
         </StyledArticle>
         <hr />
 
@@ -239,6 +257,16 @@ export const pageQuery = graphql`
     markdownRemark(fields: { slug: { eq: $slug } }) {
       id
       html
+      frontmatter {
+        title
+        date(formatString: "MMMM DD, YYYY")
+        description
+        category
+      }
+    }
+    mdx(fields: { slug: { eq: $slug } }) {
+      id
+      body
       frontmatter {
         title
         date(formatString: "MMMM DD, YYYY")
