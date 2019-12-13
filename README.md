@@ -7,11 +7,9 @@
   Got Ideas?
 </h1>
 
-I do, and they shall be contained no longer! This is a site filled with notes on ideas I'm trying in electronics, photography, and astrophotography. Probably some other random stuff along the way.
+I do, and I'm putting them out there! This is the source respository for my web site. It is devoted to my pursuits revolving mostly around computers, electronics, cameras and telescopes.
 
-Why? I need to get the stuff down somewhere. Some of it I'll need to refresh my own memory later. Some of it may be useful to other people. Some of it is just for fun.
-
-Want to check it out? I can't promise it won't be boring! Click the icon above [or here](https://ideaup.online/) if you're feeling it.
+Want to check it out? I can't promise it won't be boring! Click the icon above [or here](https://ideaup.online/) if you want to risk it.
 
 The site is Gatsby based. There's some really nice code in here. I was born for this 💩
 
