@@ -1,9 +1,9 @@
 <p align="center">
   <a href="https://ideaup.online">
-    <img alt="Idea Up!" src="https://res.cloudinary.com/pmcg31/image/upload/v1576191331/idea_up_icon_rgnrnr.svg" width="120px" />
+    <img alt="Idea Up!" src="https://res.cloudinary.com/pmcg31/image/upload/v1576201376/readme_icon_yyeq7g.svg" width="120px" />
   </a>
 </p>
-<h1 align="center" style="color: coral">
+<h1 align="center">
   Got Ideas?
 </h1>
 
