@@ -3,7 +3,7 @@
     <img alt="Idea Up!" src="https://res.cloudinary.com/pmcg31/image/upload/v1576191331/idea_up_icon_rgnrnr.svg" width="120px" />
   </a>
 </p>
-<h1 align="center">
+<h1 align="center" style="color: coral">
   Got Ideas?
 </h1>
 
