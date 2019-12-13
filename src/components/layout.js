@@ -208,7 +208,12 @@ const Layout = ({ title, showStyle, children }) => {
       <Helmet>
         <title>{pageTitle}</title>
         <link
-          href="https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600|Solway:300,400,500|Titillium+Web:200i,200&display=swap"
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css?family=Dosis:300,500,700|Solway:300,700&display=swap"
+        />
+        <link
+          href="https://fonts.googleapis.com/css?family=Dosis:300,500,700|Solway:300,700&display=swap"
           rel="stylesheet"
         />
       </Helmet>
