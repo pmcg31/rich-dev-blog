@@ -25,18 +25,18 @@ export const query = graphql`
             }
           }
           id
-          timeToRead
           fields {
             slug
+            readingTime {
+              minutes
+              words
+            }
           }
           frontmatter {
             title
             description
             date(formatString: "MMMM DD, YYYY")
             category
-          }
-          wordCount {
-            words
           }
         }
       }
