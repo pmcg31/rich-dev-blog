@@ -155,7 +155,7 @@ const BlogHeadline = ({ node, className }) => (
           <span role="img" aria-label="time to read">
             ⏱
           </span>{" "}
-          <span>{Math.ceil(node.fields.readingTime.minutes)}</span> min ▹&nbsp;
+          <span>{Math.ceil(node.fields.readingTime.minutes)}</span> min ≈&nbsp;
           <span>{node.fields.readingTime.words}</span> words
         </PostTTR>
       </PostDateTTRWrapper>
