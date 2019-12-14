@@ -50,7 +50,7 @@ class IdeaUpSiteIcon extends React.Component {
         id={this.props.id}
         data-name="IdeaUP Site Icon"
       >
-        <title>"Idea Up!"</title>
+        <title>Idea Up!</title>
         <g
           className="idea-up-site-icon-label"
           data-name="IdeaUP Site Icon Label"
