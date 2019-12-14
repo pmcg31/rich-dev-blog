@@ -12,6 +12,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
+        extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
           `gatsby-remark-autolink-headers`,
           `gatsby-remark-smartypants`,
@@ -77,38 +78,16 @@ module.exports = {
             },
           },
         ],
-      },
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        name: "posts",
-        path: `${__dirname}/content/blog-mdx/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {
-        // Add any options here
-      },
-    },
-    {
-      resolve: `gatsby-transformer-remark`,
-      options: {
+        // This is a kludge. Apparently the plugins don't
+        // load correctly because the mdx plugin is
+        // referencing them via the key 'gatsbyRemarkPlugins'
+        // If I'm understanding what I read correctly,
+        // something else only looks for what plugins are
+        // getting loaded under the key 'plugins' and thus
+        // the ones under 'gatsbyRemarkPlugins' are missed.
+        // Adding them all again under the 'plugins' key
+        // allows them to be picked up. AFAIK the mdx plugin
+        // doesn't even look at this key
         plugins: [
           `gatsby-remark-autolink-headers`,
           `gatsby-remark-smartypants`,
@@ -174,6 +153,26 @@ module.exports = {
             },
           },
         ],
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/blog`,
+        name: `blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/assets`,
+        name: `assets`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        // Add any options here
       },
     },
     `gatsby-plugin-react-helmet`,

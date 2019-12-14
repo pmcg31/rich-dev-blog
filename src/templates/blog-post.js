@@ -69,6 +69,9 @@ const PostContent = styled.section`
     padding-top: 6px;
     padding-left: 10px;
   }
+  .anchor {
+    stroke: rgb(80, 80, 80);
+  }
   a {
     color: #00abff;
   }
@@ -191,16 +194,8 @@ function Icon(props) {
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const data = this.props.data
+    const post = this.props.data.mdx
     const { previous, next } = this.props.pageContext
-
-    var post
-
-    if (data.markdownRemark) {
-      post = data.markdownRemark
-    } else if (data.mdx) {
-      post = data.mdx
-    }
 
     return (
       <Layout title={post.frontmatter.title} showStyle="compact">
@@ -214,16 +209,9 @@ class BlogPostTemplate extends React.Component {
               <PostDate>{post.frontmatter.date}</PostDate>
             </Headline>
           </PostHeader>
-          {data.markdownRemark && (
-            <PostContent
-              dangerouslySetInnerHTML={{ __html: data.markdownRemark.html }}
-            />
-          )}
-          {data.mdx && (
-            <PostContent>
-              <MDXRenderer>{data.mdx.body}</MDXRenderer>
-            </PostContent>
-          )}
+          <PostContent>
+            <MDXRenderer>{post.body}</MDXRenderer>
+          </PostContent>
         </StyledArticle>
         <hr />
 
@@ -254,16 +242,6 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        description
-        category
-      }
-    }
     mdx(fields: { slug: { eq: $slug } }) {
       id
       body
