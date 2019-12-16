@@ -66,7 +66,6 @@ const SBLeftArea = styled.div`
 // exceeds 600 px (event handler in render)
 const ContentArea = styled.div`
   grid-area: content;
-  max-width: 500px;
   justify-self: center;
   display: grid;
   grid-template-columns: auto;

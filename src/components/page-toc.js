@@ -2,20 +2,11 @@ import React from "react"
 import styled from "styled-components"
 
 const StyledDiv = styled.div`
-  font-family: "Dosis", san-serif;
-  font-size: 16px;
   color: rgb(160, 160, 160);
-  padding-top: 20px;
   display: flex;
   flex-direction: column;
   ul {
     padding-inline-start: 25px;
-  }
-  .toc-H3 {
-    color: coral;
-  }
-  .toc-H4 {
-    font-size: 14px;
   }
 `
 

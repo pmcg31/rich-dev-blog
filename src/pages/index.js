@@ -1,15 +1,24 @@
 import React from "react"
 import { graphql } from "gatsby"
+import styled from "styled-components"
 import Layout from "../components/layout"
 import BlogHeadline from "../components/blog-headline"
+
+const StyledContent = styled.div`
+  max-width: 500px;
+`
 
 export default ({ data }) => {
   return (
     <Layout
       title="Home"
-      content={data.allMdx.edges.map(({ node }, index) => (
-        <BlogHeadline node={node} key={node.id} />
-      ))}
+      content={
+        <StyledContent>
+          {data.allMdx.edges.map(({ node }, index) => (
+            <BlogHeadline node={node} key={node.id} />
+          ))}
+        </StyledContent>
+      }
     />
   )
 }

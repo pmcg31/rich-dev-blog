@@ -45,8 +45,9 @@ const PostContent = styled.section`
   order: 2;
   color: rgb(160, 160, 160);
   font-size: 16px;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   .gatsby-highlight-code-line::after {
     content: " ";
   }
@@ -120,6 +121,30 @@ const PostContent = styled.section`
     font-size: 13px;
     line-height: 26px;
   }
+`
+
+const TOCWrapper = styled.div`
+  order: 1;
+  padding-right: 40px;
+  margin-block-start: 10px;
+  margin-block-end: 10px;
+  font-family: "Solway", serif;
+  color: rgb(160, 160, 160);
+  display: flex;
+  flex-direction: column;
+  ul {
+    font-family: "Dosis", san-serif;
+    font-size: 16px;
+    padding-inline-start: 25px;
+  }
+  .toc-H4 {
+    font-size: 14px;
+  }
+`
+
+const MDXWrapper = styled.div`
+  order: 2;
+  max-width: 500px;
 `
 
 const PostHeader = styled.header`
@@ -215,7 +240,12 @@ class BlogPostTemplate extends React.Component {
                 </Headline>
               </PostHeader>
               <PostContent>
-                <MDXRenderer>{post.body}</MDXRenderer>
+                <TOCWrapper>
+                  <PageTOC />
+                </TOCWrapper>
+                <MDXWrapper>
+                  <MDXRenderer>{post.body}</MDXRenderer>
+                </MDXWrapper>
               </PostContent>
             </StyledArticle>
             <hr />
@@ -240,7 +270,6 @@ class BlogPostTemplate extends React.Component {
             </nav>
           </div>
         }
-        sbLeft={<PageTOC />}
       />
     )
   }
