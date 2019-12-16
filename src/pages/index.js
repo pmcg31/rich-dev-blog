@@ -5,11 +5,12 @@ import BlogHeadline from "../components/blog-headline"
 
 export default ({ data }) => {
   return (
-    <Layout title="Home">
-      {data.allMdx.edges.map(({ node }, index) => (
+    <Layout
+      title="Home"
+      content={data.allMdx.edges.map(({ node }, index) => (
         <BlogHeadline node={node} key={node.id} />
       ))}
-    </Layout>
+    />
   )
 }
 export const query = graphql`

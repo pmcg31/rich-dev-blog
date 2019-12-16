@@ -37,7 +37,7 @@ const Grid = styled.div`
   align-content: stretch;
   justify-items: stretch;
   align-items: stretch;
-  grid-template-columns: min-content auto min-content;
+  grid-template-columns: auto auto auto;
   grid-template-rows: auto auto auto;
   grid-template-areas:
     "header header header"
@@ -56,13 +56,6 @@ const HeaderArea = styled.div`
   justify-items: stretch;
 `
 
-// This component will have its width switched to
-// 1000 px when its HeaderArea exceeds 1000 px wide
-// (event handler in render)
-const HeaderMaxWidthWrapper = styled.div`
-  width: initial;
-`
-
 // Creates space for the left side bar. Someday...
 const SBLeftArea = styled.div`
   grid-area: sb_left;
@@ -73,17 +66,12 @@ const SBLeftArea = styled.div`
 // exceeds 600 px (event handler in render)
 const ContentArea = styled.div`
   grid-area: content;
+  max-width: 500px;
+  justify-self: center;
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: auto;
   justify-items: stretch;
-`
-
-// This component will have its width switched to
-// 600 px when ContentArea exceeds 600 px wide
-// (event handler in render)
-const ContentMaxWidthWrapper = styled.div`
-  width: initial;
 `
 
 // Creates space for the right side bar. Someday...
@@ -96,20 +84,8 @@ const FooterArea = styled.div`
   grid-area: footer;
 `
 
-const Curtain = styled.div`
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: ;
-`
-
-const headerAreaMaxWidth = 800
-const contentAreaMaxWidth = 500
-
 // The Main Event..er..Function
-const Layout = ({ title, showStyle, children }) => {
+const Layout = ({ title, showStyle, sbLeft, content, sbRight }) => {
   const data = useStaticQuery(
     graphql`
       query {
@@ -121,68 +97,6 @@ const Layout = ({ title, showStyle, children }) => {
       }
     `
   )
-
-  // Hook the window resize event
-  React.useEffect(() => {
-    let previousHeaderAreaWidth = 0
-    let previousContentAreaWidth = 0
-
-    function handleResize() {
-      let headerArea = document.getElementById("header-area")
-      if (
-        headerArea.clientWidth > headerAreaMaxWidth &&
-        previousHeaderAreaWidth <= headerAreaMaxWidth
-      ) {
-        headerArea.style.justifyItems = "center"
-        document.getElementById("header-max-width-wrapper").style.width =
-          headerAreaMaxWidth + "px"
-      }
-
-      if (
-        headerArea.clientWidth <= headerAreaMaxWidth &&
-        previousHeaderAreaWidth > headerAreaMaxWidth
-      ) {
-        headerArea.style.justifyItems = "stretch"
-        document.getElementById("header-max-width-wrapper").style.width =
-          "initial"
-      }
-
-      previousHeaderAreaWidth = headerArea.clientWidth
-
-      let contentArea = document.getElementById("content-area")
-      if (
-        contentArea.clientWidth > contentAreaMaxWidth &&
-        previousContentAreaWidth <= contentAreaMaxWidth
-      ) {
-        contentArea.style.justifyItems = "center"
-        document.getElementById("content-max-width-wrapper").style.width =
-          contentAreaMaxWidth + "px"
-      }
-
-      if (
-        contentArea.clientWidth <= contentAreaMaxWidth &&
-        previousContentAreaWidth > contentAreaMaxWidth
-      ) {
-        contentArea.style.justifyItems = "stretch"
-        document.getElementById("content-max-width-wrapper").style.width =
-          "initial"
-      }
-
-      previousContentAreaWidth = contentArea.clientWidth
-    }
-
-    // Set up a window resize handler
-    window.addEventListener("resize", handleResize)
-
-    // Call it once now to fix the layout
-    handleResize()
-
-    // Raise the curtains now that layout is settled
-    var curtains = document.getElementsByClassName("curtain")
-    Array.prototype.filter.call(curtains, function(curtain) {
-      curtain.style.display = "none"
-    })
-  })
 
   let pageTitle = data.site.siteMetadata.title
   if (title) {
@@ -217,22 +131,15 @@ const Layout = ({ title, showStyle, children }) => {
           rel="stylesheet"
         />
       </Helmet>
-      <Curtain className="curtain" />
       <HeaderArea id="header-area">
-        <HeaderMaxWidthWrapper id="header-max-width-wrapper">
-          <Banner />
-        </HeaderMaxWidthWrapper>
+        <Banner />
       </HeaderArea>
 
-      <SBLeftArea />
+      <SBLeftArea>{sbLeft}</SBLeftArea>
 
-      <ContentArea id="content-area">
-        <ContentMaxWidthWrapper id="content-max-width-wrapper">
-          {children}
-        </ContentMaxWidthWrapper>
-      </ContentArea>
+      <ContentArea id="content-area">{content}</ContentArea>
 
-      <SBRightArea />
+      <SBRightArea>{sbRight}</SBRightArea>
 
       <FooterArea>
         <LayoutFooter />

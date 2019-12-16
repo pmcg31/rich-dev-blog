@@ -6,6 +6,7 @@ import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
 import IdeaUpAstronomyIcon from "../components/icons/idea-up-astronomy-icon"
 import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import PageTOC from "../components/page-toc"
 
 const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
   width: 100px;
@@ -198,42 +199,49 @@ class BlogPostTemplate extends React.Component {
     const { previous, next } = this.props.pageContext
 
     return (
-      <Layout title={post.frontmatter.title} showStyle="compact">
-        <StyledArticle>
-          <PostHeader>
-            <IconWrapper>
-              <Icon category={post.frontmatter.category} />
-            </IconWrapper>
-            <Headline>
-              <PostTitle>{post.frontmatter.title}</PostTitle>
-              <PostDate>{post.frontmatter.date}</PostDate>
-            </Headline>
-          </PostHeader>
-          <PostContent>
-            <MDXRenderer>{post.body}</MDXRenderer>
-          </PostContent>
-        </StyledArticle>
-        <hr />
+      <Layout
+        title={post.frontmatter.title}
+        showStyle="compact"
+        content={
+          <div>
+            <StyledArticle>
+              <PostHeader>
+                <IconWrapper>
+                  <Icon category={post.frontmatter.category} />
+                </IconWrapper>
+                <Headline>
+                  <PostTitle>{post.frontmatter.title}</PostTitle>
+                  <PostDate>{post.frontmatter.date}</PostDate>
+                </Headline>
+              </PostHeader>
+              <PostContent>
+                <MDXRenderer>{post.body}</MDXRenderer>
+              </PostContent>
+            </StyledArticle>
+            <hr />
 
-        <nav>
-          <NavContainer>
-            <NavPrevious>
-              {previous && (
-                <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
-                </Link>
-              )}
-            </NavPrevious>
-            <NavNext>
-              {next && (
-                <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
-                </Link>
-              )}
-            </NavNext>
-          </NavContainer>
-        </nav>
-      </Layout>
+            <nav>
+              <NavContainer>
+                <NavPrevious>
+                  {previous && (
+                    <Link to={previous.fields.slug} rel="prev">
+                      ← {previous.frontmatter.title}
+                    </Link>
+                  )}
+                </NavPrevious>
+                <NavNext>
+                  {next && (
+                    <Link to={next.fields.slug} rel="next">
+                      {next.frontmatter.title} →
+                    </Link>
+                  )}
+                </NavNext>
+              </NavContainer>
+            </nav>
+          </div>
+        }
+        sbLeft={<PageTOC />}
+      />
     )
   }
 }
