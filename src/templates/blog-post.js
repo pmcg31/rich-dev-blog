@@ -74,6 +74,9 @@ const PostContent = styled.section`
   .anchor {
     stroke: rgb(80, 80, 80);
   }
+  .embedVideo-container {
+    width: 500px;
+  }
   a {
     color: #00abff;
   }
