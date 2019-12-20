@@ -75,7 +75,7 @@ const PostContent = styled.section`
     stroke: rgb(80, 80, 80);
   }
   .embedVideo-container {
-    width: 500px;
+    width: 90vw;
   }
   a {
     color: #00abff;
@@ -148,6 +148,7 @@ const TOCWrapper = styled.div`
 const MDXWrapper = styled.div`
   order: 2;
   max-width: 500px;
+  margin: 0 auto;
 `
 
 const PostHeader = styled.header`
