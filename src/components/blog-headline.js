@@ -4,6 +4,7 @@ import styled from "styled-components"
 import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
 import IdeaUpAstronomyIcon from "../components/icons/idea-up-astronomy-icon"
 import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
+import SmartQuote from "../components/smart-quote"
 
 const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
   width: 50px;
@@ -139,10 +140,14 @@ const BlogHeadline = ({ node, className }) => (
       <Icon category={node.frontmatter.category} />
     </PostIcon>
     <PostTitle>
-      <Link to={node.fields.slug}>{node.frontmatter.title}</Link>
+      <Link to={node.fields.slug}>
+        <SmartQuote>{node.frontmatter.title}</SmartQuote>
+      </Link>
     </PostTitle>
     <PostDetails>
-      <PostDescription>{node.frontmatter.description}</PostDescription>
+      <PostDescription>
+        <SmartQuote>{node.frontmatter.description}</SmartQuote>
+      </PostDescription>
       <PostDateTTRWrapper>
         <PostDate>
           <span role="img" aria-label="posted">

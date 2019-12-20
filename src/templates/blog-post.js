@@ -7,6 +7,7 @@ import IdeaUpAstronomyIcon from "../components/icons/idea-up-astronomy-icon"
 import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 import PageTOC from "../components/page-toc"
+import SmartQuote from "../components/smart-quote"
 
 const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
   width: 100px;
@@ -239,7 +240,9 @@ class BlogPostTemplate extends React.Component {
                   <Icon category={post.frontmatter.category} />
                 </IconWrapper>
                 <Headline>
-                  <PostTitle>{post.frontmatter.title}</PostTitle>
+                  <PostTitle>
+                    <SmartQuote>{post.frontmatter.title}</SmartQuote>
+                  </PostTitle>
                   <PostDate>{post.frontmatter.date}</PostDate>
                 </Headline>
               </PostHeader>
@@ -259,14 +262,14 @@ class BlogPostTemplate extends React.Component {
                 <NavPrevious>
                   {previous && (
                     <Link to={previous.fields.slug} rel="prev">
-                      ← {previous.frontmatter.title}
+                      ← <SmartQuote>{previous.frontmatter.title}</SmartQuote>
                     </Link>
                   )}
                 </NavPrevious>
                 <NavNext>
                   {next && (
                     <Link to={next.fields.slug} rel="next">
-                      {next.frontmatter.title} →
+                      <SmartQuote>{next.frontmatter.title}</SmartQuote> →
                     </Link>
                   )}
                 </NavNext>
