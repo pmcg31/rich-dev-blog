@@ -62,7 +62,8 @@ const NavWrapper = styled.div`
   order: 1;
   position: -webkit-sticky;
   position: sticky;
-  top: 0;
+  top: 1.5em;
+  padding-top: 3px;
   padding-right: 40px;
   margin-block-start: 10px;
   margin-block-end: 10px;
