@@ -412,7 +412,7 @@ That brings us to the final version of the code:
 
 <blockquote><a href="code_final.ino">Final code version</a></blockquote>
 
-```c{22-73,131-133,156-161}{numberLines: true}
+```c{19,22-73,131-133,156-161}{numberLines: true}
 #include <WiFi.h>
 #include <ESPmDNS.h>
 #include <AsyncTCP.h>
