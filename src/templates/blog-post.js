@@ -250,7 +250,7 @@ class BlogPostTemplate extends React.Component {
         content={
           <div>
             <StyledArticle>
-              <PostHeader>
+              <PostHeader id="post-header">
                 <IconWrapper>
                   <Icon category={post.frontmatter.category} />
                 </IconWrapper>

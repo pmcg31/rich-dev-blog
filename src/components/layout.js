@@ -117,7 +117,7 @@ const Layout = ({ title, showStyle, sbLeft, content, sbRight }) => {
   }
 
   return (
-    <Grid id="top" headerHeight={headerHeight}>
+    <Grid headerHeight={headerHeight}>
       <Helmet>
         <title>{pageTitle}</title>
         <link
