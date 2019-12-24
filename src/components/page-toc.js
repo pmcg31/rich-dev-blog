@@ -13,6 +13,7 @@ const StyledDiv = styled.div`
   }
 `
 
+var observer = null
 var items = []
 var currentItemIdx = -1
 
@@ -111,7 +112,7 @@ class PageTOC extends React.Component {
       }
     }
 
-    var observer = new IntersectionObserver(
+    observer = new IntersectionObserver(
       intersectionCallback,
       intersectionOptions
     )
@@ -172,6 +173,15 @@ class PageTOC extends React.Component {
     }
 
     this.setState({ html })
+  }
+
+  componentWillUnmount() {
+    var item = null
+    while ((item = items.pop())) {
+      observer.unobserve(item.target)
+    }
+    observer = null
+    currentItemIdx = -1
   }
 
   render() {
