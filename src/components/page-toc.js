@@ -29,12 +29,25 @@ class PageTOC extends React.Component {
       threshold: [0, 0.01, 0.99, 1],
     }
 
+    function removeHighlight(element) {
+      if (element) {
+        element.classList.remove("toc-highlight")
+      }
+    }
+
+    function addHighlight(element) {
+      if (element) {
+        element.classList.add("toc-highlight")
+      }
+    }
+
     function intersectionCallback(entries, observer) {
       entries.forEach(entry => {
         items.forEach(function(item, index) {
           if (item.target === entry.target) {
-            const wasAbove = entry.boundingClientRect.y < entry.rootBounds.y
-            if (wasAbove) {
+            var wasAbove = false
+            if (entry.boundingClientRect && entries.rootBounds) {
+              wasAbove = entry.boundingClientRect.y < entry.rootBounds.y
             }
             if (entry.isIntersecting) {
               item.visible = true
@@ -60,11 +73,11 @@ class PageTOC extends React.Component {
           hadVisible = true
           if (idx !== currentItemIdx) {
             if (currentItemIdx !== -1) {
-              document
-                .querySelector(items[currentItemIdx].selector)
-                .classList.remove("toc-highlight")
+              removeHighlight(
+                document.querySelector(items[currentItemIdx].selector)
+              )
             }
-            document.querySelector(item.selector).classList.add("toc-highlight")
+            addHighlight(document.querySelector(item.selector))
             currentItemIdx = idx
           }
           break
@@ -76,13 +89,11 @@ class PageTOC extends React.Component {
       }
       if (!hadVisible && lastNoVisAboveIdx !== -1) {
         if (currentItemIdx !== -1) {
-          document
-            .querySelector(items[currentItemIdx].selector)
-            .classList.remove("toc-highlight")
+          removeHighlight(
+            document.querySelector(items[currentItemIdx].selector)
+          )
         }
-        document
-          .querySelector(items[lastNoVisAboveIdx].selector)
-          .classList.add("toc-highlight")
+        addHighlight(document.querySelector(items[lastNoVisAboveIdx].selector))
         currentItemIdx = lastNoVisAboveIdx
       }
     }
@@ -93,12 +104,14 @@ class PageTOC extends React.Component {
     )
 
     var target = document.querySelector("#post-header")
-    observer.observe(target)
-    items.push({
-      target: target,
-      visible: false,
-      selector: "#toc-" + target.id,
-    })
+    if (target) {
+      observer.observe(target)
+      items.push({
+        target: target,
+        visible: false,
+        selector: "#toc-" + target.id,
+      })
+    }
 
     var anchors = document.getElementsByClassName("anchor")
     var i,
