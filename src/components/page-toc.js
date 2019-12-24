@@ -41,12 +41,25 @@ class PageTOC extends React.Component {
       }
     }
 
+    function dumpItems() {
+      console.log("start")
+      items.forEach(function(item, idx) {
+        console.log(
+          idx +
+            ": " +
+            (item.visible ? "vis" : "novis") +
+            (item.wasAbove ? " above" : " noabove")
+        )
+      })
+      console.log("end")
+    }
+
     function intersectionCallback(entries, observer) {
       entries.forEach(entry => {
         items.forEach(function(item, index) {
           if (item.target === entry.target) {
             var wasAbove = false
-            if (entry.boundingClientRect && entries.rootBounds) {
+            if (entry.boundingClientRect && entry.rootBounds) {
               wasAbove = entry.boundingClientRect.y < entry.rootBounds.y
             }
             if (entry.isIntersecting) {
