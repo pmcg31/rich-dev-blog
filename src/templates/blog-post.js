@@ -46,9 +46,49 @@ const PostContent = styled.section`
   order: 2;
   color: rgb(160, 160, 160);
   font-size: 16px;
+  max-width: 700px;
+  display: grid;
+  grid-template-columns: minmax(20vw, min-content) minmax(0, 1fr);
+  align-items: flex-start;
+  @media (max-width: 600px) {
+    grid-template-columns: minmax(0, 1fr);
+    #nav-wrapper {
+      display: none;
+    }
+  }
+`
+
+const NavWrapper = styled.div`
+  order: 1;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding-right: 40px;
+  margin-block-start: 10px;
+  margin-block-end: 10px;
+  font-family: "Solway", serif;
+  color: rgb(160, 160, 160);
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+`
+
+const StyledTOC = styled(PageTOC)`
+  ul {
+    font-family: "Dosis", san-serif;
+    font-size: 16px;
+    padding-inline-start: 25px;
+  }
+  .toc-H4 {
+    font-size: 14px;
+  }
+`
+
+const MDXWrapper = styled.div`
+  order: 2;
+  max-width: 500px;
+  flex: 1;
+  min-width: 0;
+  margin: 0 0;
   .gatsby-highlight-code-line::after {
     content: " ";
   }
@@ -115,7 +155,7 @@ const PostContent = styled.section`
     padding: 5px;
     padding-left: 10px;
     font-size: 14px;
-    overflow: scroll;
+    overflow: auto;
     max-height: 500px;
   }
   code {
@@ -125,31 +165,6 @@ const PostContent = styled.section`
     font-size: 13px;
     line-height: 26px;
   }
-`
-
-const TOCWrapper = styled.div`
-  order: 1;
-  padding-right: 40px;
-  margin-block-start: 10px;
-  margin-block-end: 10px;
-  font-family: "Solway", serif;
-  color: rgb(160, 160, 160);
-  display: flex;
-  flex-direction: column;
-  ul {
-    font-family: "Dosis", san-serif;
-    font-size: 16px;
-    padding-inline-start: 25px;
-  }
-  .toc-H4 {
-    font-size: 14px;
-  }
-`
-
-const MDXWrapper = styled.div`
-  order: 2;
-  max-width: 500px;
-  margin: 0 auto;
 `
 
 const PostHeader = styled.header`
@@ -247,10 +262,10 @@ class BlogPostTemplate extends React.Component {
                 </Headline>
               </PostHeader>
               <PostContent>
-                <TOCWrapper>
-                  <PageTOC />
-                </TOCWrapper>
-                <MDXWrapper>
+                <NavWrapper id="nav-wrapper">
+                  <StyledTOC />
+                </NavWrapper>
+                <MDXWrapper id="post-content">
                   <MDXRenderer>{post.body}</MDXRenderer>
                 </MDXWrapper>
               </PostContent>
