@@ -132,12 +132,14 @@ function onBodyScroll() {
           document.querySelector("#toc-text-" + items[currentItemIdx].selector)
         )
       }
-      addBulletHighlight(
-        document.querySelector("#toc-bullet-" + items[lastAboveIdx].selector)
-      )
-      addTextHighlight(
-        document.querySelector("#toc-text-" + items[lastAboveIdx].selector)
-      )
+      if (lastAboveIdx !== -1) {
+        addBulletHighlight(
+          document.querySelector("#toc-bullet-" + items[lastAboveIdx].selector)
+        )
+        addTextHighlight(
+          document.querySelector("#toc-text-" + items[lastAboveIdx].selector)
+        )
+      }
       currentItemIdx = lastAboveIdx
     }
   }
