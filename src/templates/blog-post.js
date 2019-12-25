@@ -46,10 +46,10 @@ const PostContent = styled.section`
   order: 2;
   color: rgb(160, 160, 160);
   font-size: 16px;
-  max-width: 700px;
+  max-width: 800px;
   display: grid;
-  grid-template-columns: minmax(20vw, min-content) minmax(0, 1fr);
-  align-items: flex-start;
+  grid-template-columns: minmax(0, 1fr) 3fr;
+  align-items: start;
   @media (max-width: 600px) {
     grid-template-columns: minmax(0, 1fr);
     #nav-wrapper {
@@ -59,7 +59,7 @@ const PostContent = styled.section`
 `
 
 const NavWrapper = styled.div`
-  order: 1;
+  grid-column: 1 / span 1;
   position: -webkit-sticky;
   position: sticky;
   top: 1.5em;
@@ -85,9 +85,7 @@ const StyledTOC = styled(PageTOC)`
 `
 
 const MDXWrapper = styled.div`
-  order: 2;
-  max-width: 500px;
-  flex: 1;
+  grid-column: 2 / span 1;
   min-width: 0;
   margin: 0 0;
   .gatsby-highlight-code-line::after {
