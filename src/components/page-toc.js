@@ -40,6 +40,11 @@ const StyledDiv = styled.div`
 var items = []
 var currentItemIdx = -1
 
+//
+// Convenience functions for adding/removing
+// highlight classes on elements of the toc
+//
+
 function removeTextHighlight(element) {
   if (element) {
     element.classList.remove("toc-text-highlight")
@@ -64,6 +69,10 @@ function addBulletHighlight(element) {
   }
 }
 
+//
+// For debugging, when necessary
+//
+
 function dumpItems() {
   console.log("start items")
   items.forEach(function(item, idx) {
@@ -72,40 +81,29 @@ function dumpItems() {
   console.log("end items")
 }
 
-function getViewport() {
-  var viewPortWidth
-  var viewPortHeight
-
-  // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
-  if (typeof window.innerWidth != "undefined") {
-    viewPortWidth = window.innerWidth
-    viewPortHeight = window.innerHeight
-  }
-
-  // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
-  else if (
-    typeof document.documentElement != "undefined" &&
-    typeof document.documentElement.clientWidth != "undefined" &&
-    document.documentElement.clientWidth !== 0
-  ) {
-    viewPortWidth = document.documentElement.clientWidth
-    viewPortHeight = document.documentElement.clientHeight
-  }
-
-  // older versions of IE
-  else {
-    viewPortWidth = document.getElementsByTagName("body")[0].clientWidth
-    viewPortHeight = document.getElementsByTagName("body")[0].clientHeight
-  }
-  return { width: viewPortWidth, height: viewPortHeight }
-}
+//
+// Called when scrolled
+//
 
 function onBodyScroll() {
-  // Called when scrolled
-  const vwDim = getViewport()
-  const magicLine = vwDim.height * 0.2
-  var changed = false
-  var lastAboveIdx = -1
+  // Make the magic line (the horizontal point where
+  // the target element needs to pass for the
+  // highlight to change) to the width of our main
+  // element. In other words, if you made a square at
+  // the top of the main toc element, the magic line
+  // will be at the bottom of that square
+  const magicLine = document.querySelector("#page-toc").getBoundingClientRect()
+    .width
+
+  // Iterate all the elements we're tracking and see
+  // where they stand relative to the magic line. At
+  // the end of the iteration, changed will be true
+  // if any elements changed position (above/below)
+  // relative to the magic line and lastAboveIdx
+  // will have the index of the last element above
+  // the magic line (the one to be highlighted)
+  var changed = false,
+    lastAboveIdx = -1
   items.forEach(function(item, idx) {
     var letsGetRect = item.target.getBoundingClientRect()
 
@@ -121,6 +119,7 @@ function onBodyScroll() {
     }
   })
 
+  // Update the UI if anything has changed
   if (changed || lastAboveIdx !== currentItemIdx) {
     if (currentItemIdx !== lastAboveIdx) {
       if (currentItemIdx !== -1) {
@@ -151,11 +150,16 @@ class PageTOC extends React.Component {
   }
 
   componentDidMount() {
+    // Finds all heading elements spit out by the MDX
+    // parser
     var anchors = document.getElementsByClassName("anchor")
+
+    // Some vars
     var i,
       levelInd = "l1",
       html = ""
 
+    // Add the first element to the TOC, the top!
     var target = document.querySelector("#post-header")
     if (target) {
       items.push({
@@ -168,6 +172,9 @@ class PageTOC extends React.Component {
         '<div class="toc-bullet toc-row-l1" id="toc-bullet-post-header" style="grid-row: 1;">💩</div><div class="toc-text-l1 toc-row-l1" id="toc-text-post-header" style="grid-row: 1;"><a href="#post-header">Top</a></div>'
     }
 
+    // Iterate the headings from MDX and create
+    // the remaining elements of the TOC by
+    // scraping their contents
     for (i = 0; i < anchors.length; i++) {
       const row = i + 2
       if (anchors[i].parentElement.tagName.startsWith("H")) {
@@ -208,25 +215,35 @@ class PageTOC extends React.Component {
       }
     }
 
+    // Hook up our event handler to onscroll
+    // and window resize. Only when one
+    // of these events fires can the
+    // highlighted TOC item be changed
     document.body.onscroll = onBodyScroll
     window.onresize = onBodyScroll
 
+    // Change our state so we get redrawn
     this.setState({ html })
   }
 
   componentDidUpdate() {
+    // Kick things once the page renders to
+    // set the initial highlight
     onBodyScroll()
   }
 
   componentWillUnmount() {
+    // Be a good citizen and clean up
     document.body.onscroll = null
     window.onresize = null
     currentItemIdx = -1
   }
 
   render() {
+    // Your TOC, sir...
     return (
       <StyledDiv
+        id="page-toc"
         className={this.props.className}
         dangerouslySetInnerHTML={{ __html: this.state.html }}
       />
