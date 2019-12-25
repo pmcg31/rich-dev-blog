@@ -7,10 +7,10 @@ const StyledDiv = styled.div`
   flex-direction: column;
   ul {
     padding-inline-start: 25px;
+    margin-block-start: auto;
   }
   li {
-    padding-top: 0.2em;
-    padding-bottom: 0.2em;
+    padding-bottom: 0.4em;
     font-weight: 300;
   }
   .toc-highlight {
@@ -109,6 +109,12 @@ class PageTOC extends React.Component {
   }
 
   componentDidMount() {
+    var anchors = document.getElementsByClassName("anchor")
+    var i,
+      currentLevel = 0,
+      listsOpen = 1,
+      html = '<ul class="toc-list">'
+
     var target = document.querySelector("#post-header")
     if (target) {
       items.push({
@@ -116,14 +122,9 @@ class PageTOC extends React.Component {
         isAbove: false,
         selector: "#toc-" + target.id,
       })
+      html +=
+        '<li class="toc-top" id="toc-post-header"><a href="#post-header">Top</a></li>'
     }
-
-    var anchors = document.getElementsByClassName("anchor")
-    var i,
-      currentLevel = 0,
-      listsOpen = 1,
-      html =
-        '<div class="toc-jump-to"><a href="#post-header" id="toc-post-header">Top</a></div><ul class="toc-list">'
 
     for (i = 0; i < anchors.length; i++) {
       if (anchors[i].parentElement.tagName.startsWith("H")) {
