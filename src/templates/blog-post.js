@@ -76,15 +76,12 @@ const MDXWrapper = styled.div`
   grid-column: 2 / span 1;
   min-width: 0;
   margin: 0 0;
-  .gatsby-highlight-code-line::after {
-    content: " ";
-  }
   .gatsby-highlight-code-line {
     display: block;
     margin-right: -1em;
     margin-left: -3.75em;
     padding-right: 1em;
-    padding-left: 3.75em;
+    padding-left: 3.5em;
     border-left: 0.25em solid coral;
   }
   code.language-text {
