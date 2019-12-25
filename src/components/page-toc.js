@@ -3,17 +3,35 @@ import styled from "styled-components"
 
 const StyledDiv = styled.div`
   color: rgb(160, 160, 160);
-  display: flex;
-  flex-direction: column;
-  ul {
-    padding-inline-start: 25px;
-    margin-block-start: auto;
+  display: grid;
+  grid-template-columns: auto 1em auto;
+  align-items: center;
+  font-family: "Dosis", sans-serif;
+  font-weight: 300;
+  .toc-bullet {
+    display: none;
+    grid-column: 1 / 1;
+    padding-right: 0.3em;
+    justify-self: center;
+    transform: scale(1.5);
   }
-  li {
-    padding-bottom: 0.4em;
-    font-weight: 300;
+  .toc-row-l1 {
   }
-  .toc-highlight {
+  .toc-text-l1 {
+    grid-column: 2 / span 2;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+  }
+  .toc-row-l2 {
+    font-size: 14px;
+  }
+  .toc-text-l2 {
+    grid-column: 3 / 3;
+  }
+  .toc-bullet-highlight {
+    display: initial;
+  }
+  .toc-text-highlight {
     color: coral;
     font-weight: 400;
   }
@@ -22,15 +40,27 @@ const StyledDiv = styled.div`
 var items = []
 var currentItemIdx = -1
 
-function removeHighlight(element) {
+function removeTextHighlight(element) {
   if (element) {
-    element.classList.remove("toc-highlight")
+    element.classList.remove("toc-text-highlight")
   }
 }
 
-function addHighlight(element) {
+function addTextHighlight(element) {
   if (element) {
-    element.classList.add("toc-highlight")
+    element.classList.add("toc-text-highlight")
+  }
+}
+
+function removeBulletHighlight(element) {
+  if (element) {
+    element.classList.remove("toc-bullet-highlight")
+  }
+}
+
+function addBulletHighlight(element) {
+  if (element) {
+    element.classList.add("toc-bullet-highlight")
   }
 }
 
@@ -94,9 +124,21 @@ function onBodyScroll() {
   if (changed || lastAboveIdx !== currentItemIdx) {
     if (currentItemIdx !== lastAboveIdx) {
       if (currentItemIdx !== -1) {
-        removeHighlight(document.querySelector(items[currentItemIdx].selector))
+        removeBulletHighlight(
+          document.querySelector(
+            "#toc-bullet-" + items[currentItemIdx].selector
+          )
+        )
+        removeTextHighlight(
+          document.querySelector("#toc-text-" + items[currentItemIdx].selector)
+        )
       }
-      addHighlight(document.querySelector(items[lastAboveIdx].selector))
+      addBulletHighlight(
+        document.querySelector("#toc-bullet-" + items[lastAboveIdx].selector)
+      )
+      addTextHighlight(
+        document.querySelector("#toc-text-" + items[lastAboveIdx].selector)
+      )
       currentItemIdx = lastAboveIdx
     }
   }
@@ -111,56 +153,59 @@ class PageTOC extends React.Component {
   componentDidMount() {
     var anchors = document.getElementsByClassName("anchor")
     var i,
-      currentLevel = 0,
-      listsOpen = 1,
-      html = '<ul class="toc-list">'
+      levelInd = "l1",
+      html = ""
 
     var target = document.querySelector("#post-header")
     if (target) {
       items.push({
         target: target,
         isAbove: false,
-        selector: "#toc-" + target.id,
+        selector: target.id,
+        levelInd: "l1",
       })
       html +=
-        '<li class="toc-top" id="toc-post-header"><a href="#post-header">Top</a></li>'
+        '<div class="toc-bullet toc-row-l1" id="toc-bullet-post-header" style="grid-row: 1;">💩</div><div class="toc-text-l1 toc-row-l1" id="toc-text-post-header" style="grid-row: 1;"><a href="#post-header">Top</a></div>'
     }
 
     for (i = 0; i < anchors.length; i++) {
+      const row = i + 2
       if (anchors[i].parentElement.tagName.startsWith("H")) {
+        const level = anchors[i].parentElement.tagName.substring(1)
+        if (level === "3") {
+          levelInd = "l1"
+        } else if (level === "4") {
+          levelInd = "l2"
+        }
+
         items.push({
           target: anchors[i].parentElement,
           isAbove: false,
-          selector: "#toc-" + anchors[i].parentElement.id,
+          selector: anchors[i].parentElement.id,
+          levelInd: levelInd,
         })
-        var level = anchors[i].parentElement.tagName.substring(1)
-        if (level > currentLevel) {
-          if (currentLevel !== 0) {
-            html += "<ul>"
-            listsOpen++
-          }
-          currentLevel = level
-        }
-        if (level < currentLevel) {
-          currentLevel = level
-          html += "</ul>"
-          listsOpen--
-        }
+
         html +=
-          '<li class="toc-' +
-          anchors[i].parentElement.tagName +
-          '" id="toc-' +
+          '<div class="toc-bullet toc-row-' +
+          levelInd +
+          '" id="toc-bullet-' +
           anchors[i].parentElement.id +
-          '"><a href="' +
+          '" style="grid-row: ' +
+          row +
+          ';">💩</div><div class="toc-text-' +
+          levelInd +
+          " toc-row-" +
+          levelInd +
+          '" id="toc-text-' +
+          anchors[i].parentElement.id +
+          '" style="grid-row: ' +
+          row +
+          ';"><a href="' +
           anchors[i].hash +
           '">' +
           anchors[i].parentElement.innerText +
-          "</a></li>"
+          "</a></div>"
       }
-    }
-
-    for (i = 0; i < listsOpen; i++) {
-      html += "</ul>"
     }
 
     document.body.onscroll = onBodyScroll
