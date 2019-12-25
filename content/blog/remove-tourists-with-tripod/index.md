@@ -7,7 +7,7 @@ description: "Use your tripod and median blending in Photoshop to remove tourist
 
 You can't get that Eagles song out of your head...so you make the journey to go stand on a corner in Winslow, AZ and see what all the fuss is about. However, when you arrive you quickly realize you were not the only person to have this notion.
 
-This place is crawling with tourists; all day, every day. It's clear to see why, there are statues of Jackson Browne and Glenn Frey and a giant historic Route 66 sign painted in the intersection. Heck, there's even a girl, my lord, in a flatbed Ford! What's not to love?
+This place is crawling with tourists--all day, every day. It's clear to see why, there are statues of Jackson Browne and Glenn Frey and a giant historic Route 66 sign painted in the intersection. Heck, there's even a girl, my lord, in a flatbed Ford! What's not to love?
 
 ![Winslow AZ](https://res.cloudinary.com/pmcg31/image/upload/v1575825299/IMG_0241_fykntl.jpg "Corner Park in Winslow, AZ")
 
@@ -15,7 +15,7 @@ This place is crawling with tourists; all day, every day. It's clear to see why,
 
 Oh, they were there, but with some planning and a little Photoshop magic they disappeared from the final image.
 
-Today, I'm going to share the process with you. Any camera that can be held stationary will work. This could be a big fancy tripod or just your phone propped up someplace.
+Today, I'm going to share the process with you. Any camera that can be held stationary will work. This could be a big fancy DSLR on a tripod or just your phone propped up someplace.
 
 Stick with me to the end for some Bonus Tips on other situations where this technique works!
 
