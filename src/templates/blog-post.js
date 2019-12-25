@@ -119,6 +119,9 @@ const MDXWrapper = styled.div`
   .embedVideo-container {
     width: 90vw;
   }
+  iframe {
+    border-radius: 10px;
+  }
   a {
     color: #00abff;
   }
