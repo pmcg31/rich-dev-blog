@@ -10,7 +10,7 @@ const StyledDiv = styled.div`
   font-weight: 300;
   .toc-bullet {
     display: none;
-    grid-column: 1 / 1;
+    grid-column: 1 / span 1;
     padding-right: 0.3em;
     justify-self: center;
     transform: scale(1.5);
@@ -26,7 +26,9 @@ const StyledDiv = styled.div`
     font-size: 14px;
   }
   .toc-text-l2 {
-    grid-column: 3 / 3;
+    grid-column: 3 / span 1;
+    padding-top: 0.125em;
+    padding-bottom: 0.125em;
   }
   .toc-bullet-highlight {
     display: initial;
