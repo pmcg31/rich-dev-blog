@@ -23,7 +23,7 @@ const StyledDiv = styled.div`
     padding-bottom: 0.25em;
   }
   .toc-row-l2 {
-    font-size: 14px;
+    font-size: 0.8em;
   }
   .toc-text-l2 {
     grid-column: 3 / 3;

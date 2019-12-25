@@ -7,14 +7,14 @@ const Footie = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   align-content: center;
-  padding-top: 25px;
-  padding-bottom: 10px;
+  padding-top: 1.5em;
+  padding-bottom: 0.4em;
 `
 
 const FootieContent = styled.div`
   order: 1;
   color: rgb(120, 120, 120);
-  font-size: 12px;
+  font-size: 0.75em;
 `
 
 const LayoutFooter = () => {

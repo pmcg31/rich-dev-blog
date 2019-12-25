@@ -10,8 +10,8 @@ import PageTOC from "../components/page-toc"
 import SmartQuote from "../components/smart-quote"
 
 const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   .icon-label {
     stroke: coral;
   }
@@ -21,8 +21,8 @@ const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
 `
 
 const StyledAstronomyIcon = styled(IdeaUpAstronomyIcon)`
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   .icon-label {
     stroke: coral;
   }
@@ -32,8 +32,8 @@ const StyledAstronomyIcon = styled(IdeaUpAstronomyIcon)`
 `
 
 const StyledPhotographyIcon = styled(IdeaUpPhotographyIcon)`
-  width: 100px;
-  height: 100px;
+  width: 5em;
+  height: 5em;
   .icon-label {
     stroke: coral;
   }
@@ -45,12 +45,12 @@ const StyledPhotographyIcon = styled(IdeaUpPhotographyIcon)`
 const PostContent = styled.section`
   order: 2;
   color: rgb(160, 160, 160);
-  font-size: 16px;
-  max-width: 800px;
+  max-width: 40em;
   display: grid;
   grid-template-columns: minmax(0, 1fr) 3fr;
+  grid-column-gap: 1em;
   align-items: start;
-  @media (max-width: 600px) {
+  @media (max-width: 40em), (max-height: 60em) {
     grid-template-columns: minmax(0, 1fr);
     #nav-wrapper {
       display: none;
@@ -63,25 +63,13 @@ const NavWrapper = styled.div`
   position: -webkit-sticky;
   position: sticky;
   top: 1.5em;
-  padding-top: 3px;
-  padding-right: 40px;
-  margin-block-start: 10px;
-  margin-block-end: 10px;
+  padding-top: 0.2em;
+  margin-block-start: 0.4em;
+  margin-block-end: 0.4em;
   font-family: "Solway", serif;
   color: rgb(160, 160, 160);
   display: flex;
   flex-direction: column;
-`
-
-const StyledTOC = styled(PageTOC)`
-  ul {
-    font-family: "Dosis", san-serif;
-    font-size: 16px;
-    padding-inline-start: 25px;
-  }
-  .toc-H4 {
-    font-size: 14px;
-  }
 `
 
 const MDXWrapper = styled.div`
@@ -94,22 +82,20 @@ const MDXWrapper = styled.div`
   .gatsby-highlight-code-line {
     display: block;
     margin-right: -1em;
-    margin-left: -4em;
+    margin-left: -3.75em;
     padding-right: 1em;
     padding-left: 3.75em;
     border-left: 0.25em solid coral;
-    line-height: 21px;
   }
   code.language-text {
     background-color: #98562d;
-    border-radius: 3px;
-    padding: 3px;
-    font-size: 13px;
-    line-height: 26px;
+    border-radius: 0.2em;
+    padding: 0.2em;
+    padding-top: 0.3em;
   }
   span.line-numbers-rows {
-    padding-top: 6px;
-    padding-left: 10px;
+    padding-top: 0.35em;
+    padding-left: 0.8em;
   }
   .anchor {
     stroke: rgb(80, 80, 80);
@@ -118,14 +104,14 @@ const MDXWrapper = styled.div`
     width: 90vw;
   }
   iframe {
-    border-radius: 10px;
+    border-radius: 0.5em;
   }
   a {
     color: #00abff;
   }
   h3 {
     color: coral;
-    font-size: 20px;
+    font-size: 1.25em;
     font-family: "Dosis", sans-serif;
     font-weight: 400;
   }
@@ -134,9 +120,7 @@ const MDXWrapper = styled.div`
   }
   p {
     font-family: "Solway", serif;
-    line-height: 24px;
-    margin-block-start: 10px;
-    margin-block-end: 10px;
+    line-height: 1.4;
   }
   blockquote {
     overflow-wrap: break-word;
@@ -145,28 +129,25 @@ const MDXWrapper = styled.div`
   }
   img {
     max-width: 100%;
-    border-radius: 10px;
+    border-radius: 0.5em;
   }
   pre {
     code {
       padding: 0;
-      line-height: 13px;
     }
-    margin: 10px;
+    margin: 0.5em;
     background-color: rgb(64, 64, 64);
-    border-radius: 10px;
-    padding: 5px;
-    padding-left: 10px;
-    font-size: 14px;
+    border-radius: 0.5em;
+    padding: 0.3em;
+    font-size: 0.95em;
     overflow: auto;
-    max-height: 500px;
+    max-height: 50vh;
   }
   code {
     background-color: rgb(64, 64, 64);
-    border-radius: 3px;
-    padding: 3px;
-    font-size: 13px;
-    line-height: 26px;
+    border-radius: 0.2em;
+    padding: 0.2em;
+    padding-top: 0.3em;
   }
 `
 
@@ -176,28 +157,27 @@ const PostHeader = styled.header`
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 1em;
+  padding-bottom: 1em;
 `
 
 const PostDate = styled.div`
   order: 2;
-  font-size: 16px;
+  font-size: 0.9em;
 `
 
 const PostTitle = styled.div`
   order: 1;
   color: coral;
   font-family: "Dosis", sans-serif;
-  font-size: 36px;
+  font-size: 1.9em;
   font-weight: 500;
   line-height: 1.1;
-  padding-top: 10px;
 `
 
 const IconWrapper = styled.div`
   order: 1;
-  padding-right: 15px;
+  padding-right: 1em;
 `
 
 const Headline = styled.div`
@@ -266,7 +246,7 @@ class BlogPostTemplate extends React.Component {
               </PostHeader>
               <PostContent>
                 <NavWrapper id="nav-wrapper">
-                  <StyledTOC />
+                  <PageTOC />
                 </NavWrapper>
                 <MDXWrapper id="post-content">
                   <MDXRenderer>{post.body}</MDXRenderer>

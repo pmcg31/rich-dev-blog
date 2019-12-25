@@ -5,7 +5,7 @@ import Layout from "../components/layout"
 import BlogHeadline from "../components/blog-headline"
 
 const StyledContent = styled.div`
-  max-width: 500px;
+  max-width: 36em;
 `
 
 export default ({ data }) => {
