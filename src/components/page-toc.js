@@ -8,8 +8,14 @@ const StyledDiv = styled.div`
   ul {
     padding-inline-start: 25px;
   }
+  li {
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    font-weight: 300;
+  }
   .toc-highlight {
     color: coral;
+    font-weight: 400;
   }
 `
 

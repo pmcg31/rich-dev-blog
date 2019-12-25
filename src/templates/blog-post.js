@@ -126,6 +126,7 @@ const MDXWrapper = styled.div`
     color: coral;
     font-size: 20px;
     font-family: "Dosis", sans-serif;
+    font-weight: 400;
   }
   h4 {
     color: rgb(192, 192, 192);
