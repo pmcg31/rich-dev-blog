@@ -114,14 +114,6 @@ const PostIcon = styled.div`
   padding-top: 0.2em;
 `
 
-const PostHeadline = styled.section`
-  order: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-content: flex-start;
-`
-
 function Icon(props) {
   if ("electronics" === props.category) {
     return <StyledElectronicsIcon />

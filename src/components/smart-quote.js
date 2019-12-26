@@ -1,4 +1,3 @@
-import React from "react"
 import retext from "retext"
 import smartypants from "retext-smartypants"
 

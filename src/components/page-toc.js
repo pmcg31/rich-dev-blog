@@ -249,7 +249,6 @@ class PageTOC extends React.Component {
     // the remaining elements of the TOC by
     // scraping their contents
     for (i = 0; i < anchors.length; i++) {
-      const row = i + 2
       if (anchors[i].parentElement.tagName.startsWith("H")) {
         const level = anchors[i].parentElement.tagName.substring(1)
         if (level === "3") {
@@ -301,23 +300,34 @@ class PageTOC extends React.Component {
       // Got nothin' for ya
       return null
     } else {
-      //Your TOC, sir...
+      // Your TOC, sir...
+      // Added key prop to everything to finally get
+      // react to stop overreacting to my lack of
+      // keys. This list never changes, so the keys
+      // are pretty irrelevant, but there's no telling
+      // react that. This keeps it quiet (shhhh)
       return (
-        <TOCWrapper id="page-toc" className={this.props.className}>
+        <TOCWrapper
+          id="page-toc"
+          key="page-toc"
+          className={this.props.className}
+        >
           {this.state.items.map((item, idx) => (
-            <>
+            <React.Fragment key={"toc-fragment-" + item.selector}>
               <TOCBullet
                 className={"toc-row-" + item.levelInd}
                 id={"toc-bullet-" + item.selector}
+                key={"toc-bullet-" + item.selector}
                 style={{ gridRow: idx + 1 }}
               />
               {item.levelInd === "l1" ? (
                 <TOCTextL1
                   className={"toc-row-" + item.levelInd}
                   id={"toc-text-" + item.selector}
+                  key={"toc-text-" + item.selector}
                   style={{ gridRow: idx + 1 }}
                 >
-                  <a href={item.hash}>
+                  <a href={item.hash} key={"toc-link-" + item.selector}>
                     {idx === 0 ? "Top" : item.target.innerText}
                   </a>
                 </TOCTextL1>
@@ -325,14 +335,15 @@ class PageTOC extends React.Component {
                 <TOCTextL2
                   className={"toc-row-" + item.levelInd}
                   id={"toc-text-" + item.selector}
+                  key={"toc-text-" + item.selector}
                   style={{ gridRow: idx + 1 }}
                 >
-                  <a href={item.hash}>
+                  <a href={item.hash} key={"toc-link-" + item.selector}>
                     {idx === 0 ? "Top" : item.target.innerText}
                   </a>
                 </TOCTextL2>
               )}
-            </>
+            </React.Fragment>
           ))}
         </TOCWrapper>
       )
