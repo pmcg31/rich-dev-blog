@@ -13,27 +13,20 @@ const Banner = styled.div`
   border-bottom-style: solid;
   border-bottom-width: thin;
   border-bottom-color: rgb(160, 160, 160);
-  padding-bottom: 5px;
+  padding-bottom: 0.2em;
 `
 
 const SiteIcon = styled(IdeaUpSiteIcon)`
   order: 1;
-  width: 40px;
-  height: 40px;
+  width: 3em;
+  height: 3em;
 `
 
 const SiteLogo = styled(IdeaUpTextLogo)`
   order: 2;
-  height: 35px;
-  padding-left: 8px;
+  height: 2em;
+  padding-left: 0.5em;
 `
-
-// const BigText = styled.div`
-//   order: 2;
-//   color: coral;
-//   font-size: 30px;
-//   padding-left: 8px;
-// `
 
 const LayoutBannerCompact = () => {
   return (

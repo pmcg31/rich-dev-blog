@@ -7,8 +7,8 @@ import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
 import SmartQuote from "../components/smart-quote"
 
 const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
-  width: 50px;
-  height: 50px;
+  width: 2.5em;
+  height: 2.5em;
   .icon-label {
     stroke: coral;
   }
@@ -18,8 +18,8 @@ const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
 `
 
 const StyledAstronomyIcon = styled(IdeaUpAstronomyIcon)`
-  width: 50px;
-  height: 50px;
+  width: 2.5em;
+  height: 2.5em;
   .icon-label {
     stroke: coral;
   }
@@ -29,8 +29,8 @@ const StyledAstronomyIcon = styled(IdeaUpAstronomyIcon)`
 `
 
 const StyledPhotographyIcon = styled(IdeaUpPhotographyIcon)`
-  width: 50px;
-  height: 50px;
+  width: 2.5em;
+  height: 2.5em;
   .icon-label {
     stroke: coral;
   }
@@ -45,7 +45,6 @@ const PostDetails = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-content: flex-start;
-  padding-right: 10px;
   font-family: "Dosis", sans-serif;
 `
 
@@ -56,13 +55,13 @@ const PostDateTTRWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: center;
-  padding-top: 4px;
+  padding-top: 0.2em;
 `
 
 const PostDate = styled.div`
   order: 1;
-  font-size: 16px;
-  padding-right: 5px;
+  font-size: 0.9em;
+  padding-right: 0.2em;
   span {
     color: rgb(160, 160, 160);
   }
@@ -71,7 +70,7 @@ const PostDate = styled.div`
 const PostTTR = styled.div`
   order: 2;
   text-align: right;
-  font-size: 16px;
+  font-size: 0.9em;
   span {
     color: rgb(160, 160, 160);
   }
@@ -81,7 +80,7 @@ const PostTitle = styled.div`
   grid-area: title;
   color: coral;
   font-family: "Dosis", sans-serif;
-  font-size: 30px;
+  font-size: 1.6em;
   font-weight: 500;
   line-height: 1.1;
 `
@@ -91,8 +90,7 @@ const PostDescription = styled.div`
   color: rgb(176, 176, 176);
   font-family: "Solway", sans-serif;
   font-weight: 300;
-  font-size: 18px;
-  padding-top: 3px;
+  padding-top: 0.2em;
 `
 
 const PostWrapper = styled.div`
@@ -106,14 +104,14 @@ const PostWrapper = styled.div`
   grid-template-areas:
     "icon title"
     ". details";
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 0.6em;
+  padding-bottom: 0.6em;
 `
 
 const PostIcon = styled.div`
   grid-area: icon;
-  padding-right: 10px;
-  padding-top: 5px;
+  padding-right: 0.5em;
+  padding-top: 0.2em;
 `
 
 const PostHeadline = styled.section`

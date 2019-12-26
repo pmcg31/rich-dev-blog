@@ -16,12 +16,12 @@ import LayoutFooter from "../components/layout-footer"
 //
 //  |          |                           |           |
 //  ====================================================
-//  |                 H E A D E R  (1000px max)        |
+//  |                 H E A D E R                      |
 //  ====================================================
 //  |          |                           |           |
 //  |    SB    |                           |    SB     |
 //  |   LEFT   |     C O N T E N T         |   RIGHT   |
-//  |          |      (600px max)          |           |
+//  |          |                           |           |
 //  |          |                           |           |
 //  ====================================================
 //  |                 F O O T E R                      |
@@ -45,9 +45,6 @@ const Grid = styled.div`
     "footer footer footer";
 `
 // Creates space for the header.
-// The justify-items style will switch from
-// stretch to center when the width
-// exceeds 1000 px (event handler in render)
 const HeaderArea = styled.div`
   grid-area: header;
   display: grid;
@@ -61,9 +58,6 @@ const SBLeftArea = styled.div`
   grid-area: sb_left;
 `
 // Creates space for the content
-// The justify-items style will switch from
-// stretch to center when the width
-// exceeds 600 px (event handler in render)
 const ContentArea = styled.div`
   grid-area: content;
   justify-self: center;
@@ -107,17 +101,15 @@ const Layout = ({ title, showStyle, sbLeft, content, sbRight }) => {
   let headerHeight
   let Banner
   if ("full" === showStyle) {
-    headerHeight = "144px"
     Banner = LayoutBannerFull
   } else if ("compact" === showStyle) {
-    headerHeight = "54px"
     Banner = LayoutBannerCompact
   } else {
     console.log("Unknown showStyle: " + showStyle)
   }
 
   return (
-    <Grid headerHeight={headerHeight}>
+    <Grid>
       <Helmet>
         <title>{pageTitle}</title>
         <link

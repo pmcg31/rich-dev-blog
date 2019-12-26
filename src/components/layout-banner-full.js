@@ -18,14 +18,14 @@ const Banner = styled.div`
   border-bottom-style: solid;
   border-bottom-width: thin;
   border-bottom-color: rgb(160, 160, 160);
-  padding-bottom: 10px;
-  padding-top: 5px;
+  padding-bottom: 0.4em;
+  padding-top: 0.2em;
 `
 
 const SiteIcon = styled(IdeaUpSiteIcon)`
   grid-area: icon;
-  width: 120px;
-  height: 120px;
+  width: 7em;
+  height: 7em;
   .idea-up-site-icon-rays {
     stroke: rgba(255, 127, 80, 0);
     transition: stroke 0.75s ease-in-out;
@@ -34,7 +34,7 @@ const SiteIcon = styled(IdeaUpSiteIcon)`
 
 const SiteLogo = styled(IdeaUpTextLogo)`
   order: 1;
-  height: 70px;
+  height: 4em;
 `
 
 const Hulk = styled.div`
@@ -42,14 +42,14 @@ const Hulk = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding-left: 20px;
+  padding-left: 1.3em;
 `
 
 const SmallText = styled.div`
   order: 2;
   color: rgb(176, 176, 176);
   font-family: Solway, sans-serif;
-  font-size: 22px;
+  font-size: 1.3em;
 `
 
 const LayoutBannerFull = () => {
