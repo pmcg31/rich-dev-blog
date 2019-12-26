@@ -45,6 +45,10 @@ const Hulk = styled.div`
   padding-left: 1.3em;
 `
 
+const StyledLink = styled(Link)`
+  align-self: flex-start;
+`
+
 const SmallText = styled.div`
   order: 2;
   color: rgb(176, 176, 176);
@@ -69,9 +73,9 @@ const LayoutBannerFull = () => {
         <SiteIcon id="site-icon" />
       </Link>
       <Hulk>
-        <Link to="/">
+        <StyledLink to="/">
           <SiteLogo />
-        </Link>
+        </StyledLink>
         <SmallText>
           <Link to="/">Rich’s Design &amp; Creativity Sandbox</Link>
         </SmallText>
