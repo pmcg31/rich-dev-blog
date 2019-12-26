@@ -22,6 +22,7 @@ const TOCTextL1 = styled.div`
   grid-column: 2 / span 2;
   padding-top: 0.25em;
   padding-bottom: 0.25em;
+  cursor: pointer;
 `
 
 const TOCTextL2 = styled.div`
@@ -29,6 +30,7 @@ const TOCTextL2 = styled.div`
   padding-top: 0.125em;
   padding-bottom: 0.125em;
   font-size: 0.8em;
+  cursor: pointer;
 `
 
 const TOCBullet = styled.canvas`
@@ -36,6 +38,7 @@ const TOCBullet = styled.canvas`
   justify-self: center;
   align-self: stretch;
   width: 1.6em;
+  cursor: pointer;
 `
 
 class PageTOC extends React.Component {
@@ -51,6 +54,7 @@ class PageTOC extends React.Component {
     this.dumpItems = this.dumpItems.bind(this)
     this.updateGraphics = this.updateGraphics.bind(this)
     this.onBodyScroll = this.onBodyScroll.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   //
@@ -89,18 +93,15 @@ class PageTOC extends React.Component {
   updateGraphics() {
     this.state.items.forEach((item, idx) => {
       // Determine which lines this link needs
-      var hasTopLine = false,
-        hasBottomLine = false
+      var hasTopLine = true,
+        hasBottomLine = true
       if (idx === 0) {
         // First item
-        hasBottomLine = true
-      } else if (idx === this.state.items.length - 1) {
+        hasTopLine = false
+      }
+      if (idx === this.state.items.length - 1) {
         // Last item
-        hasTopLine = true
-      } else {
-        // Middle item
-        hasTopLine = true
-        hasBottomLine = true
+        hasBottomLine = false
       }
 
       // Get the canvas
@@ -227,13 +228,6 @@ class PageTOC extends React.Component {
     // parser
     var anchors = document.getElementsByClassName("anchor")
 
-    // If no anchors, skip everything and render
-    // ourselves invisible
-    if (anchors.length === 0) {
-      this.setState({ html: null })
-      return
-    }
-
     // Some vars
     var i,
       levelInd = "l1",
@@ -300,60 +294,63 @@ class PageTOC extends React.Component {
     this.currentItemIdx = -1
   }
 
+  handleClick(e) {
+    this.state.items.forEach(item => {
+      if (
+        "toc-bullet-" + item.selector === e.nativeEvent.target.id ||
+        "toc-text-" + item.selector === e.nativeEvent.target.id
+      ) {
+        window.scrollBy({
+          top: item.target.getBoundingClientRect().top,
+          behavior: "smooth",
+        })
+      }
+    })
+  }
+
   render() {
-    // Are there items?
-    if (this.state.items.length === 0) {
-      // Got nothin' for ya
-      return null
-    } else {
-      // Your TOC, sir...
-      // Added key prop to everything to finally get
-      // react to stop overreacting to my lack of
-      // keys. This list never changes, so the keys
-      // are pretty irrelevant, but there's no telling
-      // react that. This keeps it quiet (shhhh)
-      return (
-        <TOCWrapper
-          id="page-toc"
-          key="page-toc"
-          className={this.props.className}
-        >
-          {this.state.items.map((item, idx) => (
-            <React.Fragment key={"toc-fragment-" + item.selector}>
-              <TOCBullet
+    // Your TOC, sir...
+    // Added key prop to everything to finally get
+    // react to stop overreacting to my lack of
+    // keys. This list never changes, so the keys
+    // are pretty irrelevant, but there's no telling
+    // react that. This keeps it quiet (shhhh)
+    return (
+      <TOCWrapper id="page-toc" key="page-toc" className={this.props.className}>
+        {this.state.items.map((item, idx) => (
+          <React.Fragment key={"toc-fragment-" + item.selector}>
+            <TOCBullet
+              className={"toc-row-" + item.levelInd}
+              id={"toc-bullet-" + item.selector}
+              key={"toc-bullet-" + item.selector}
+              style={{ gridRow: idx + 1 }}
+              onClick={this.handleClick}
+            />
+            {item.levelInd === "l1" ? (
+              <TOCTextL1
                 className={"toc-row-" + item.levelInd}
-                id={"toc-bullet-" + item.selector}
-                key={"toc-bullet-" + item.selector}
+                id={"toc-text-" + item.selector}
+                key={"toc-text-" + item.selector}
                 style={{ gridRow: idx + 1 }}
-              />
-              {item.levelInd === "l1" ? (
-                <TOCTextL1
-                  className={"toc-row-" + item.levelInd}
-                  id={"toc-text-" + item.selector}
-                  key={"toc-text-" + item.selector}
-                  style={{ gridRow: idx + 1 }}
-                >
-                  <a href={item.hash} key={"toc-link-" + item.selector}>
-                    {idx === 0 ? "Intro" : item.target.innerText}
-                  </a>
-                </TOCTextL1>
-              ) : (
-                <TOCTextL2
-                  className={"toc-row-" + item.levelInd}
-                  id={"toc-text-" + item.selector}
-                  key={"toc-text-" + item.selector}
-                  style={{ gridRow: idx + 1 }}
-                >
-                  <a href={item.hash} key={"toc-link-" + item.selector}>
-                    {idx === 0 ? "Intro" : item.target.innerText}
-                  </a>
-                </TOCTextL2>
-              )}
-            </React.Fragment>
-          ))}
-        </TOCWrapper>
-      )
-    }
+                onClick={this.handleClick}
+              >
+                {idx === 0 ? "Intro" : item.target.innerText}
+              </TOCTextL1>
+            ) : (
+              <TOCTextL2
+                className={"toc-row-" + item.levelInd}
+                id={"toc-text-" + item.selector}
+                key={"toc-text-" + item.selector}
+                style={{ gridRow: idx + 1 }}
+                onClick={this.handleClick}
+              >
+                {idx === 0 ? "Intro" : item.target.innerText}
+              </TOCTextL2>
+            )}
+          </React.Fragment>
+        ))}
+      </TOCWrapper>
+    )
   }
 }
 
