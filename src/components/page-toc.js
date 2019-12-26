@@ -4,7 +4,8 @@ import styled from "styled-components"
 const TOCWrapper = styled.div`
   color: rgb(160, 160, 160);
   display: grid;
-  grid-template-columns: auto 1em auto;
+  grid-template-columns: auto 0.2em auto;
+  grid-column-gap: 0.5em;
   align-items: center;
   font-family: "Dosis", sans-serif;
   font-weight: 300;
@@ -20,14 +21,6 @@ const TOCWrapper = styled.div`
   }
 `
 
-const TOCBullet = styled.div`
-  display: none;
-  grid-column: 1 / span 1;
-  padding-right: 0.3em;
-  justify-self: center;
-  transform: scale(1.5);
-`
-
 const TOCTextL1 = styled.div`
   grid-column: 2 / span 2;
   padding-top: 0.25em;
@@ -40,6 +33,13 @@ const TOCTextL2 = styled.div`
   padding-bottom: 0.125em;
 `
 
+const TOCBullet = styled.canvas`
+  grid-column: 1 / span 1;
+  justify-self: center;
+  width: 1.6em;
+  height: 100%;
+`
+
 class PageTOC extends React.Component {
   constructor(props) {
     super(props)
@@ -48,12 +48,11 @@ class PageTOC extends React.Component {
 
     this.currentItemIdx = -1
 
-    this.onBodyScroll = this.onBodyScroll.bind(this)
     this.removeTextHighlight = this.removeTextHighlight.bind(this)
     this.addTextHighlight = this.addTextHighlight.bind(this)
-    this.removeBulletHighlight = this.removeBulletHighlight.bind(this)
-    this.addBulletHighlight = this.addBulletHighlight.bind(this)
     this.dumpItems = this.dumpItems.bind(this)
+    this.updateGraphics = this.updateGraphics.bind(this)
+    this.onBodyScroll = this.onBodyScroll.bind(this)
   }
 
   //
@@ -73,18 +72,6 @@ class PageTOC extends React.Component {
     }
   }
 
-  removeBulletHighlight(element) {
-    if (element) {
-      element.classList.remove("toc-bullet-highlight")
-    }
-  }
-
-  addBulletHighlight(element) {
-    if (element) {
-      element.classList.add("toc-bullet-highlight")
-    }
-  }
-
   //
   // For debugging, when necessary
   //
@@ -95,6 +82,70 @@ class PageTOC extends React.Component {
       console.log(idx + ": " + (item.isAbove ? " above" : " noabove"))
     })
     console.log("end items")
+  }
+
+  //
+  // Called by onBodyScroll to update graphics
+  //
+
+  updateGraphics() {
+    this.state.items.forEach((item, idx) => {
+      // Determine which lines this link needs
+      var hasTopLine = false,
+        hasBottomLine = false
+      if (idx === 0) {
+        // First item
+        hasBottomLine = true
+      } else if (idx === this.state.items.length - 1) {
+        // Last item
+        hasTopLine = true
+      } else {
+        // Middle item
+        hasTopLine = true
+        hasBottomLine = true
+      }
+
+      // Get the canvas
+      var canvas = document.querySelector("#toc-bullet-" + item.selector)
+      if (canvas) {
+        // Set canvas size to match element size
+        const bounds = canvas.getBoundingClientRect()
+        canvas.width = bounds.width
+        canvas.height = bounds.height
+
+        // Calculate some dimensions
+        const centerX = canvas.width / 2
+        const centerY = canvas.height / 2
+        const radius = centerX - 5
+        const fillRadius = radius - 4
+
+        // Get a context
+        var ctx = canvas.getContext("2d")
+
+        // Draw link
+        ctx.strokeStyle = "rgb(64,64,64)"
+        ctx.lineWidth = 2
+        ctx.beginPath()
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
+        if (hasTopLine) {
+          ctx.moveTo(centerX, 0)
+          ctx.lineTo(centerX, centerY - radius)
+        }
+        if (hasBottomLine) {
+          ctx.moveTo(centerX, centerY + radius)
+          ctx.lineTo(centerX, canvas.height)
+        }
+        ctx.stroke()
+
+        // Fill link in if this is the current item
+        if (idx === this.currentItemIdx) {
+          ctx.beginPath()
+          ctx.fillStyle = "coral"
+          ctx.arc(centerX, centerY, fillRadius, 0, 2 * Math.PI)
+          ctx.fill()
+        }
+      }
+    })
   }
 
   //
@@ -140,11 +191,6 @@ class PageTOC extends React.Component {
     if (changed || lastAboveIdx !== this.currentItemIdx) {
       if (this.currentItemIdx !== lastAboveIdx) {
         if (this.currentItemIdx !== -1) {
-          this.removeBulletHighlight(
-            document.querySelector(
-              "#toc-bullet-" + this.state.items[this.currentItemIdx].selector
-            )
-          )
           this.removeTextHighlight(
             document.querySelector(
               "#toc-text-" + this.state.items[this.currentItemIdx].selector
@@ -152,11 +198,6 @@ class PageTOC extends React.Component {
           )
         }
         if (lastAboveIdx !== -1) {
-          this.addBulletHighlight(
-            document.querySelector(
-              "#toc-bullet-" + this.state.items[lastAboveIdx].selector
-            )
-          )
           this.addTextHighlight(
             document.querySelector(
               "#toc-text-" + this.state.items[lastAboveIdx].selector
@@ -166,6 +207,9 @@ class PageTOC extends React.Component {
         this.currentItemIdx = lastAboveIdx
       }
     }
+
+    // Update graphics (every time)
+    this.updateGraphics()
   }
 
   componentDidMount() {
@@ -262,9 +306,8 @@ class PageTOC extends React.Component {
                 className={"toc-row-" + item.levelInd}
                 id={"toc-bullet-" + item.selector}
                 style={{ gridRow: idx + 1 }}
-              >
-                💩
-              </TOCBullet>
+                selector={"toc-text-" + item.selector}
+              />
               {item.levelInd === "l1" ? (
                 <TOCTextL1
                   className={"toc-row-" + item.levelInd}
