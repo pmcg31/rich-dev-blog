@@ -9,9 +9,6 @@ const TOCWrapper = styled.div`
   align-items: center;
   font-family: "Dosis", sans-serif;
   font-weight: 300;
-  .toc-row-l2 {
-    font-size: 0.8em;
-  }
   .toc-bullet-highlight {
     display: initial;
   }
@@ -31,13 +28,14 @@ const TOCTextL2 = styled.div`
   grid-column: 3 / span 1;
   padding-top: 0.125em;
   padding-bottom: 0.125em;
+  font-size: 0.8em;
 `
 
 const TOCBullet = styled.canvas`
   grid-column: 1 / span 1;
   justify-self: center;
+  align-self: stretch;
   width: 1.6em;
-  height: 100%;
 `
 
 class PageTOC extends React.Component {
@@ -116,8 +114,14 @@ class PageTOC extends React.Component {
         // Calculate some dimensions
         const centerX = canvas.width / 2
         const centerY = canvas.height / 2
-        const radius = centerX - 5
-        const fillRadius = radius - 4
+        var radius = centerX * 0.65
+        var fillRadius = radius * 0.5
+
+        // Adjust radius for l2
+        if (item.levelInd === "l2") {
+          radius = radius * 0.8
+          fillRadius = fillRadius * 0.8
+        }
 
         // Get a context
         var ctx = canvas.getContext("2d")
