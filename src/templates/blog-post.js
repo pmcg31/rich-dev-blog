@@ -87,11 +87,24 @@ const MDXWrapper = styled.div`
     padding-left: 3.75em;
     border-left: 0.25em solid coral;
   }
+  code {
+    background-color: rgb(64, 64, 64);
+  }
   code.language-text {
     background-color: #98562d;
-    border-radius: 0.2em;
-    padding: 0.2em;
-    padding-top: 0.3em;
+    font-size: 0.75em;
+  }
+  pre {
+    code {
+      padding: 0;
+    }
+    margin: 0.5em;
+    background-color: rgb(64, 64, 64);
+    border-radius: 0.5em;
+    padding: 0.3em;
+    font-size: 0.65em;
+    overflow: auto;
+    max-height: 50vh;
   }
   span.line-numbers-rows {
     padding-top: 0.35em;
@@ -132,24 +145,6 @@ const MDXWrapper = styled.div`
     max-width: 100%;
     max-height: 100vh;
     border-radius: 0.5em;
-  }
-  pre {
-    code {
-      padding: 0;
-    }
-    margin: 0.5em;
-    background-color: rgb(64, 64, 64);
-    border-radius: 0.5em;
-    padding: 0.3em;
-    font-size: 0.95em;
-    overflow: auto;
-    max-height: 50vh;
-  }
-  code {
-    background-color: rgb(64, 64, 64);
-    border-radius: 0.2em;
-    padding: 0.2em;
-    padding-top: 0.3em;
   }
 `
 
