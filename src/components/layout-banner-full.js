@@ -20,6 +20,7 @@ const Banner = styled.div`
   border-bottom-color: rgb(160, 160, 160);
   padding-bottom: 0.4em;
   padding-top: 0.2em;
+  padding-left: 0.4em;
 `
 
 const SiteIcon = styled(IdeaUpSiteIcon)`
