@@ -105,6 +105,7 @@ const MDXWrapper = styled.div`
   }
   iframe {
     border-radius: 0.5em;
+    max-height: 100vh;
   }
   a {
     color: #00abff;
@@ -129,6 +130,7 @@ const MDXWrapper = styled.div`
   }
   img {
     max-width: 100%;
+    max-height: 100vh;
     border-radius: 0.5em;
   }
   pre {
