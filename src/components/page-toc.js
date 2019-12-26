@@ -126,11 +126,10 @@ class PageTOC extends React.Component {
         // Get a context
         var ctx = canvas.getContext("2d")
 
-        // Draw link
-        ctx.strokeStyle = "rgb(64,64,64)"
-        ctx.lineWidth = 2
+        // Draw link(s) to neighbor(s)
         ctx.beginPath()
-        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
+        ctx.strokeStyle = "rgb(64,64,64)"
+        ctx.lineWidth = 1
         if (hasTopLine) {
           ctx.moveTo(centerX, 0)
           ctx.lineTo(centerX, centerY - radius)
@@ -139,6 +138,13 @@ class PageTOC extends React.Component {
           ctx.moveTo(centerX, centerY + radius)
           ctx.lineTo(centerX, canvas.height)
         }
+        ctx.stroke()
+
+        // Draw circle
+        ctx.beginPath()
+        ctx.strokeStyle = "rgb(96,96,96)"
+        ctx.lineWidth = 1.5
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI)
         ctx.stroke()
 
         // Fill link in if this is the current item

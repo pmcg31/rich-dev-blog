@@ -63,7 +63,7 @@ const NavWrapper = styled.div`
   position: -webkit-sticky;
   position: sticky;
   top: 1.5em;
-  padding-top: 0.2em;
+  padding-top: 1em;
   margin-block-start: 0.4em;
   margin-block-end: 0.4em;
   font-family: "Solway", serif;
