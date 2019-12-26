@@ -334,7 +334,7 @@ class PageTOC extends React.Component {
                   style={{ gridRow: idx + 1 }}
                 >
                   <a href={item.hash} key={"toc-link-" + item.selector}>
-                    {idx === 0 ? "Top" : item.target.innerText}
+                    {idx === 0 ? "Intro" : item.target.innerText}
                   </a>
                 </TOCTextL1>
               ) : (
@@ -345,7 +345,7 @@ class PageTOC extends React.Component {
                   style={{ gridRow: idx + 1 }}
                 >
                   <a href={item.hash} key={"toc-link-" + item.selector}>
-                    {idx === 0 ? "Top" : item.target.innerText}
+                    {idx === 0 ? "Intro" : item.target.innerText}
                   </a>
                 </TOCTextL2>
               )}
