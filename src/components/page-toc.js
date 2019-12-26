@@ -39,6 +39,10 @@ const StyledDiv = styled.div`
   }
 `
 
+const InvisiDiv = styled(StyledDiv)`
+  display: none;
+`
+
 var items = []
 var currentItemIdx = -1
 
@@ -158,6 +162,13 @@ class PageTOC extends React.Component {
     // parser
     var anchors = document.getElementsByClassName("anchor")
 
+    // If no anchors, skip everything and render
+    // ourselves invisible
+    if (anchors.length === 0) {
+      this.setState({ html: null })
+      return
+    }
+
     // Some vars
     var i,
       levelInd = "l1",
@@ -232,8 +243,11 @@ class PageTOC extends React.Component {
 
   componentDidUpdate() {
     // Kick things once the page renders to
-    // set the initial highlight
-    onBodyScroll()
+    // set the initial highlight (if there
+    // is html)
+    if (this.state.html !== null) {
+      onBodyScroll()
+    }
   }
 
   componentWillUnmount() {
@@ -244,14 +258,20 @@ class PageTOC extends React.Component {
   }
 
   render() {
-    // Your TOC, sir...
-    return (
-      <StyledDiv
-        id="page-toc"
-        className={this.props.className}
-        dangerouslySetInnerHTML={{ __html: this.state.html }}
-      />
-    )
+    // Is there html?
+    if (this.state.html === null) {
+      // Got nothin' for ya
+      return <InvisiDiv />
+    } else {
+      // Your TOC, sir...
+      return (
+        <StyledDiv
+          id="page-toc"
+          className={this.props.className}
+          dangerouslySetInnerHTML={{ __html: this.state.html }}
+        />
+      )
+    }
   }
 }
 
