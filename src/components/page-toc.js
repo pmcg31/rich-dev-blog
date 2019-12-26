@@ -306,7 +306,6 @@ class PageTOC extends React.Component {
                 className={"toc-row-" + item.levelInd}
                 id={"toc-bullet-" + item.selector}
                 style={{ gridRow: idx + 1 }}
-                selector={"toc-text-" + item.selector}
               />
               {item.levelInd === "l1" ? (
                 <TOCTextL1
