@@ -98,7 +98,6 @@ const Layout = ({ title, showStyle, sbLeft, content, sbRight }) => {
 
   // Set the header height and select the proper banner
   // layout based on the showStyle prop
-  let headerHeight
   let Banner
   if ("full" === showStyle) {
     Banner = LayoutBannerFull

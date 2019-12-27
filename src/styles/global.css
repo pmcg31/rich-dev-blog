@@ -3,7 +3,7 @@ html {
   color: rgb(120, 120, 120);
   font-family: "Dosis", sans-serif;
   font-weight: 300;
-  font-size: calc(16px + 0.25vmin);
+  font-size: calc(16px + 0.2vmin);
   -webkit-text-size-adjust: 100%;
 }
 a {

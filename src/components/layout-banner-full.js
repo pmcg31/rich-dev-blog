@@ -20,6 +20,7 @@ const Banner = styled.div`
   border-bottom-color: rgb(160, 160, 160);
   padding-bottom: 0.4em;
   padding-top: 0.2em;
+  padding-left: 0.4em;
 `
 
 const SiteIcon = styled(IdeaUpSiteIcon)`
@@ -43,6 +44,10 @@ const Hulk = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   padding-left: 1.3em;
+`
+
+const StyledLink = styled(Link)`
+  align-self: flex-start;
 `
 
 const SmallText = styled.div`
@@ -69,9 +74,9 @@ const LayoutBannerFull = () => {
         <SiteIcon id="site-icon" />
       </Link>
       <Hulk>
-        <Link to="/">
+        <StyledLink to="/">
           <SiteLogo />
-        </Link>
+        </StyledLink>
         <SmallText>
           <Link to="/">Rich’s Design &amp; Creativity Sandbox</Link>
         </SmallText>

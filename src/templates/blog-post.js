@@ -50,7 +50,7 @@ const PostContent = styled.section`
   grid-template-columns: minmax(0, 1fr) 3fr;
   grid-column-gap: 1em;
   align-items: start;
-  @media (max-width: 40em), (max-height: 60em) {
+  @media (max-width: 40em), (max-height: 50em) {
     grid-template-columns: minmax(0, 1fr);
     #nav-wrapper {
       display: none;
@@ -63,7 +63,7 @@ const NavWrapper = styled.div`
   position: -webkit-sticky;
   position: sticky;
   top: 1.5em;
-  padding-top: 0.2em;
+  padding-top: 1em;
   margin-block-start: 0.4em;
   margin-block-end: 0.4em;
   font-family: "Solway", serif;
@@ -84,11 +84,24 @@ const MDXWrapper = styled.div`
     padding-left: 3.5em;
     border-left: 0.25em solid coral;
   }
+  code {
+    background-color: rgb(64, 64, 64);
+  }
   code.language-text {
     background-color: #98562d;
-    border-radius: 0.2em;
-    padding: 0.2em;
-    padding-top: 0.3em;
+    font-size: 0.75em;
+  }
+  pre {
+    code {
+      padding: 0;
+    }
+    margin: 0.5em;
+    background-color: rgb(64, 64, 64);
+    border-radius: 0.5em;
+    padding: 0.3em;
+    font-size: 0.65em;
+    overflow: auto;
+    max-height: 50vh;
   }
   span.line-numbers-rows {
     padding-top: 0.35em;
@@ -102,6 +115,7 @@ const MDXWrapper = styled.div`
   }
   iframe {
     border-radius: 0.5em;
+    max-height: 100vh;
   }
   a {
     color: #00abff;
@@ -126,25 +140,8 @@ const MDXWrapper = styled.div`
   }
   img {
     max-width: 100%;
+    max-height: 100vh;
     border-radius: 0.5em;
-  }
-  pre {
-    code {
-      padding: 0;
-    }
-    margin: 0.5em;
-    background-color: rgb(64, 64, 64);
-    border-radius: 0.5em;
-    padding: 0.3em;
-    font-size: 0.95em;
-    overflow: auto;
-    max-height: 50vh;
-  }
-  code {
-    background-color: rgb(64, 64, 64);
-    border-radius: 0.2em;
-    padding: 0.2em;
-    padding-top: 0.3em;
   }
 `
 
@@ -193,11 +190,17 @@ const StyledArticle = styled.article`
 `
 
 const NavContainer = styled.ul`
-  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   list-style: none;
   padding: 0;
+  border-top: solid;
+  border-width: 1px;
+  padding-top: 0.75em;
+  display: none;
+  @media (max-width: 40em), (max-height: 50em) {
+    display: flex;
+  }
 `
 
 const NavPrevious = styled.li`
@@ -243,15 +246,27 @@ class BlogPostTemplate extends React.Component {
               </PostHeader>
               <PostContent>
                 <NavWrapper id="nav-wrapper">
-                  <PageTOC />
+                  <PageTOC
+                    up={{ target: "/", text: "Back to List" }}
+                    previous={
+                      previous && {
+                        target: previous.fields.slug,
+                        text: previous.frontmatter.title,
+                      }
+                    }
+                    next={
+                      next && {
+                        target: next.fields.slug,
+                        text: next.frontmatter.title,
+                      }
+                    }
+                  />
                 </NavWrapper>
                 <MDXWrapper id="post-content">
                   <MDXRenderer>{post.body}</MDXRenderer>
                 </MDXWrapper>
               </PostContent>
             </StyledArticle>
-            <hr />
-
             <nav>
               <NavContainer>
                 <NavPrevious>
