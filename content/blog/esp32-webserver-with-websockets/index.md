@@ -9,7 +9,7 @@ The ESP32 combined with AsyncWebServer and AsyncWebSocket create a powerful fram
 
 This guide sets up a web server which reports the ADC values coming from GPIO 36. A potentiometer is used to provide a changing input. The page sports a range slider that controls how many measurements are averaged together to smooth out the reported value (mine was quite jumpy).
 
-This arrangement creates a small, concise example that illustrates two-way communications with web sockets. It shows how to control settings on the server (the number of measurements averaged) from the client and how to display a changing data (the potentiometer value) on a web page in real time.
+This arrangement creates a small, concise example that illustrates two-way communications with web sockets. It shows how to control settings on the server (the number of measurements averaged) from the client and how to display changing data (the potentiometer value) on a web page in real time.
 
 The project uses AsyncWebServer to serve up a static page stored in the ESP32's SPIFFS filesystem. On load, the page connects back to the server using a web socket. Data is exchanged in both directions over the web socket using JSON. Last, but not least, mDNS is used to allow the web server to be found on the local network at `http://esp32.local`.
 
