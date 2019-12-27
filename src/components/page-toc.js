@@ -41,6 +41,24 @@ const TOCBullet = styled.canvas`
   cursor: pointer;
 `
 
+const ArticleRef = styled.p`
+  color: coral;
+  font-size: 0.8em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin: auto;
+`
+
+const TOCSpacer = styled.div`
+  grid-column: 1 / span 3;
+  height: 1em;
+`
+
+const OffPageText = styled.p`
+  font-weight: 400;
+  margin: auto;
+`
+
 class PageTOC extends React.Component {
   constructor(props) {
     super(props)
@@ -49,12 +67,128 @@ class PageTOC extends React.Component {
 
     this.currentItemIdx = -1
 
+    this.arrowPts = [
+      { type: "m", x: 0.5002237518, y: 0.1206341765 },
+      {
+        type: "b",
+        cp1x: 0.5246020415,
+        cp1y: 0.1206341765,
+        cp2x: 0.5417776547,
+        cp2y: 0.1355509621,
+        x: 0.5573550408,
+        y: 0.15379206,
+      },
+      {
+        type: "b",
+        cp1x: 0.572932427,
+        cp1y: 0.1720331579,
+        cp2x: 0.94154751,
+        cp2y: 0.5812645172,
+        x: 0.9548021395,
+        y: 0.5954141539,
+      },
+      {
+        type: "b",
+        cp1x: 1,
+        cp1y: 0.6435527521,
+        cp2x: 0.9594476527,
+        cp2y: 0.6870458372,
+        x: 0.9329383937,
+        y: 0.6870458372,
+      },
+      { type: "l", x: 0.7728386643, y: 0.6870458372 },
+      {
+        type: "b",
+        cp1x: 0.7478637032,
+        cp1y: 0.6870458372,
+        cp2x: 0.7315830972,
+        cp2y: 0.6937157713,
+        x: 0.7315830972,
+        y: 0.730965116,
+      },
+      {
+        type: "b",
+        cp1x: 0.7315830972,
+        cp1y: 0.7682144608,
+        cp2x: 0.7313273808,
+        cp2y: 0.7942335969,
+        x: 0.7313273808,
+        y: 0.830758412,
+      },
+      {
+        type: "b",
+        cp1x: 0.7313273808,
+        cp1y: 0.8672832271,
+        cp2x: 0.7017069065,
+        cp2y: 0.8793658235,
+        x: 0.6856820167,
+        y: 0.8793658235,
+      },
+      { type: "l", x: 0.3137213118, y: 0.8793658235 },
+      {
+        type: "b",
+        cp1x: 0.2976964221,
+        cp1y: 0.8793658235,
+        cp2x: 0.2680972574,
+        cp2y: 0.8672832271,
+        x: 0.2680972574,
+        y: 0.830758412,
+      },
+      {
+        type: "b",
+        cp1x: 0.2680972574,
+        cp1y: 0.7942335969,
+        cp2x: 0.2683742835,
+        cp2y: 0.7682357705,
+        x: 0.2683742835,
+        y: 0.730965116,
+      },
+      {
+        type: "b",
+        cp1x: 0.2680972574,
+        cp1y: 0.7942335969,
+        cp2x: 0.2683742835,
+        cp2y: 0.7682357705,
+        x: 0.2683742835,
+        y: 0.730965116,
+      },
+      { type: "l", x: 0.06706160632, y: 0.6870458372 },
+      {
+        type: "b",
+        cp1x: 0.04055234726,
+        cp1y: 0.6870458372,
+        cp2x: 0,
+        cp2y: 0.6435101328,
+        x: 0.04519786051,
+        y: 0.5954141539,
+      },
+      {
+        type: "b",
+        cp1x: 0.02009504123,
+        cp1y: 0.5812645172,
+        cp2x: 0.4270462633,
+        cp2y: 0.1720118482,
+        x: 0.4042875104,
+        y: 0.1537494406,
+      },
+      {
+        type: "b",
+        cp1x: 0.3815287574,
+        cp1y: 0.1354870331,
+        cp2x: 0.4753553391,
+        cp2y: 0.1206341765,
+        x: 0.4996483901,
+        y: 0.1206341765,
+      },
+    ]
+
     this.removeTextHighlight = this.removeTextHighlight.bind(this)
     this.addTextHighlight = this.addTextHighlight.bind(this)
     this.dumpItems = this.dumpItems.bind(this)
     this.updateGraphics = this.updateGraphics.bind(this)
     this.onBodyScroll = this.onBodyScroll.bind(this)
-    this.handleClick = this.handleClick.bind(this)
+    this.handleInPageClick = this.handleInPageClick.bind(this)
+    this.handleOffPageClick = this.handleOffPageClick.bind(this)
   }
 
   //
@@ -91,6 +225,166 @@ class PageTOC extends React.Component {
   //
 
   updateGraphics() {
+    //
+    // Off-page nav
+    //
+
+    var canvas, ctx
+
+    // Up
+    canvas = document.querySelector("#toc-bullet-props-up")
+    if (canvas) {
+      // Set canvas size to match element size
+      const bounds = canvas.getBoundingClientRect()
+      canvas.width = Math.ceil(bounds.width)
+      canvas.height = Math.ceil(bounds.height)
+
+      // Calculate some dimensions
+      const centerX = canvas.width / 2
+      const centerY = canvas.height / 2
+      const boundBoxSide = canvas.width * 0.65
+      const halfBoundBoxSide = boundBoxSide / 2
+
+      // Get a context
+      ctx = canvas.getContext("2d")
+
+      // Compute x/y offset and scale factor
+      const xOffset = centerX - halfBoundBoxSide,
+        yOffset = centerY - halfBoundBoxSide,
+        factor = boundBoxSide
+
+      // Draw arrow points, scaling/translating
+      // as we go
+      ctx.beginPath()
+      ctx.strokeStyle = "rgb(120,120,120)"
+      ctx.lineWidth = 1.5
+      this.arrowPts.forEach(point => {
+        if ("m" === point.type) {
+          ctx.moveTo(point.x * factor + xOffset, point.y * factor + yOffset)
+        }
+        if ("l" === point.type) {
+          ctx.lineTo(point.x * factor + xOffset, point.y * factor + yOffset)
+        }
+        if ("b" === point.type) {
+          ctx.bezierCurveTo(
+            point.cp1x * factor + xOffset,
+            point.cp1y * factor + yOffset,
+            point.cp2x * factor + xOffset,
+            point.cp2y * factor + yOffset,
+            point.x * factor + xOffset,
+            point.y * factor + yOffset
+          )
+        }
+      })
+      ctx.stroke()
+    }
+
+    // Previous
+    canvas = document.querySelector("#toc-bullet-props-previous")
+    if (canvas) {
+      // Set canvas size to match element size
+      const bounds = canvas.getBoundingClientRect()
+      canvas.width = Math.ceil(bounds.width)
+      canvas.height = Math.ceil(bounds.height)
+
+      // Calculate some dimensions
+      const centerX = canvas.width / 2
+      const centerY = canvas.height / 2
+      const boundBoxSide = canvas.width * 0.65
+      const halfBoundBoxSide = boundBoxSide / 2
+
+      // Get a context
+      ctx = canvas.getContext("2d")
+
+      // Compute x/y offset and scale factor
+      const xOffset = centerX - halfBoundBoxSide,
+        yOffset = centerY - halfBoundBoxSide,
+        factor = boundBoxSide
+
+      // Draw arrow points, scaling/translating
+      // (and rotating!) as we go
+      ctx.beginPath()
+      ctx.strokeStyle = "rgb(120,120,120)"
+      ctx.lineWidth = 1.5
+      this.arrowPts.forEach(point => {
+        if ("m" === point.type) {
+          ctx.moveTo(point.y * factor + xOffset, point.x * factor + yOffset)
+        }
+        if ("l" === point.type) {
+          ctx.lineTo(point.y * factor + xOffset, point.x * factor + yOffset)
+        }
+        if ("b" === point.type) {
+          ctx.bezierCurveTo(
+            point.cp1y * factor + xOffset,
+            point.cp1x * factor + yOffset,
+            point.cp2y * factor + xOffset,
+            point.cp2x * factor + yOffset,
+            point.y * factor + xOffset,
+            point.x * factor + yOffset
+          )
+        }
+      })
+      ctx.stroke()
+    }
+
+    // Next
+    canvas = document.querySelector("#toc-bullet-props-next")
+    if (canvas) {
+      // Set canvas size to match element size
+      const bounds = canvas.getBoundingClientRect()
+      canvas.width = Math.ceil(bounds.width)
+      canvas.height = Math.ceil(bounds.height)
+
+      // Calculate some dimensions
+      const centerX = canvas.width / 2
+      const centerY = canvas.height / 2
+      const boundBoxSide = canvas.width * 0.65
+      const halfBoundBoxSide = boundBoxSide / 2
+
+      // Get a context
+      ctx = canvas.getContext("2d")
+
+      // Compute x/y offset and scale factor
+      const xOffset = centerX - halfBoundBoxSide,
+        yOffset = centerY - halfBoundBoxSide,
+        factor = boundBoxSide
+
+      // Draw arrow points, scaling/translating
+      // (and rotating and reflecting!) as we go
+      ctx.beginPath()
+      ctx.strokeStyle = "rgb(120,120,120)"
+      ctx.lineWidth = 1.5
+      this.arrowPts.forEach(point => {
+        if ("m" === point.type) {
+          ctx.moveTo(
+            (1 - point.y) * factor + xOffset,
+            point.x * factor + yOffset
+          )
+        }
+        if ("l" === point.type) {
+          ctx.lineTo(
+            (1 - point.y) * factor + xOffset,
+            point.x * factor + yOffset
+          )
+        }
+        if ("b" === point.type) {
+          ctx.bezierCurveTo(
+            (1 - point.cp1y) * factor + xOffset,
+            point.cp1x * factor + yOffset,
+            (1 - point.cp2y) * factor + xOffset,
+            point.cp2x * factor + yOffset,
+            (1 - point.y) * factor + xOffset,
+            point.x * factor + yOffset
+          )
+        }
+      })
+      ctx.stroke()
+    }
+
+    //
+    // In-page nav
+    //
+
     this.state.items.forEach((item, idx) => {
       // Determine which lines this link needs
       var hasTopLine = true,
@@ -105,12 +399,12 @@ class PageTOC extends React.Component {
       }
 
       // Get the canvas
-      var canvas = document.querySelector("#toc-bullet-" + item.selector)
+      canvas = document.querySelector("#toc-bullet-" + item.selector)
       if (canvas) {
         // Set canvas size to match element size
         const bounds = canvas.getBoundingClientRect()
-        canvas.width = bounds.width
-        canvas.height = bounds.height
+        canvas.width = Math.ceil(bounds.width)
+        canvas.height = Math.ceil(bounds.height)
 
         // Calculate some dimensions
         const centerX = canvas.width / 2
@@ -125,7 +419,7 @@ class PageTOC extends React.Component {
         }
 
         // Get a context
-        var ctx = canvas.getContext("2d")
+        ctx = canvas.getContext("2d")
 
         // Draw link(s) to neighbor(s)
         ctx.beginPath()
@@ -294,18 +588,61 @@ class PageTOC extends React.Component {
     this.currentItemIdx = -1
   }
 
-  handleClick(e) {
+  //
+  // Called when an in-page item is clicked
+  // (bullet or text)
+  //
+
+  handleInPageClick(e) {
+    // Try to find the item
     this.state.items.forEach(item => {
       if (
         "toc-bullet-" + item.selector === e.nativeEvent.target.id ||
         "toc-text-" + item.selector === e.nativeEvent.target.id
       ) {
+        // Found it; scroll to its target
         window.scrollBy({
           top: item.target.getBoundingClientRect().top,
           behavior: "smooth",
         })
       }
     })
+  }
+
+  //
+  // Called when an off-page item is clicked
+  // (bullet or text)
+  //
+
+  handleOffPageClick(e) {
+    // Handle "up" nav
+    if (
+      "toc-bullet-props-up" === e.nativeEvent.target.id ||
+      "toc-text-props-up" === e.nativeEvent.target.id ||
+      "toc-offpage-text-props-up" === e.nativeEvent.target.id
+    ) {
+      window.location.href = this.props.up.target
+    }
+
+    // Handle "previous" nav
+    if (
+      "toc-bullet-props-previous" === e.nativeEvent.target.id ||
+      "toc-text-props-previous" === e.nativeEvent.target.id ||
+      "toc-offpage-text-props-previous" === e.nativeEvent.target.id ||
+      "toc-text-ref-props-previous" === e.nativeEvent.target.id
+    ) {
+      window.location.href = this.props.previous.target
+    }
+
+    // Handle "next" nav
+    if (
+      "toc-bullet-props-next" === e.nativeEvent.target.id ||
+      "toc-text-props-next" === e.nativeEvent.target.id ||
+      "toc-offpage-text-props-next" === e.nativeEvent.target.id ||
+      "toc-text-ref-props-next" === e.nativeEvent.target.id
+    ) {
+      window.location.href = this.props.next.target
+    }
   }
 
   render() {
@@ -315,24 +652,56 @@ class PageTOC extends React.Component {
     // keys. This list never changes, so the keys
     // are pretty irrelevant, but there's no telling
     // react that. This keeps it quiet (shhhh)
+    var row = 1
     return (
       <TOCWrapper id="page-toc" key="page-toc" className={this.props.className}>
+        {this.props.up && (
+          <React.Fragment key="toc-fragment-props-up">
+            <TOCBullet
+              className="toc-row-l1"
+              id="toc-bullet-props-up"
+              key="toc-bullet-props-up"
+              style={{ gridRow: row }}
+              onClick={this.handleOffPageClick}
+            />
+            <TOCTextL1
+              className="toc-row-l1"
+              id="toc-text-props-up"
+              key="toc-text-props-up"
+              style={{ gridRow: row++ }}
+              onClick={this.handleOffPageClick}
+            >
+              <OffPageText
+                id="toc-offpage-text-props-up"
+                key="toc-offpage-text-props-up"
+              >
+                {this.props.up.text}
+              </OffPageText>
+            </TOCTextL1>
+            <TOCSpacer
+              className="toc-spacer toc-spacer-top"
+              key="toc-spacer-top"
+              id="toc-spacer-top"
+              style={{ gridRow: row++ }}
+            />
+          </React.Fragment>
+        )}
         {this.state.items.map((item, idx) => (
           <React.Fragment key={"toc-fragment-" + item.selector}>
             <TOCBullet
               className={"toc-row-" + item.levelInd}
               id={"toc-bullet-" + item.selector}
               key={"toc-bullet-" + item.selector}
-              style={{ gridRow: idx + 1 }}
-              onClick={this.handleClick}
+              style={{ gridRow: row }}
+              onClick={this.handleInPageClick}
             />
             {item.levelInd === "l1" ? (
               <TOCTextL1
                 className={"toc-row-" + item.levelInd}
                 id={"toc-text-" + item.selector}
                 key={"toc-text-" + item.selector}
-                style={{ gridRow: idx + 1 }}
-                onClick={this.handleClick}
+                style={{ gridRow: row++ }}
+                onClick={this.handleInPageClick}
               >
                 {idx === 0 ? "Intro" : item.target.innerText}
               </TOCTextL1>
@@ -341,14 +710,84 @@ class PageTOC extends React.Component {
                 className={"toc-row-" + item.levelInd}
                 id={"toc-text-" + item.selector}
                 key={"toc-text-" + item.selector}
-                style={{ gridRow: idx + 1 }}
-                onClick={this.handleClick}
+                style={{ gridRow: row++ }}
+                onClick={this.handleInPageClick}
               >
                 {idx === 0 ? "Intro" : item.target.innerText}
               </TOCTextL2>
             )}
           </React.Fragment>
         ))}
+        {this.props.previous && (
+          <React.Fragment key="toc-fragment-props-previous">
+            <TOCSpacer
+              className="toc-spacer toc-spacer-bottom"
+              key="toc-spacer-bottom"
+              id="toc-spacer-bottom"
+              style={{ gridRow: row++ }}
+            />
+            <TOCBullet
+              className="toc-row-l1"
+              id="toc-bullet-props-previous"
+              key="toc-bullet-props-previous"
+              style={{ gridRow: row }}
+              onClick={this.handleOffPageClick}
+            />
+            <TOCTextL1
+              className="toc-row-l1"
+              id="toc-text-props-previous"
+              key="toc-text-props-previous"
+              style={{ gridRow: row++ }}
+              onClick={this.handleOffPageClick}
+            >
+              <OffPageText
+                id="toc-offpage-text-props-previous"
+                key="toc-offpage-text-props-previous"
+              >
+                Previous Article
+              </OffPageText>
+              <ArticleRef id="toc-text-ref-props-previous">
+                {this.props.previous.text}
+              </ArticleRef>
+            </TOCTextL1>
+          </React.Fragment>
+        )}
+        {this.props.next && (
+          <React.Fragment key="toc-fragment-props-next">
+            {!this.props.previous && (
+              <TOCSpacer
+                className="toc-spacer toc-spacer-bottom"
+                key="toc-spacer-bottom"
+                id="toc-spacer-bottom"
+                style={{ gridRow: row++ }}
+              />
+            )}
+            <TOCBullet
+              className="toc-row-l1"
+              id="toc-bullet-props-next"
+              key="toc-bullet-props-next"
+              style={{ gridRow: row }}
+              onClick={this.handleOffPageClick}
+            />
+            <TOCTextL1
+              className="toc-row-l1"
+              id="toc-text-props-next"
+              key="toc-text-props-next"
+              style={{ gridRow: row++ }}
+              onClick={this.handleOffPageClick}
+            >
+              <OffPageText
+                id="toc-offpage-text-props-next"
+                key="toc-offpage-text-props-next"
+              >
+                Next Article
+              </OffPageText>
+              <ArticleRef id="toc-text-ref-props-next">
+                {this.props.next.text}
+              </ArticleRef>
+            </TOCTextL1>
+          </React.Fragment>
+        )}
       </TOCWrapper>
     )
   }

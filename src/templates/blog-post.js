@@ -193,11 +193,17 @@ const StyledArticle = styled.article`
 `
 
 const NavContainer = styled.ul`
-  display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   list-style: none;
   padding: 0;
+  border-top: solid;
+  border-width: 1px;
+  padding-top: 0.75em;
+  display: none;
+  @media (max-width: 40em), (max-height: 50em) {
+    display: flex;
+  }
 `
 
 const NavPrevious = styled.li`
@@ -243,15 +249,27 @@ class BlogPostTemplate extends React.Component {
               </PostHeader>
               <PostContent>
                 <NavWrapper id="nav-wrapper">
-                  <PageTOC />
+                  <PageTOC
+                    up={{ target: "/", text: "Back to List" }}
+                    previous={
+                      previous && {
+                        target: previous.fields.slug,
+                        text: previous.frontmatter.title,
+                      }
+                    }
+                    next={
+                      next && {
+                        target: next.fields.slug,
+                        text: next.frontmatter.title,
+                      }
+                    }
+                  />
                 </NavWrapper>
                 <MDXWrapper id="post-content">
                   <MDXRenderer>{post.body}</MDXRenderer>
                 </MDXWrapper>
               </PostContent>
             </StyledArticle>
-            <hr />
-
             <nav>
               <NavContainer>
                 <NavPrevious>
