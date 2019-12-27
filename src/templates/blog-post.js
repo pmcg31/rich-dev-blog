@@ -76,6 +76,9 @@ const MDXWrapper = styled.div`
   grid-column: 2 / span 1;
   min-width: 0;
   margin: 0 0;
+  .gatsby-highlight-code-line::after {
+    content: " ";
+  }
   .gatsby-highlight-code-line {
     display: block;
     margin-right: -1em;
