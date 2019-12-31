@@ -1,4 +1,5 @@
 import React from "react"
+import atob from "atob"
 
 const SvgInline = props => {
   var svgContent = "<div></div>"
