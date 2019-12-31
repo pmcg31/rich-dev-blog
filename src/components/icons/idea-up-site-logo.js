@@ -1,31 +1,38 @@
 import React from "react"
 import styled from "styled-components"
-import svgBase64 from "../../../content/assets/icons/astronomy-category-icon.svg"
-import SvgInline from "../svg-inline"
+import svgBase64 from "../../../content/assets/icons/site-logo.svg"
+import SvgInline from "../../components/svg-inline"
 
 const StyledSvg = styled(SvgInline)`
-  .idea-up-astronomy-icon-tripod {
+  .idea-up-site-icon-arrow {
     fill: none;
     stroke: coral;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 24px;
   }
-  .idea-up-astronomy-icon-telescope {
+  .idea-up-site-icon-threads {
     fill: none;
     stroke: coral;
     stroke-linecap: round;
     stroke-linejoin: round;
-    stroke-width: 18px;
+    stroke-width: 24px;
   }
-  .idea-up-astronomy-icon-shine {
+  .idea-up-site-icon-shine {
     fill: none;
-    stroke: #000;
+    stroke: coral;
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-width: 12px;
   }
-  .idea-up-astronomy-border-circle {
+  .idea-up-site-icon-rays {
+    fill: none;
+    stroke: coral;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 20px;
+  }
+  .idea-up-site-icon-border-circle {
     fill: none;
     stroke: coral;
     stroke-miterlimit: 10;
@@ -33,7 +40,7 @@ const StyledSvg = styled(SvgInline)`
   }
 `
 
-class IdeaUpAstronomyIcon extends React.Component {
+class IdeaUpSiteLogo extends React.Component {
   render() {
     return (
       <StyledSvg
@@ -45,4 +52,4 @@ class IdeaUpAstronomyIcon extends React.Component {
   }
 }
 
-export default IdeaUpAstronomyIcon
+export default IdeaUpSiteLogo

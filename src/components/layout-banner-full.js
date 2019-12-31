@@ -1,8 +1,8 @@
 import React, { useEffect } from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import IdeaUpSiteIcon from "../components/icons/idea-up-site-icon"
-import IdeaUpTextLogo from "../components/idea-up-text-logo"
+import IdeaUpSiteLogo from "../components/icons/idea-up-site-logo"
+import IdeaUpTextLogo from "../components/icons/idea-up-text-logo"
 
 // This file creates a full size banner for the header
 
@@ -23,7 +23,7 @@ const Banner = styled.div`
   padding-left: 0.4em;
 `
 
-const SiteIcon = styled(IdeaUpSiteIcon)`
+const SiteLogo = styled(IdeaUpSiteLogo)`
   grid-area: icon;
   width: 7em;
   height: 7em;
@@ -33,9 +33,11 @@ const SiteIcon = styled(IdeaUpSiteIcon)`
   }
 `
 
-const SiteLogo = styled(IdeaUpTextLogo)`
+const TextLogo = styled(IdeaUpTextLogo)`
   order: 1;
-  height: 4em;
+  svg {
+    height: 4em;
+  }
 `
 
 const Hulk = styled.div`
@@ -60,7 +62,7 @@ const SmallText = styled.div`
 const LayoutBannerFull = () => {
   useEffect(() => {
     var rays = document
-      .getElementById("site-icon")
+      .getElementById("site-logo")
       .getElementsByClassName("idea-up-site-icon-rays")
     var raysLen = rays.length
 
@@ -71,11 +73,11 @@ const LayoutBannerFull = () => {
   return (
     <Banner>
       <Link to="/">
-        <SiteIcon id="site-icon" />
+        <SiteLogo id="site-logo" />
       </Link>
       <Hulk>
         <StyledLink to="/">
-          <SiteLogo />
+          <TextLogo />
         </StyledLink>
         <SmallText>
           <Link to="/">Rich’s Design &amp; Creativity Sandbox</Link>

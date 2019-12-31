@@ -1,8 +1,8 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
-import IdeaUpSiteIcon from "../components/icons/idea-up-site-icon"
-import IdeaUpTextLogo from "../components/idea-up-text-logo"
+import IdeaUpSiteLogo from "../components/icons/idea-up-site-logo"
+import IdeaUpTextLogo from "../components/icons/idea-up-text-logo"
 
 const Banner = styled.div`
   display: flex;
@@ -17,26 +17,28 @@ const Banner = styled.div`
   padding-left: 0.2em;
 `
 
-const SiteIcon = styled(IdeaUpSiteIcon)`
+const SiteLogo = styled(IdeaUpSiteLogo)`
   order: 1;
   width: 3em;
   height: 3em;
 `
 
-const SiteLogo = styled(IdeaUpTextLogo)`
+const TextLogo = styled(IdeaUpTextLogo)`
   order: 2;
-  height: 2em;
   padding-left: 0.5em;
+  svg {
+    height: 2em;
+  }
 `
 
 const LayoutBannerCompact = () => {
   return (
     <Banner>
       <Link to="/">
-        <SiteIcon id="site-icon" />
+        <SiteLogo id="site-icon" />
       </Link>
       <Link to="/">
-        <SiteLogo id="site-logo" />
+        <TextLogo id="site-logo" />
       </Link>
     </Banner>
   )
