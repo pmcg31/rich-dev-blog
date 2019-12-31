@@ -17,6 +17,7 @@
   "dependencies": {
     "@mdx-js/mdx": "^1.5.1",
     "@mdx-js/react": "^1.5.1",
+    "atob": "^2.1.2",
     "babel-plugin-styled-components": "^1.10.6",
     "create-react-class": "^15.6.3",
     "gatsby": "^2.18.4",
