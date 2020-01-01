@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import svgBase64 from "../../../content/assets/icons/photography-category-icon.svg"
+import toReactComponent from "svgr.macro"
 import SvgInline from "../svg-inline"
 
 const StyledSvg = styled(SvgInline)`
@@ -39,7 +39,9 @@ class IdeaUpPhotographyIcon extends React.Component {
       <StyledSvg
         className={this.props.className}
         id={this.props.id}
-        svgBase64={svgBase64}
+        component={toReactComponent(
+          "../../../content/assets/icons/photography-category-icon.svg"
+        )}
       />
     )
   }

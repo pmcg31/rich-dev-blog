@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import svgBase64 from "../../../content/assets/icons/site-logo.svg"
+import toReactComponent from "svgr.macro"
 import SvgInline from "../../components/svg-inline"
 
 const StyledSvg = styled(SvgInline)`
@@ -46,7 +46,9 @@ class IdeaUpSiteLogo extends React.Component {
       <StyledSvg
         className={this.props.className}
         id={this.props.id}
-        svgBase64={svgBase64}
+        component={toReactComponent(
+          "../../../content/assets/icons/site-logo.svg"
+        )}
       />
     )
   }

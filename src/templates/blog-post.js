@@ -141,10 +141,12 @@ const MDXWrapper = styled.div`
     word-wrap: break-word;
     word-break: break-word;
   }
-  img {
+  img,
+  svg {
     max-width: 100%;
     max-height: 100vh;
     border-radius: 0.5em;
+    height: initial;
   }
 `
 

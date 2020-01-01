@@ -38,7 +38,8 @@
     "react-helmet": "^5.2.1",
     "retext": "^7.0.1",
     "retext-smartypants": "^3.0.3",
-    "styled-components": "^4.4.1"
+    "styled-components": "^4.4.1",
+    "svgr.macro": "^1.0.4"
   },
   "devDependencies": {
     "prettier": "^1.19.1"
