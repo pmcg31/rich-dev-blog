@@ -1,0 +1,62 @@
+---
+title: The Trouble with the 500 Rule
+date: "2019-12-30"
+category: astronomy
+description: "Has the 500 rule let you down with your wider lenses? This may be why."
+---
+
+import Graph from "./graph.js"
+
+The forecast is showing clear skies, so you pack up your gear and head out for a Milky Way shoot. You know it's going to be productive because you've applied the 500 rule...that is, you've selected a maximum shutter time of 500 divided by the focal length of your lens to prevent star trailing. You dial in your exposure using ISO and things are looking great on the back of the camera. The next morning you prepare to view the stunning full size images in Lightroom and...wait, what? What happened to my round stars?
+
+I hope this has never happened to you, but if it has, trust me -- I've been there. I didn't think about it a lot at the time; I adjusted the next night and improved my results.
+
+Recently, however, I stumbled across the 500 rule again and decided to see if I could figure out why it didn't work for me.
+
+### The Math Don't Lie
+
+I worked out the math to determine how far the stars will move, in pixels, for a given focal length, sensor size and exposure time. After plugging in some random(ish) focal lengths and the exposure time recommended by the 500 rule, I started to notice that some ranges were giving nearly the same answer while others were not. I decided to graph the range from 14 mm up to 400 mm for the sensor in my camera to better visualize what my spot checks were suggesting.
+
+<Graph />
+
+There you have it...those stars start finding their giddy-up at focal lengths shorter than about 100 mm.
+
+You may protest that the extra motion is only a couple of pixels. I would retort that those couple of pixels are just over a third of the way to doubling the error. That relationship holds true for other sensor sizes and pixel depths, although the specific values vary. In other words, no matter how you do the math, the error increases by the same percentage and the graph comes out the same shape.
+
+That shape is cause for serious concern. Most Milky Way chasers are trying to get the widest possible shot, but the wider you go, the worse it gets.
+
+### Rules are Made to be Broken
+
+Do we really need a rule for this? I mean, after you've done all your research on location, figured out exactly where the Milky Way is going to appear in your composition, and programmed it all into Google Maps so you get there on time, are you really going to wait until you're out in the field to know your maximum exposure time? Really?! Of course not.
+
+A calculator makes more sense, then. While we're at it, what can we improve about this star trailing stuff?
+
+The first thing that came to mind for me is that some of us are fussier than others. You know who you are...but, kidding aside, it's true. It doesn't even have to be about being fussy -- an image that is destined for print will natually tolerate less trailing than one for the web.
+
+### Sister Knows Best
+
+I had already worked out the math to calculate the error in pixels, so that seemed like a good place to start. But, how many pixels is _too_ many?
+
+I reasoned that if a star moved its entire diameter, becoming double in one dimension, then that would definitely look trailed. A maximum motion of half its diameter seemed like the upper limit. Now all we need to know is how big a star is in pixels.
+
+![Stars one-to-one](https://res.cloudinary.com/pmcg31/image/upload/v1577861632/stars-one-to-one_no6nut.jpg)
+
+This is an extreme zoom of a tracked long exposure. It shows a variety of sizes of stars; the biggest is one of the bright stars of the Pleiades. The focal length was about 400 mm.
+
+I like this shot because the brightest stars seem to naturally fall into the familiar small, medium, and large sizes. Those other few stars are extremely dim and therefore safe to ignore for the purposes of this analysis.
+
+There's no need to go to extremes -- so let's measure the medium star. Depending on where exactly you define the edge it looks to be 10-12 pixels in diameter. Based on my half diameter theory, 5-6 pixels of motion would be the maximum for this camera.
+
+Please note that the number of pixels is not special, and won't be the same for all cameras. It's the motion relative to the diameter of the stars that matters. That said, as long as the sensor size and pixel depth stay the same throughout the calculations, then pixels are as good as percentage or any other unit. I chose pixels simply because I had already worked out a calculation for pixels.
+
+### Keeping it...500?
+
+Well, well. Looking back to the graph, the 500 rule for a 400 mm focal length is just a bit over 6 pixels. That's also in the flat part of the graph; the rule's originators were clearly on to something in that region. This also gives me more confidence in my half diameter theory.
+
+With that I believe we have enough information to create a calculator. It will be able to compute a maximum exposure time for a given focal length and sensor combination, regardless of megapixels. It will also report the error in terms of diameters of our "medium" star. The default error will be one half diameter; you can dial that up or down depending on your fussiness factor.
+
+The error in pixels can be determined if the number of megapixels of the sensor is given.
+
+### Give Me the Calculator Already
+
+Ok, here it is!
