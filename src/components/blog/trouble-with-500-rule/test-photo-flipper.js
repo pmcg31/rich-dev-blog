@@ -101,27 +101,31 @@ function hideIdx(idx) {
 }
 
 function updateControlBlock() {
-  document.getElementById("photo-flipper-current-card-label").innerText =
-    testPoints[currentCardIdx].timeStr
+  const currentCardLabel = document.getElementById(
+    "photo-flipper-current-card-label"
+  )
+  if (currentCardLabel) {
+    currentCardLabel.innerText = testPoints[currentCardIdx].timeStr
 
-  if (currentCardIdx === 0) {
-    document
-      .getElementById("photo-flipper-control-previous-button")
-      .classList.add("photo-flipper-invisible")
-  } else {
-    document
-      .getElementById("photo-flipper-control-previous-button")
-      .classList.remove("photo-flipper-invisible")
-  }
+    if (currentCardIdx === 0) {
+      document
+        .getElementById("photo-flipper-control-previous-button")
+        .classList.add("photo-flipper-invisible")
+    } else {
+      document
+        .getElementById("photo-flipper-control-previous-button")
+        .classList.remove("photo-flipper-invisible")
+    }
 
-  if (currentCardIdx === testPoints.length - 1) {
-    document
-      .getElementById("photo-flipper-control-next-button")
-      .classList.add("photo-flipper-invisible")
-  } else {
-    document
-      .getElementById("photo-flipper-control-next-button")
-      .classList.remove("photo-flipper-invisible")
+    if (currentCardIdx === testPoints.length - 1) {
+      document
+        .getElementById("photo-flipper-control-next-button")
+        .classList.add("photo-flipper-invisible")
+    } else {
+      document
+        .getElementById("photo-flipper-control-next-button")
+        .classList.remove("photo-flipper-invisible")
+    }
   }
 }
 
