@@ -455,9 +455,11 @@ const NakedDropDownSelectField = props => {
       props.inputProps.id + "-decorator"
     )
 
-    customSelect.style.borderBottomLeftRadius = "0.4em"
-    optionList.classList.add("select-hide")
-    decorator.innerText = "▽"
+    if (customSelect && optionList && decorator) {
+      customSelect.style.borderBottomLeftRadius = "0.4em"
+      optionList.classList.add("select-hide")
+      decorator.innerText = "▽"
+    }
   }
 
   function toggleOpen(e) {
@@ -475,16 +477,18 @@ const NakedDropDownSelectField = props => {
       props.inputProps.id + "-decorator"
     )
 
-    if (optionList.classList.contains("select-hide")) {
-      // Open
-      customSelect.style.borderBottomLeftRadius = "0"
-      optionList.classList.remove("select-hide")
-      decorator.innerText = "△"
-    } else {
-      // Close
-      customSelect.style.borderBottomLeftRadius = "0.4em"
-      optionList.classList.add("select-hide")
-      decorator.innerText = "▽"
+    if (customSelect && optionList && decorator) {
+      if (optionList.classList.contains("select-hide")) {
+        // Open
+        customSelect.style.borderBottomLeftRadius = "0"
+        optionList.classList.remove("select-hide")
+        decorator.innerText = "△"
+      } else {
+        // Close
+        customSelect.style.borderBottomLeftRadius = "0.4em"
+        optionList.classList.add("select-hide")
+        decorator.innerText = "▽"
+      }
     }
   }
 
@@ -529,7 +533,7 @@ const NakedDropDownSelectField = props => {
           )[0]
           selectedItem = this.parentNode.previousSibling
           for (i = 0; i < selectElement.length; i++) {
-            if (selectElement.options[i].innerHTML == this.innerHTML) {
+            if (selectElement.options[i].innerHTML === this.innerHTML) {
               if (selectElement.selectedIndex !== i) {
                 selectElement.selectedIndex = i
                 props.inputProps.onChange()
