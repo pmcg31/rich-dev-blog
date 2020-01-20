@@ -5,6 +5,7 @@ import styled from "styled-components"
 import LayoutBannerFull from "../components/layout-banner-full"
 import LayoutBannerCompact from "../components/layout-banner-compact"
 import LayoutFooter from "../components/layout-footer"
+import "normalize.css"
 
 // This file sets up the main layout areas of the site
 // in a grid as shown below. Each area is delegated to
