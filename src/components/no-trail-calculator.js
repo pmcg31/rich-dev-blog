@@ -1,232 +1,107 @@
 import React from "react"
 import styled from "styled-components"
+import { Field, DoubleField, DropDownSelectField, Button } from "./fancy-fields"
+import SmartQuote from "./smart-quote"
+
+//
+// Container style
+//
 
 const Container = styled.div`
   display: grid;
-  padding: 2em;
-  background: #505050;
+  padding: 1em;
+  background: #202020;
   border-radius: 0.5em;
 `
 
-const Field = props => {
-  if (props.decorator) {
-    return (
-      <div className={props.className}>
-        <FieldRightDecoratedControl
-          id={props.inputProps.id}
-          type={props.inputProps.type}
-          defaultValue={props.inputProps.defaultValue}
-          onFocus={props.inputProps.onFocus}
-          onBlur={props.inputProps.onBlur}
-          onChange={props.inputProps.onChange}
-          readOnly={
-            props.inputProps.readOnly !== null
-              ? props.inputProps.readOnly
-              : false
-          }
-        />
-        <FieldRightDecorator>{props.decorator}</FieldRightDecorator>
-      </div>
-    )
-  } else {
-    return (
-      <div className={props.className}>
-        <FieldControl
-          id={props.inputProps.id}
-          type={props.inputProps.type}
-          defaultValue={props.inputProps.defaultValue}
-          onFocus={props.inputProps.onFocus}
-          onBlur={props.inputProps.onBlur}
-          onChange={props.inputProps.onChange}
-          readOnly={
-            props.inputProps.readOnly !== null
-              ? props.inputProps.readOnly
-              : false
-          }
-        />
-      </div>
-    )
-  }
-}
-
-const StyledField = styled(Field)`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-column: 2 / auto;
-  height: 2.5em;
-  padding: 0.5em;
-`
-
-const DoubleField = props => {
-  if (props.decorator) {
-    return (
-      <div className={props.className}>
-        <FieldRightDecoratedControl
-          id={props.inputPropsLeft.id}
-          type={props.inputPropsLeft.type}
-          defaultValue={props.inputPropsLeft.defaultValue}
-          onFocus={props.inputPropsLeft.onFocus}
-          onBlur={props.inputPropsLeft.onBlur}
-          onChange={props.inputPropsLeft.onChange}
-          readOnly={
-            props.inputPropsLeft.readOnly !== null
-              ? props.inputPropsLeft.readOnly
-              : false
-          }
-        />
-        <FieldMiddleDecorator>{props.middleDecorator}</FieldMiddleDecorator>
-        <FieldDoubleDecoratedControl
-          id={props.inputPropsRight.id}
-          type={props.inputPropsRight.type}
-          defaultValue={props.inputPropsRight.defaultValue}
-          onFocus={props.inputPropsRight.onFocus}
-          onBlur={props.inputPropsRight.onBlur}
-          onChange={props.inputPropsRight.onChange}
-          readOnly={
-            props.inputPropsRight.readOnly !== null
-              ? props.inputPropsRight.readOnly
-              : false
-          }
-        />
-        <FieldRightDecorator>{props.decorator}</FieldRightDecorator>
-      </div>
-    )
-  } else {
-    return (
-      <div className={props.className}>
-        <FieldRightDecoratedControl
-          id={props.inputPropsLeft.id}
-          type={props.inputPropsLeft.type}
-          defaultValue={props.inputPropsLeft.defaultValue}
-          onFocus={props.inputPropsLeft.onFocus}
-          onBlur={props.inputPropsLeft.onBlur}
-          onChange={props.inputPropsLeft.onChange}
-          readOnly={
-            props.inputPropsLeft.readOnly !== null
-              ? props.inputPropsLeft.readOnly
-              : false
-          }
-        />
-        <FieldMiddleDecorator>{props.middleDecorator}</FieldMiddleDecorator>
-        <FieldLeftDecoratedControl
-          id={props.inputPropsRight.id}
-          type={props.inputPropsRight.type}
-          defaultValue={props.inputPropsRight.defaultValue}
-          onFocus={props.inputPropsRight.onFocus}
-          onBlur={props.inputPropsRight.onBlur}
-          onChange={props.inputPropsRight.onChange}
-          readOnly={
-            props.inputPropsRight.readOnly !== null
-              ? props.inputPropsRight.readOnly
-              : false
-          }
-        />
-      </div>
-    )
-  }
-}
-
-const StyledDoubleField = styled(DoubleField)`
-  display: grid;
-  grid-template-columns: 1fr auto 1fr auto;
-  grid-column: 2 / auto;
-  height: 2.5em;
-  padding: 0.5em;
-`
-
-const FieldControl = styled.input`
-  border: none;
-  border-radius: 0.4em;
-  height: inherit;
-  outline: none;
-  padding-left: 1em;
-  padding-right: 0.25em;
-  font-size: 0.9em;
-  background: #a0a0a0;
-  color: #404040;
-  font-family: Solway, san-serif;
-  width: 100%;
-  box-sizing: border-box;
-`
-
-const FieldRightDecoratedControl = styled(FieldControl)`
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-`
-
-const FieldLeftDecoratedControl = styled(FieldControl)`
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-`
-
-const FieldDoubleDecoratedControl = styled(FieldControl)`
-  border-radius: 0;
-`
-
-const FieldMiddleDecorator = styled.div`
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  color: coral;
-  background: #303030;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
-  font-family: Solway, san-serif;
-  border-radius: 0;
-`
-
-const FieldRightDecorator = styled(FieldMiddleDecorator)`
-  border-bottom-right-radius: 0.4em;
-  border-top-right-radius: 0.4em;
-`
-
-const FieldLeftDecorator = styled(FieldMiddleDecorator)`
-  border-bottom-left-radius: 0.4em;
-  border-top-left-radius: 0.4em;
-`
-
-const FieldLabel = styled.span`
-  display: grid;
-  align-items: center;
-  justify-self: stretch;
+const LeftColumn = styled.div`
   grid-column: 1 / auto;
-  vertical-align: middle;
-  padding-right: 0.5em;
+  display: flex;
+  flex-direction: column;
+`
+
+const RightColumn = styled.div`
+  grid-column: 2 / auto;
+  display: flex;
+  flex-direction: column;
+`
+
+const ColumnHeading = styled.div`
   color: coral;
+  text-align: center;
+  padding-top: 0.5em;
+`
+
+const CenteredHeading = styled(ColumnHeading)`
+  grid-column: 1 / span 2;
+  font-size: 1.25em;
+  font-weight: 400;
+`
+
+const PaddedCenteredHeading = styled(CenteredHeading)`
+  padding-top: 1em;
 `
 
 class NoTrailCalculator extends React.Component {
   constructor(props) {
     super(props)
 
+    // The number of seconds in a sidereal day
+    // (Earth's rotation period relative to the
+    // fixed stars). This number is according
+    // to the International Earth Rotation and
+    // Reference Systems Service (IERS)
+    const siderealDaySecs = 86164.098903691
+
+    this.popularSensorTypes = [
+      { type: "Full Frame", width: 36, height: 24 },
+      { type: "APS-C", width: 24, height: 16 },
+      { type: "APS-C (Canon)", width: 22.2, height: 14.8 },
+      { type: "Micro 4/3", width: 17.3, height: 13 },
+    ]
+
+    // Calculate Earth's rotational speed in arcsec/sec
+    this.earthAngularSpeedArcsecPerSec = (360 * 3600) / siderealDaySecs
+
     this.handleFocus = this.handleFocus.bind(this)
     this.handleBlur = this.handleBlur.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.sendToCalcClicked = this.sendToCalcClicked.bind(this)
     this.calculateAndUpdate = this.calculateAndUpdate.bind(this)
   }
 
-  handleFocus(e) {
-    console.log("focus gained: " + e.nativeEvent.target.id)
-  }
+  handleFocus(e) {}
 
-  handleBlur(e) {
-    console.log("focus lost: " + e.nativeEvent.target.id)
-  }
+  handleBlur(e) {}
 
   handleChange(e) {
-    console.log("changed: " + e.nativeEvent.target.id)
+    this.calculateAndUpdate()
+  }
 
+  sendToCalcClicked() {
+    document.getElementById("sensor-width-mm").value = document.getElementById(
+      "popular-sensor-width-mm"
+    ).value
+    document.getElementById("sensor-height-mm").value = document.getElementById(
+      "popular-sensor-height-mm"
+    ).value
     this.calculateAndUpdate()
   }
 
   calculateAndUpdate() {
+    // Constants
+    const fullFrameWidth_mm = 36
+    const fullFrameHeight_mm = 24
+
     // Get the current values
     const focalLen = document.getElementById("focal-length-mm").value
     const sensorWidth_mm = document.getElementById("sensor-width-mm").value
     const sensorHeight_mm = document.getElementById("sensor-height-mm").value
     const resolution_mp = document.getElementById("pixel-density-megapix").value
+    const exposureTime_secs = document.getElementById("exposure-time-secs")
+      .value
+    const popularSensor_idx = document.getElementById("sensor-type")
+      .selectedIndex
 
     // Do the math with the current values
     if (
@@ -244,9 +119,20 @@ class NoTrailCalculator extends React.Component {
         resolution * (sensorWidth_mm / sensorHeight_mm)
       )
 
-      // Sensor height is simpler now that the
-      // width is known (w x h = resolution)
-      const sensorHeight_px = resolution / sensorWidth_px
+      // Determine the sensor diagonal length in mm
+      // (a squared + b squared = c squared)
+      const sensorDiag_mm = Math.sqrt(
+        sensorWidth_mm * sensorWidth_mm + sensorHeight_mm * sensorHeight_mm
+      )
+
+      // Determine the diagonal length of full frame in mm
+      const fullFrameDiag_mm = Math.sqrt(
+        fullFrameWidth_mm * fullFrameWidth_mm +
+          fullFrameHeight_mm * fullFrameHeight_mm
+      )
+
+      // Crop factor is ratio of sensor diag to full frame diag
+      const cropFactor = fullFrameDiag_mm / sensorDiag_mm
 
       // Calculate pixel size in microns
       // (sensor_width_microns / sensor_width_pixels)
@@ -271,11 +157,38 @@ class NoTrailCalculator extends React.Component {
       document.getElementById(
         "sensor-pixel-size-microns"
       ).value = sensorPixelSizeMicrons.toFixed(2)
+      const earthMotionPxPerSec =
+        this.earthAngularSpeedArcsecPerSec / sensorAngularResolutionArcsecs
+      document.getElementById(
+        "earth-motion"
+      ).value = earthMotionPxPerSec.toFixed(2)
+      const seconds500Rule = 500 / (focalLen * cropFactor)
+      document.getElementById(
+        "seconds-500-rule"
+      ).value = seconds500Rule.toFixed(2)
+      document.getElementById("pixels-moved").value = (
+        exposureTime_secs * earthMotionPxPerSec
+      ).toFixed(2)
+      document.getElementById("pixels-moved-500-rule").value = (
+        seconds500Rule * earthMotionPxPerSec
+      ).toFixed(2)
     } else {
       // Clear fields
       document.getElementById("sensor-angular-resolution").value = ""
       document.getElementById("sensor-pixel-size-microns").value = ""
+      document.getElementById("earth-motion").value = ""
+      document.getElementById("seconds-500-rule").value = ""
+      document.getElementById("pixels-moved").value = ""
+      document.getElementById("pixels-moved-500-rule").value = ""
     }
+
+    // Update popular sensor size
+    document.getElementById(
+      "popular-sensor-width-mm"
+    ).value = this.popularSensorTypes[popularSensor_idx].width
+    document.getElementById(
+      "popular-sensor-height-mm"
+    ).value = this.popularSensorTypes[popularSensor_idx].height
   }
 
   componentDidMount() {
@@ -284,74 +197,178 @@ class NoTrailCalculator extends React.Component {
 
   render() {
     return (
-      <Container
-        className={this.props.className || ""}
-        id={this.props.id || ""}
-      >
-        <FieldLabel>Focal Length:</FieldLabel>
-        <StyledField
-          decorator="mm"
-          inputProps={{
-            id: "focal-length-mm",
-            type: "number",
-            defaultValue: 28,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-            onChange: this.handleChange,
-          }}
-        />
-        <FieldLabel>Sensor Size:</FieldLabel>
-        <StyledDoubleField
-          decorator="mm"
-          middleDecorator="x"
-          inputPropsLeft={{
-            id: "sensor-width-mm",
-            type: "number",
-            defaultValue: 36,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-            onChange: this.handleChange,
-          }}
-          inputPropsRight={{
-            id: "sensor-height-mm",
-            type: "number",
-            defaultValue: 24,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-            onChange: this.handleChange,
-          }}
-        />
-        <FieldLabel>Resolution:</FieldLabel>
-        <StyledField
-          decorator="mp"
-          inputProps={{
-            id: "pixel-density-megapix",
-            type: "number",
-            defaultValue: 24.3,
-            onFocus: this.handleFocus,
-            onBlur: this.handleBlur,
-            onChange: this.handleChange,
-          }}
-        />
-        <FieldLabel>Sensor Pixel Size:</FieldLabel>
-        <StyledField
-          decorator="μm"
-          inputProps={{
-            id: "sensor-pixel-size-microns",
-            type: "number",
-            readOnly: true,
-          }}
-        />
-        <FieldLabel>Sensor Angular Resolution:</FieldLabel>
-        <StyledField
-          decorator="arcsec/px"
-          inputProps={{
-            id: "sensor-angular-resolution",
-            type: "number",
-            readOnly: true,
-          }}
-        />
-      </Container>
+      <div>
+        <Container
+          className={this.props.className || ""}
+          id={this.props.id || ""}
+        >
+          <CenteredHeading>Untracked Star Motion Calculator</CenteredHeading>
+          <LeftColumn>
+            <ColumnHeading>You Supply These</ColumnHeading>
+            <Field
+              label="Focal Length:"
+              decorator="mm"
+              inputProps={{
+                id: "focal-length-mm",
+                type: "number",
+                defaultValue: 14,
+                onFocus: this.handleFocus,
+                onBlur: this.handleBlur,
+                onChange: this.handleChange,
+              }}
+            />
+            <DoubleField
+              label="Sensor Size:"
+              decorator="mm"
+              // decoratorPosition="left"
+              middleDecorator="x"
+              inputPropsLeft={{
+                id: "sensor-width-mm",
+                type: "number",
+                defaultValue: 36,
+                onFocus: this.handleFocus,
+                onBlur: this.handleBlur,
+                onChange: this.handleChange,
+              }}
+              inputPropsRight={{
+                id: "sensor-height-mm",
+                type: "number",
+                defaultValue: 24,
+                onFocus: this.handleFocus,
+                onBlur: this.handleBlur,
+                onChange: this.handleChange,
+              }}
+            />
+            <Field
+              label="Resolution:"
+              decorator="mp"
+              inputProps={{
+                id: "pixel-density-megapix",
+                type: "number",
+                defaultValue: 24.3,
+                onFocus: this.handleFocus,
+                onBlur: this.handleBlur,
+                onChange: this.handleChange,
+              }}
+            />
+            <Field
+              label="Exposure Time:"
+              decorator="sec"
+              inputProps={{
+                id: "exposure-time-secs",
+                type: "number",
+                defaultValue: 20,
+                onFocus: this.handleFocus,
+                onBlur: this.handleBlur,
+                onChange: this.handleChange,
+              }}
+            />
+          </LeftColumn>
+          <RightColumn>
+            <ColumnHeading>
+              <SmartQuote>We'll Calculate These</SmartQuote>
+            </ColumnHeading>
+            <Field
+              label="Sensor Pixel Size:"
+              decorator="μm"
+              inputProps={{
+                id: "sensor-pixel-size-microns",
+                type: "text",
+                readOnly: true,
+              }}
+            />
+            <Field
+              label="Sensor Angular Resolution:"
+              decorator="arcsec/px"
+              inputProps={{
+                id: "sensor-angular-resolution",
+                type: "text",
+                readOnly: true,
+              }}
+            />
+            <Field
+              label="Sensor Apparent Motion:"
+              decorator="px/sec"
+              inputProps={{
+                id: "earth-motion",
+                type: "text",
+                readOnly: true,
+              }}
+            />
+            <Field
+              label="Exposure Pixels Moved:"
+              decorator="px"
+              inputProps={{
+                id: "pixels-moved",
+                type: "text",
+                readOnly: true,
+              }}
+            />
+          </RightColumn>
+          <PaddedCenteredHeading>Popular Sensor Types</PaddedCenteredHeading>
+          <LeftColumn>
+            <DropDownSelectField
+              label="Sensor Type:"
+              inputProps={{
+                id: "sensor-type",
+                onFocus: this.handleFocus,
+                onBlur: this.handleBlur,
+                onChange: this.handleChange,
+                items: this.popularSensorTypes.map(item => {
+                  return item.type
+                }),
+              }}
+            />
+          </LeftColumn>
+          <RightColumn>
+            <DoubleField
+              label="Sensor Size:"
+              decorator="mm"
+              middleDecorator="x"
+              inputPropsLeft={{
+                id: "popular-sensor-width-mm",
+                type: "text",
+                readOnly: true,
+              }}
+              inputPropsRight={{
+                id: "popular-sensor-height-mm",
+                type: "text",
+                readOnly: true,
+              }}
+            />
+            <Button id="send-to-calc-button" onClick={this.sendToCalcClicked}>
+              Send to Calculator
+            </Button>
+          </RightColumn>
+          <PaddedCenteredHeading>
+            500 Rule Guideline (for Comparison)
+          </PaddedCenteredHeading>
+          <LeftColumn>
+            {" "}
+            <Field
+              label="500 Rule Exposure Time:"
+              decorator="sec"
+              inputProps={{
+                id: "seconds-500-rule",
+                type: "text",
+                readOnly: true,
+              }}
+            />
+          </LeftColumn>
+          <RightColumn>
+            {" "}
+            <Field
+              label="500 Rule Pixels Moved:"
+              decorator="px"
+              inputProps={{
+                id: "pixels-moved-500-rule",
+                type: "text",
+                readOnly: true,
+              }}
+            />
+          </RightColumn>
+        </Container>
+      </div>
     )
   }
 }

@@ -15,7 +15,7 @@ const FootieContent = styled.div`
   order: 1;
   color: rgb(120, 120, 120);
   font-size: 0.75em;
-  max-width: 33vmin;
+  max-width: 50vw;
   text-align: center;
   padding: 0.25em;
 `
@@ -27,9 +27,9 @@ const LayoutFooter = () => {
     <Footie>
       <FootieContent>© 2019-{year} Rich Seiffert</FootieContent>
       <FootieContent>
-        All text, awful puns, images, videos and icons on this site are the
-        result of my own hard work — they may not be reproduced in any form
-        without permission
+        All text, bad puns, images, deep insights, videos, terrible jokes,
+        mathematical formulas, half–assed ideas and icons on this site are my
+        own work — they may not be reproduced in any form without my permission
       </FootieContent>
     </Footie>
   )

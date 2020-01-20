@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
 import SmartQuote from "./smart-quote"
 
@@ -141,8 +141,8 @@ const NakedField = props => {
   const isReadOnly =
     props.inputProps.readOnly !== null ? props.inputProps.readOnly : false
 
+  var Group, Control, Decorator
   if (props.decorator) {
-    var Group, Control, Decorator
     if (props.decoratorPosition && props.decoratorPosition === "left") {
       Group = FieldLeftDecoratedControlGroup
       if (isReadOnly) {
@@ -267,10 +267,25 @@ const NakedDoubleField = props => {
       Decorator = FieldLeftDecorator
     } else {
       Group = FieldDoubleRightDecoratedControlGroup
-      Control1 = FieldRightDecoratedControl
-      Control2 = styled(FieldDoubleDecoratedControl)`
-        grid-area: control2;
-      `
+      if (isLeftReadOnly) {
+        Control1 = styled(FieldRightDecoratedControl)`
+          background: #686868;
+          color: #282828;
+        `
+      } else {
+        Control1 = FieldRightDecoratedControl
+      }
+      if (isRightReadOnly) {
+        Control2 = styled(FieldDoubleDecoratedControl)`
+          background: #686868;
+          color: #282828;
+          grid-area: control2;
+        `
+      } else {
+        Control2 = styled(FieldDoubleDecoratedControl)`
+          grid-area: control2;
+        `
+      }
       Decorator = FieldRightDecorator
     }
     return (
@@ -360,4 +375,258 @@ export const DoubleField = styled(NakedDoubleField)`
     "label"
     "control-group";
   padding: 0.5em;
+`
+
+//
+// Drop Down Select component and associated
+// style
+//
+
+const CustomSelect = styled.div`
+  position: relative;
+  grid-area: control;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  border-bottom-left-radius: 0.4em;
+  border-bottom-right-radius: 0;
+  font-size: 0.9em;
+  background: #a0a0a0;
+  color: #404040;
+  font-family: Solway, san-serif;
+  cursor: pointer;
+
+  select {
+    display: none;
+  }
+
+  .select-item {
+    border: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    outline: none;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    color: #404040;
+    font-family: Solway, san-serif;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+  }
+
+  .same-as-selected {
+    background: #909090;
+  }
+
+  .select-items {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: #a0a0a0;
+    border-bottom-left-radius: 0.4em;
+    border-bottom-right-radius: 0.4em;
+  }
+
+  .select-hide {
+    display: none;
+  }
+`
+
+const DropArrow = styled(FieldRightDecorator)`
+  cursor: pointer;
+`
+
+const NakedDropDownSelectField = props => {
+  const Group = FieldRightDecoratedControlGroup
+
+  function close() {
+    const customSelect = document.getElementById(
+      props.inputProps.id + "-custom-select"
+    )
+    const optionList = document.getElementById(
+      props.inputProps.id + "-option-list"
+    )
+    const decorator = document.getElementById(
+      props.inputProps.id + "-decorator"
+    )
+
+    customSelect.style.borderBottomLeftRadius = "0.4em"
+    optionList.classList.add("select-hide")
+    decorator.innerText = "▽"
+  }
+
+  function toggleOpen(e) {
+    // When the select box is clicked,
+    // toggle its open state
+    e.stopPropagation()
+
+    const customSelect = document.getElementById(
+      props.inputProps.id + "-custom-select"
+    )
+    const optionList = document.getElementById(
+      props.inputProps.id + "-option-list"
+    )
+    const decorator = document.getElementById(
+      props.inputProps.id + "-decorator"
+    )
+
+    if (optionList.classList.contains("select-hide")) {
+      // Open
+      customSelect.style.borderBottomLeftRadius = "0"
+      optionList.classList.remove("select-hide")
+      decorator.innerText = "△"
+    } else {
+      // Close
+      customSelect.style.borderBottomLeftRadius = "0.4em"
+      optionList.classList.add("select-hide")
+      decorator.innerText = "▽"
+    }
+  }
+
+  useEffect(() => {
+    var customSelect, j, selectElement, selectedItem, optionList, optionItem
+
+    // Grab our custom select element
+    customSelect = document.getElementById(
+      props.inputProps.id + "-custom-select"
+    )
+    if (customSelect) {
+      // Grab the child select element
+      selectElement = customSelect.getElementsByTagName("select")[0]
+
+      // Create a new DIV that will act as the selected item
+      selectedItem = document.createElement("DIV")
+      selectedItem.setAttribute("class", "current-select-item")
+      selectedItem.innerHTML =
+        selectElement.options[selectElement.selectedIndex].innerHTML
+      customSelect.appendChild(selectedItem)
+
+      // Create a new DIV that will contain the option list
+      optionList = document.createElement("DIV")
+      optionList.setAttribute("id", props.inputProps.id + "-option-list")
+      optionList.setAttribute("class", "select-items select-hide")
+      for (j = 0; j < selectElement.length; j++) {
+        // For each option in the original select element,
+        // create a new DIV that will act as an option item
+        optionItem = document.createElement("DIV")
+        if (j === selectElement.selectedIndex) {
+          optionItem.setAttribute("class", "select-item same-as-selected")
+        } else {
+          optionItem.setAttribute("class", "select-item")
+        }
+        optionItem.innerHTML = selectElement.options[j].innerHTML
+        optionItem.addEventListener("click", function(e) {
+          // When an item is clicked, update the original select box
+          // and selected item
+          var previouslySelectedItems, i, k, selectElement, selectedItem
+          selectElement = this.parentNode.parentNode.getElementsByTagName(
+            "select"
+          )[0]
+          selectedItem = this.parentNode.previousSibling
+          for (i = 0; i < selectElement.length; i++) {
+            if (selectElement.options[i].innerHTML == this.innerHTML) {
+              if (selectElement.selectedIndex !== i) {
+                selectElement.selectedIndex = i
+                props.inputProps.onChange()
+              }
+              selectedItem.innerHTML = this.innerHTML
+              previouslySelectedItems = this.parentNode.getElementsByClassName(
+                "same-as-selected"
+              )
+              for (k = 0; k < previouslySelectedItems.length; k++) {
+                previouslySelectedItems[k].classList.remove("same-as-selected")
+              }
+              this.classList.add("same-as-selected")
+              break
+            }
+          }
+        })
+        optionList.appendChild(optionItem)
+      }
+      customSelect.appendChild(optionList)
+      customSelect.addEventListener("click", toggleOpen)
+    }
+
+    // Toggle opening the box when the decorator is
+    // clicked also
+    document
+      .getElementById(props.inputProps.id + "-decorator")
+      .addEventListener("click", toggleOpen)
+
+    // If the user clicks anywhere outside the select box,
+    // then close it
+    document.addEventListener("click", close)
+  })
+
+  return (
+    <FieldContainer className={props.className}>
+      <FieldLabel>
+        <SmartQuote>{props.label}</SmartQuote>
+      </FieldLabel>
+      <Group>
+        <CustomSelect id={props.inputProps.id + "-custom-select"}>
+          <select
+            id={props.inputProps.id}
+            onFocus={props.inputProps.onFocus}
+            onBlur={props.inputProps.onBlur}
+            onChange={props.inputProps.onChange}
+          >
+            {props.inputProps.items.map((item, idx) => {
+              if (idx === 0) {
+                return (
+                  <option selected="selected" value={idx}>
+                    {item}
+                  </option>
+                )
+              } else {
+                return <option value={idx}>{item}</option>
+              }
+            })}
+          </select>
+        </CustomSelect>
+        <DropArrow id={props.inputProps.id + "-decorator"}>▽</DropArrow>
+      </Group>
+    </FieldContainer>
+  )
+}
+
+export const DropDownSelectField = styled(NakedDropDownSelectField)`
+  display: grid;
+  grid-template-areas:
+    "label"
+    "control-group";
+  padding: 0.5em;
+`
+
+export const Button = styled.button`
+  text-align: middle;
+  font-size: 1.5em;
+  -webkit-appearance: none;
+  background-color: initial;
+  border: none;
+  color: #787878;
+  cursor: pointer;
+  outline: none;
+
+  display: grid;
+  align-items: center;
+  justify-self: stretch;
+  grid-area: label;
+  vertical-align: middle;
+  margin: 0.5em;
+  padding: 0.25em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  color: coral;
+  background: #404040;
+  border-radius: 0.4em;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
 `

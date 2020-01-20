@@ -6,57 +6,53 @@ description: "Has the 500 rule let you down with your wider lenses? This may be 
 ---
 
 import Graph from "./graph.js"
+import NoTrailCalculator from "../../../src/components/no-trail-calculator.js"
+import TestPhotoFlipper from "../../../src/components/blog/trouble-with-500-rule/test-photo-flipper.js"
 
 The forecast is showing clear skies, so you pack up your gear and head out for a Milky Way shoot. You know it's going to be productive because you've applied the 500 rule...that is, you've selected a maximum shutter time of 500 divided by the focal length of your lens to prevent star trailing. You dial in your exposure using ISO and things are looking great on the back of the camera. The next morning you prepare to view the stunning full size images in Lightroom and...wait, what? What happened to my round stars?
 
-I hope this has never happened to you, but if it has, trust me -- I've been there. I didn't think about it a lot at the time; I adjusted the next night and improved my results.
+I hope this has never happened to you, but if it has, trust me -- I've been there. I didn't think about it a lot at the time; I simply made some adjustments the following evening.
 
 Recently, however, I stumbled across the 500 rule again and decided to see if I could figure out why it didn't work for me.
 
+### The Ruling on the Field
+
+Applying the rule is simple enough -- divide 500 by the (35mm equivalent) focal length of your lens. My camera is full frame, and thus already 35mm equivalent, so it is simply 500 divided by whatever is stamped on the side of the lens. If your camera is not full frame, then you will need to multiply the lens' focal length by the camera crop factor to get the 35mm equivalent focal length before doing the divide. For a crop Nikon, that's 1.5x; crop Canon, 1.6x; micro 4/3, 2x. Those are the most popular sensors at the time of this writing; if yours was not listed a quick Google search should turn up the crop factor.
+
+Alright, then, just divide. I'm pairing my full frame Nikon with a Rokinon 14mm f/2.8. Survey says...`500 / 14 = 35.71`. You probably won't find that in your camera's menu, so let's just call it 35.
+
+I took the rule to the field, and I ended up with stars that showed more trailing than I was comfortable with. I cut about in half to 15 seconds on my second attempt and found the results much more pleasing.
+
+That was nothing more than wild guessing on my part though. It was time for something more scientific...
+
+### Science! (Not!)
+
+While I don't have any real science for you, I do have a series of 15 test shots. The exposure time is varied from five seconds up to one minute and the shots were taken on the same evening in as quick succession as possible.
+
+For the exposures up to 30 seconds, the camera's built in exposure stops were used. After 30 seconds, an intervalometer was used, with the exposure time increasing by 5 second increments.
+
+The camera was on a tripod and the shutter released remotely in all cases to eliminate camera shake as a factor in the test.
+
+Here are the exposures, corrected to the same exposure value in post, with an inset 1:1(ish) crop. The crop comes from slightly left of center (actually just off the bottom right corner of the inset); I chose that area because of the two bright stars that would be easy to track from exposure to exposure, and also because this lens develops signifcant coma the further you stray from the center.
+
+<TestPhotoFlipper />
+
+You may have noticed that the brightest star is, in fact, **the** brightest star, Sirius. This of course means we are looking toward the celestial equator and the part of the sky that moves most rapidly due to the rotation of the Earth. You didn't think I'd make it easy, did you?
+
+How much was too much for you? I find the break point to be between 20 and 25 seconds. 20 seconds looks ok to me; 25 is too much. So you're saying, that's great, Rich, but how is _your_ subjective analysis of images _you_ took with _your_ equipment helping **me**?! Short answer? It isn't. But let's see if we can't put together something that might.
+
 ### The Math Don't Lie
 
-I worked out the math to determine how far the stars will move, in pixels, for a given focal length, sensor size and exposure time. After plugging in some random(ish) focal lengths and the exposure time recommended by the 500 rule, I started to notice that some ranges were giving nearly the same answer while others were not. I decided to graph the range from 14 mm up to 400 mm for the sensor in my camera to better visualize what my spot checks were suggesting.
+I worked out the math to determine how far the stars will move, in pixels, for a given focal length, sensor size and exposure time.
 
-<Graph />
+I was careful to derive the apparent motion from Earth's rotation based on a [sidereal day](https://bit.ly/383T0td). The results would be slightly different if using a solar day. Since we are concerned here about the distant stars, not the nearby one we're orbiting, sidereal is the correct choice. The number of seconds in a sidereal day was <strike>stolen</strike> researched from the [International Earth Rotation and Reference Systems Service (IERS)](https://bit.ly/380YRje).
 
-There you have it...those stars start finding their giddy-up at focal lengths shorter than about 100 mm.
+The calculation yields the maximum amount of motion of any star in the sky, i.e., a star along the celestial equator. Stars closer to the celestial poles will appear to move more slowly. However...
 
-You may protest that the extra motion is only a couple of pixels. I would retort that those couple of pixels are just over a third of the way to doubling the error. That relationship holds true for other sensor sizes and pixel depths, although the specific values vary. In other words, no matter how you do the math, the error increases by the same percentage and the graph comes out the same shape.
+If your target is the core of the Milky Way galaxy from the Northern Hemisphere, then you'll be looking mostly at the celestial equator. The max is the number you want in that case, so we can keep it simple.
 
-That shape is cause for serious concern. Most Milky Way chasers are trying to get the widest possible shot, but the wider you go, the worse it gets.
+I rolled my findings into a calculator you can use to try different exposures, lenses, sensors and resolutions. It's prepopulated with the particulars of the camera that made the test images. The default exposure time is 20 seconds, my personal cutoff based on the test images...meaning about 3.5 pixels is my limit. Plug in your cutoff exposure to determine your "pixel limit." From there you can use the calculator to find the maximum exposure for your equipment within your own personal limits. No fiddling around in the dark!
 
-### Rules are Made to be Broken
+<NoTrailCalculator />
 
-Do we really need a rule for this? I mean, after you've done all your research on location, figured out exactly where the Milky Way is going to appear in your composition, and programmed it all into Google Maps so you get there on time, are you really going to wait until you're out in the field to know your maximum exposure time? Really?! Of course not.
-
-A calculator makes more sense, then. While we're at it, what can we improve about this star trailing stuff?
-
-The first thing that came to mind for me is that some of us are fussier than others. You know who you are...but, kidding aside, it's true. It doesn't even have to be about being fussy -- an image that is destined for print will natually tolerate less trailing than one for the web.
-
-### Sister Knows Best
-
-I had already worked out the math to calculate the error in pixels, so that seemed like a good place to start. But, how many pixels is _too_ many?
-
-I reasoned that if a star moved its entire diameter, becoming double in one dimension, then that would definitely look trailed. A maximum motion of half its diameter seemed like the upper limit. Now all we need to know is how big a star is in pixels.
-
-![Stars one-to-one](https://res.cloudinary.com/pmcg31/image/upload/v1577861632/stars-one-to-one_no6nut.jpg)
-
-This is an extreme zoom of a tracked long exposure. It shows a variety of sizes of stars; the biggest is one of the bright stars of the Pleiades. The focal length was about 400 mm.
-
-I like this shot because the brightest stars seem to naturally fall into the familiar small, medium, and large sizes. Those other few stars are extremely dim and therefore safe to ignore for the purposes of this analysis.
-
-There's no need to go to extremes -- so let's measure the medium star. Depending on where exactly you define the edge it looks to be 10-12 pixels in diameter. Based on my half diameter theory, 5-6 pixels of motion would be the maximum for this camera.
-
-Please note that the number of pixels is not special, and won't be the same for all cameras. It's the motion relative to the diameter of the stars that matters. That said, as long as the sensor size and pixel depth stay the same throughout the calculations, then pixels are as good as percentage or any other unit. I chose pixels simply because I had already worked out a calculation for pixels.
-
-### Keeping it...500?
-
-Well, well. Looking back to the graph, the 500 rule for a 400 mm focal length is just a bit over 6 pixels. That's also in the flat part of the graph; the rule's originators were clearly on to something in that region. This also gives me more confidence in my half diameter theory.
-
-With that I believe we have enough information to create a calculator. It will be able to compute a maximum exposure time for a given focal length and sensor combination, regardless of megapixels. It will also report the error in terms of diameters of our "medium" star. The default error will be one half diameter; you can dial that up or down depending on your fussiness factor.
-
-The error in pixels can be determined if the number of megapixels of the sensor is given.
-
-### Give Me the Calculator Already
-
-Ok, here it is!
+You can find this calculator [on its own page](../../tools/untracked-star-motion-calculator/) for easy bookmarking!
