@@ -126,6 +126,10 @@ function updateControlBlock() {
         .getElementById("photo-flipper-control-next-button")
         .classList.remove("photo-flipper-invisible")
     }
+  } else {
+    // Could't grab the current card label from the dom;
+    // it must not have updated yet, try again in a quarter second
+    setTimeout(updateControlBlock, 250)
   }
 }
 
