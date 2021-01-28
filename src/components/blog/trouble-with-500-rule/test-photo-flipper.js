@@ -235,7 +235,6 @@ const TestPhotoFlipper = props => {
     return a.time - b.time
   })
 
-  var timeStr = ""
   return (
     <PhotoFlipper className={props.className}>
       <PhotoStack>

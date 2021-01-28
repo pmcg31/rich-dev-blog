@@ -188,7 +188,6 @@ const NakedField = props => {
       </FieldContainer>
     )
   } else {
-    var Control
     if (isReadOnly) {
       Control = styled(FieldControl)`
         background: #686868;
@@ -241,8 +240,8 @@ const NakedDoubleField = props => {
       ? props.inputPropsRight.readOnly
       : false
 
+  var Group, Control1, Control2, Decorator
   if (props.decorator) {
-    var Group, Control1, Control2, Decorator
     if (props.decoratorPosition && props.decoratorPosition === "left") {
       Group = FieldDoubleLeftDecoratedControlGroup
       if (isLeftReadOnly) {
@@ -322,8 +321,8 @@ const NakedDoubleField = props => {
       </FieldContainer>
     )
   } else {
-    var Control1 = FieldRightDecoratedControl,
-      Control2 = FieldLeftDecoratedControl
+    Control1 = FieldRightDecoratedControl
+    Control2 = FieldLeftDecoratedControl
     if (isLeftReadOnly) {
       Control1 = styled(FieldRightDecoratedControl)`
         background: #686868;
@@ -524,7 +523,7 @@ const NakedDropDownSelectField = props => {
           optionItem.setAttribute("class", "select-item")
         }
         optionItem.innerHTML = selectElement.options[j].innerHTML
-        optionItem.addEventListener("click", function(e) {
+        optionItem.addEventListener("click", function (e) {
           // When an item is clicked, update the original select box
           // and selected item
           var previouslySelectedItems, i, k, selectElement, selectedItem

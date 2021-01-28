@@ -17,11 +17,11 @@ Two steps are needed to get the board definitions loaded.
 
 First, we need to tell the Arduino IDE about a new place to find definitions from. That place is:
 
-<blockquote><code>http://arduino.esp8266.com/stable/package_esp8266com_index.json</code></blockquote>
+>`http://arduino.esp8266.com/stable/package_esp8266com_index.json`
 
 Open preferences for the Arduino IDE, go to the _Settings_ tab, and add that URL to _Additional Boards Manager URLs_.
 
-Close the preferences (in the affirmative, of course!) and then proceed to the _Tools_ menu. Under _Tools_, go to _Board_-->_Boards Manager..._ and select it. A dialog will appear, type "esp8266" into the search bar at the top. Install "esp8266 by ESP8266 Community" and close the dialog.
+Close the preferences (in the affirmative, of course!) and then proceed to the _Tools_ menu. Under _Tools_, go to _Board_-->_Boards Manager..._ and select it. A dialog will appear, type `esp8266` into the search bar at the top. Install `esp8266 by ESP8266 Community` and close the dialog.
 
 When you return to the _Tools_-->_Board_ menu, an ESP8266 section is now available. Select your board from the list and you're all set!
 
@@ -29,11 +29,11 @@ When you return to the _Tools_-->_Board_ menu, an ESP8266 section is now availab
 
 To enable uploading data to the SPIFFS on your board, go to:
 
-<blockquote><code><a href="https://github.com/esp8266/arduino-esp8266fs-plugin/releases">https://github.com/esp8266/arduino-esp8266fs-plugin/releases</a></code></blockquote>
+>[`https://github.com/esp8266/arduino-esp8266fs-plugin/releases`](https://github.com/esp8266/arduino-esp8266fs-plugin/releases)
 
-Download the latest "ESP8266FS-_ver_.zip" file. At the time of this writing, this was "ESP8266FS-0.4.0.zip."
+Download the latest `ESP8266FS-_ver_.zip` file. At the time of this writing, this was `ESP8266FS-0.4.0.zip`.
 
-Unzip the file. This will give you a folder called _ESP8266FS_. Add this folder to the _tools_ folder (which you may also need to create) under your Arduino folder. On MacOS, the Arduino folder is at _~/Documents/Arduino_. The final path should be _~/Documents/Arduino/tools/ESP8266FS_. For other platforms [click here](https://www.google.com/search?q=arduino+directory).
+Unzip the file. This will give you a folder called `ESP8266FS`. Add this folder to the _tools_ folder (which you may also need to create) under your Arduino folder. On MacOS, the Arduino folder is at `~/Documents/Arduino`. The final path should be `~/Documents/Arduino/tools/ESP8266FS`. For other platforms [click here](https://www.google.com/search?q=arduino+directory).
 
 After restarting the IDE, you should now have an option on the _Tools_ menu called _ESP8266 Sketch Data Upload_. More to come on how to use this!
 

@@ -15,3 +15,9 @@ a {
 .curtain {
   background-color: rgb(48, 48, 48);
 }
+.gatsby-resp-image-background-image {
+  border-radius: 0.5em;
+}
+.gatsby-resp-image-image {
+  border-radius: 0.5em;
+}
