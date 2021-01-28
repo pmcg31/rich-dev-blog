@@ -10,6 +10,33 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/blog`,
+        name: `blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/assets`,
+        name: `assets`,
+      },
+    },
+    {
+      resolve: `gatsby-plugin-styled-components`,
+      options: {
+        // Add any options here
+      },
+    },
+    `gatsby-plugin-sharp`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-remark-autolink-headers`,
+    `gatsby-remark-reading-time`,
+    `gatsby-remark-responsive-iframe`,
+    `gatsby-remark-smartypants`,
+    `gatsby-transformer-sharp`,
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
@@ -30,9 +57,6 @@ module.exports = {
               ], //Optional: Override URL of a service provider, e.g to enable youtube-nocookie support
             },
           },
-          `gatsby-remark-responsive-iframe`,
-          `gatsby-remark-autolink-headers`,
-          `gatsby-remark-smartypants`,
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
@@ -172,29 +196,5 @@ module.exports = {
         ],
       },
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
-      },
-    },
-    {
-      resolve: `gatsby-plugin-styled-components`,
-      options: {
-        // Add any options here
-      },
-    },
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-react-helmet`,
-    `gatsby-remark-reading-time`,
   ],
 }
