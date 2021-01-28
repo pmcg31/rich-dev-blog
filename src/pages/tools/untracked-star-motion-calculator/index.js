@@ -10,7 +10,7 @@ const Container = styled.div`
 
 const StyledCalc = styled(NoTrailCalculator)``
 
-export default () => {
+const Calc = () => {
   return (
     <Layout
       title="No Star Trail Calculator"
@@ -25,3 +25,5 @@ export default () => {
     />
   )
 }
+
+export default Calc

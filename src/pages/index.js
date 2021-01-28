@@ -8,7 +8,7 @@ const StyledContent = styled.div`
   max-width: 36em;
 `
 
-export default ({ data }) => {
+const HomePage = ({ data }) => {
   return (
     <Layout
       title="Home"
@@ -22,6 +22,9 @@ export default ({ data }) => {
     />
   )
 }
+
+export default HomePage
+
 export const query = graphql`
   query MyQuery {
     allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
