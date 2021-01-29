@@ -17,6 +17,17 @@ module.exports = {
       },
     },
     {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/content/images`,
+        name: `images`,
+      },
+    },
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-react-helmet`,
+    `gatsby-remark-reading-time`,
+    {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: [`.mdx`, `.md`],
@@ -37,14 +48,25 @@ module.exports = {
               ], //Optional: Override URL of a service provider, e.g to enable youtube-nocookie support
             },
           },
+          {
+            resolve: "gatsby-remark-external-links",
+            options: {
+              target: "_blank",
+              rel: "noopener",
+            },
+          },
           `gatsby-remark-copy-linked-files`,
           {
             resolve: `gatsby-remark-images`,
             options: {
               maxWidth: 600,
               quality: 100,
+              // linkImagesToOriginal: false,
             },
           },
+          // {
+          //   resolve: require.resolve(`./plugins/gatsby-remark-images-mymodal`),
+          // },
           `gatsby-remark-responsive-iframe`,
           `gatsby-remark-autolink-headers`,
           `gatsby-remark-smartypants`,
@@ -125,9 +147,5 @@ module.exports = {
         // Add any options here
       },
     },
-    `gatsby-plugin-sharp`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-react-helmet`,
-    `gatsby-remark-reading-time`,
   ],
 }

@@ -148,6 +148,16 @@ const MDXWrapper = styled.div`
     border-radius: 0.5em;
     height: initial;
   }
+  .modal-image-wrapper {
+    cursor: pointer;
+  }
+  .anchor svg {
+    fill: rgb(160, 160, 160);
+    width: 25;
+  }
+  .anchor {
+    margin-left: -16px;
+  }
 `
 
 const PostHeader = styled.header`
@@ -216,6 +226,56 @@ const NavNext = styled.li`
   order: 2;
 `
 
+const Modal = styled.div`
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+
+  .modal-content {
+    margin: auto;
+    display: block;
+    border-radius: 0.5em;
+    max-width: 70%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+    object-fit: scale-down;
+    background: #222;
+  }
+  #modal-caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    text-align: center;
+    color: coral;
+    padding: 10px 0;
+    height: 150px;
+  }
+  .modal-close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: rgb(160, 160, 160);
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+  .modal-close:hover,
+  .modal-close:focus {
+    color: coral;
+    text-decoration: none;
+    cursor: pointer;
+  }
+`
+
 function Icon(props) {
   if ("electronics" === props.category) {
     return <StyledElectronicsIcon />
@@ -226,7 +286,46 @@ function Icon(props) {
   }
 }
 
+function modalClose() {
+  var modal = document.getElementById("image-modal")
+
+  modal.style.display = "none"
+}
+
+function modalClick(e) {
+  var modalImg = document.getElementById("image-modal-content")
+
+  if (e.target !== modalImg) {
+    modalClose()
+  }
+}
+
+function showModalImage(e) {
+  var modal = document.getElementById("image-modal")
+  var modalImg = document.getElementById("image-modal-content")
+  var caption = document.getElementById("modal-caption")
+  modal.style.display = "block"
+  modalImg.loading = e.target.loading;
+  modalImg.srcset = e.target.srcset;
+  modalImg.src = e.target.src;
+  caption.innerText = e.target.alt;
+}
 class BlogPostTemplate extends React.Component {
+  componentDidMount() {
+    var modal = document.getElementById("image-modal")
+    modal.onclick = modalClick
+
+    var closeSpan = document.getElementById("modal-close")
+    closeSpan.onclick = function () {
+      modalClose()
+    }
+
+    var elems = document.getElementsByClassName("modal-image-wrapper")
+    for (var i = 0; i < elems.length; i++) {
+      elems[i].onclick = showModalImage
+    }
+  }
+
   render() {
     const post = this.props.data.mdx
     const { previous, next } = this.props.pageContext
@@ -237,6 +336,11 @@ class BlogPostTemplate extends React.Component {
         showStyle="compact"
         content={
           <div>
+            <Modal id="image-modal" class="modal">
+              <span class="modal-close" id="modal-close">&times;</span>
+              <img class="modal-content" id="image-modal-content" />
+              <div id="modal-caption"></div>
+            </Modal>
             <StyledArticle>
               <PostHeader id="post-header">
                 <IconWrapper>
