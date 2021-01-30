@@ -6,6 +6,7 @@ import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
 import IdeaUpAstronomyIcon from "../components/icons/idea-up-astronomy-icon"
 import IdeaUpPhotographyIcon from "../components/icons/idea-up-photography-icon"
 import { MDXRenderer } from "gatsby-plugin-mdx"
+import { MDXProvider } from "@mdx-js/react"
 import PageTOC from "../components/page-toc"
 import SmartQuote from "../components/smart-quote"
 
@@ -308,7 +309,18 @@ function showModalImage(e) {
   modalImg.loading = e.target.loading;
   modalImg.srcset = e.target.srcset;
   modalImg.src = e.target.src;
+  modalImg.alt = e.target.alt;
   caption.innerText = e.target.alt;
+}
+
+const components = {
+  a: props => {
+    if (props.className === "gatsby-resp-image-link") {
+      return (<span className="modal-image-wrapper" title={props.href}>{props.children}</span>)
+    } else {
+      return (<a {...props} />)
+    }
+  }
 }
 class BlogPostTemplate extends React.Component {
   componentDidMount() {
@@ -336,9 +348,9 @@ class BlogPostTemplate extends React.Component {
         showStyle="compact"
         content={
           <div>
-            <Modal id="image-modal" class="modal">
-              <span class="modal-close" id="modal-close">&times;</span>
-              <img class="modal-content" id="image-modal-content" />
+            <Modal id="image-modal">
+              <span className="modal-close" id="modal-close">&times;</span>
+              <img className="modal-content" id="image-modal-content" alt="" />
               <div id="modal-caption"></div>
             </Modal>
             <StyledArticle>
@@ -372,7 +384,9 @@ class BlogPostTemplate extends React.Component {
                   />
                 </NavWrapper>
                 <MDXWrapper id="post-content">
-                  <MDXRenderer>{post.body}</MDXRenderer>
+                  <MDXProvider components={components}>
+                    <MDXRenderer>{post.body}</MDXRenderer>
+                  </MDXProvider>
                 </MDXWrapper>
               </PostContent>
             </StyledArticle>
