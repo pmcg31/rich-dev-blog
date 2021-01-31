@@ -29,13 +29,13 @@ Next is the ESPAsyncWebServer library. It depends on the ESPAsyncTCP library, so
 
 For ESPAsyncWebServer, go to:
 
-<blockquote><a href="https://github.com/me-no-dev/ESPAsyncWebServer">https://github.com/me-no-dev/ESPAsyncWebServer</a></blockquote>
+> [`https://github.com/me-no-dev/ESPAsyncWebServer`](https://github.com/me-no-dev/ESPAsyncWebServer)
 
 Click the _Clone or download_ button and download a zip file. Unzip it and remove _-master_ from the directory that results, leaving you with _ESPAsyncWebServer_. Drop that directory under the _libraries_ directory of your Arduino home directory (`~/Documents/Arduino` on MacOS).
 
 For ESPAsyncTCP, go to:
 
-<blockquote><a href="https://github.com/me-no-dev/ESPAsyncTCP">https://github.com/me-no-dev/ESPAsyncTCP</a></blockquote>
+> [`https://github.com/me-no-dev/ESPAsyncTCP`](https://github.com/me-no-dev/ESPAsyncTCP)
 
 Same thing again, download a zip, rename the directory and plop it into the libaries directory.
 
@@ -45,47 +45,7 @@ That's it for libraries. Restart the Arduino IDE so it picks up the libraries we
 
 To get the basic sketch up and running, connect the potentiometer wiper to GPIO 36. Connect the other two legs to 3.3V and GND pins, respectively. Start a new sketch in the IDE, and load the following code. If you need to use a different GPIO pin, change `POT_PIN` to the pin you're using.
 
-<blockquote><a href="code_v1.ino">First code version</a></blockquote>
-
-```c{numberLines: true}
-#define POT_PIN 36
-#define POT_AVG_MAX 30
-
-int potVal = 0;
-
-int potAvg = 5;
-int potVals[POT_AVG_MAX];
-int potValPtr = 0;
-
-void setup() {
-  for (int i = 0; i < POT_AVG_MAX; i++) {
-    potVals[i] = 0;
-  }
-
-  Serial.begin(115200);
-}
-
-void loop(){
-  potVals[potValPtr] = analogRead(POT_PIN);
-  int tmp = 0;
-  for (int i = 0; i < potAvg; i++) {
-    tmp += potVals[i];
-  }
-  int tmpPotVal = tmp / potAvg;
-
-  potValPtr++;
-  if (!(potValPtr < potAvg)) {
-    potValPtr = 0;
-  }
-
-  if (tmpPotVal != potVal) {
-    potVal = tmpPotVal;
-    Serial.print("potVal: ");
-    Serial.println(potVal);
-  }
-
-  delay(100);
-}
+```c{line-numbers}{file-code_v1.ino}
 ```
 
 Upload the sketch, play with the pot and watch the pretty numbers on your serial monitor. When you get bored, move on to adding the web server.
@@ -96,71 +56,7 @@ OK, now you have the pot hooked up and tested. Let's get this web server happeni
 
 Here's the new code (edits required!):
 
-<blockquote><a href="code_v2.ino">Second code version</a></blockquote>
-
-```c{1-4,14-19,26-41}{numberLines: true}
-#include <WiFi.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-
-#define POT_PIN 36
-#define POT_AVG_MAX 30
-
-int potVal = 0;
-
-int potAvg = 5;
-int potVals[POT_AVG_MAX];
-int potValPtr = 0;
-
-AsyncWebServer server(80);
-
-void handleRoot(AsyncWebServerRequest* request) {
-  request->send(200, "text/plain", "Hello from ESP32!");
-}
-
-void setup() {
-  for (int i = 0; i < POT_AVG_MAX; i++) {
-    potVals[i] = 0;
-  }
-
-  Serial.begin(115200);
-
-  const char* ssid = "your_ssid";
-  const char* key =  "your_key";
-
-  WiFi.begin(ssid, key);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi..");
-  }
-
-  Serial.println(WiFi.localIP());
-
-  server.on("/", HTTP_GET, handleRoot);
-
-  server.begin();
-}
-
-void loop(){
-  potVals[potValPtr] = analogRead(POT_PIN);
-  int tmp = 0;
-  for (int i = 0; i < potAvg; i++) {
-    tmp += potVals[i];
-  }
-  int tmpPotVal = tmp / potAvg;
-
-  potValPtr++;
-  if (!(potValPtr < potAvg)) {
-    potValPtr = 0;
-  }
-
-  if (tmpPotVal != potVal) {
-    potVal = tmpPotVal;
-  }
-
-  delay(100);
-}
+```c{1-4,14-19,26-41}{line-numbers}{file-code_v2.ino}
 ```
 
 We've added some includes for WiFi and the web server. Then a new variable for the web server object and a handler function.
@@ -183,80 +79,7 @@ Generally speaking, getting your server into a DNS requires an afternoon of conf
 
 Let's add a name tag to our little server. Here's the code (don't forget to edit the ssid and key!):
 
-<blockquote><a href="code_v3.ino">Third code version</a></blockquote>
-
-```c{2,40-45,49-50}{numberLines: true}
-#include <WiFi.h>
-#include <ESPmDNS.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-
-#define POT_PIN 36
-#define POT_AVG_MAX 30
-
-int potVal = 0;
-
-int potAvg = 5;
-int potVals[POT_AVG_MAX];
-int potValPtr = 0;
-
-AsyncWebServer server(80);
-
-void handleRoot(AsyncWebServerRequest* request) {
-  request->send(200, "text/plain", "Hello from ESP32!");
-}
-
-void setup() {
-  for (int i = 0; i < POT_AVG_MAX; i++) {
-    potVals[i] = 0;
-  }
-
-  Serial.begin(115200);
-
-  const char* ssid = "ssid";
-  const char* key =  "key";
-
-  WiFi.begin(ssid, key);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi..");
-  }
-
-  Serial.println(WiFi.localIP());
-
-  if (!MDNS.begin("esp32")) {
-    Serial.println("Error setting up mDNS responder");
-  } else {
-    Serial.println("mDNS responder started: esp32.local");
-  }
-
-  server.on("/", HTTP_GET, handleRoot);
-
-  server.begin();
-
-  MDNS.addService("http", "tcp", 80);
-}
-
-void loop(){
-  potVals[potValPtr] = analogRead(POT_PIN);
-  int tmp = 0;
-  for (int i = 0; i < potAvg; i++) {
-    tmp += potVals[i];
-  }
-  int tmpPotVal = tmp / potAvg;
-
-  potValPtr++;
-  if (!(potValPtr < potAvg)) {
-    potValPtr = 0;
-  }
-
-  if (tmpPotVal != potVal) {
-    potVal = tmpPotVal;
-  }
-
-  delay(100);
-}
+```c{2,40-45,49-50}{line-numbers}{file-code_v3.ino}
 ```
 
 Not much to this change. A new include file. In setup, a new line to start mDNS and some logging. After we start the web server, we add that to the list of things we're advertising via mDNS.
@@ -273,113 +96,7 @@ But it doesn't have to be. Let's move our network stuff to a file. You'll still 
 
 Here's the new code (no edits required! HA!):
 
-<blockquote><a href="code_v4.ino">Fourth code version</a></blockquote>
-
-```c{5-7,34-63}{numberLines: true}
-#include <WiFi.h>
-#include <ESPmDNS.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-#include <FS.h>
-#include <SPIFFS.h>
-#include <ArduinoJson.h>
-
-#define POT_PIN 36
-#define POT_AVG_MAX 30
-
-int potVal = 0;
-
-int potAvg = 5;
-int potVals[POT_AVG_MAX];
-int potValPtr = 0;
-
-AsyncWebServer server(80);
-
-void handleRoot(AsyncWebServerRequest* request) {
-  request->send(200, "text/plain", "Hello from ESP32!");
-}
-
-void setup() {
-  for (int i = 0; i < POT_AVG_MAX; i++) {
-    potVals[i] = 0;
-  }
-
-  Serial.begin(115200);
-
-  const char* ssid = "default";
-  const char* key =  "default";
-
-  if(!SPIFFS.begin(true)){
-    Serial.println("An Error has occurred while mounting SPIFFS");
-    return;
-  }
-
-  File configFile = SPIFFS.open("/config.json", "r");
-  DynamicJsonDocument doc(1024);
-  if(!configFile){
-    Serial.println("Failed to open config.json for reading");
-    return;
-  } else {
-    DeserializationError error = deserializeJson(doc, configFile);
-    if (error) {
-      Serial.print("Error parsing config.json [");
-      Serial.print(error.c_str());
-      Serial.println("]");
-    }
-
-    ssid = doc["ssid"];
-    key = doc["key"];
-
-    configFile.close();
-  }
-
-  Serial.print("ssid: '");
-  Serial.print(ssid);
-  Serial.println("'");
-  Serial.print("key: '");
-  Serial.print(key);
-  Serial.println("'");
-  WiFi.begin(ssid, key);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi..");
-  }
-
-  Serial.println(WiFi.localIP());
-
-  if (!MDNS.begin("esp32")) {
-    Serial.println("Error setting up mDNS responder");
-  } else {
-    Serial.println("mDNS responder started: esp32.local");
-  }
-
-  server.on("/", HTTP_GET, handleRoot);
-
-  server.begin();
-
-  MDNS.addService("http", "tcp", 80);
-}
-
-void loop(){
-  potVals[potValPtr] = analogRead(POT_PIN);
-  int tmp = 0;
-  for (int i = 0; i < potAvg; i++) {
-    tmp += potVals[i];
-  }
-  int tmpPotVal = tmp / potAvg;
-
-  potValPtr++;
-  if (!(potValPtr < potAvg)) {
-    potValPtr = 0;
-  }
-
-  if (tmpPotVal != potVal) {
-    potVal = tmpPotVal;
-  }
-
-  delay(100);
-}
+```c{5-7,34-63}{line-numbers}{file-code_v4.ino}
 ```
 
 Once again, we've got some more includes. In addition to the SPIFFS header (which needs FS), I'm sneaking the JSON header in here, too. That's because our new config file is going to be in JSON format.
@@ -390,9 +107,10 @@ Finally, we "edit" the ssid and key by asking the JSON document for their values
 
 You will need to add a directory called "data" next to your sketch. It has to be called "data." I don't care that you don't like it. It doesn't work unless it's called "data."
 
-Add this file to the "data" directory (edits required!):
+Add the following file to the "data" directory (edits required!):
 
-<blockquote><a href="config.json">Config file</a></blockquote>
+```json{line-numbers}{file-config.json}
+```
 
 Once you have the file edited and in the "data" directory, make sure the window with your sketch in it is active. Select the _ESP32 Sketch Data Upload_ item from the _Tools_ menu in the IDE. The config file will be uploaded. You may need to close the serial monitor for this to work. I do.
 
@@ -402,182 +120,16 @@ Now that your config file is edited and uploaded, upload the sketch. Refresh you
 
 I did, which brings us to the final segment of this guide.
 
-The first change here is that we'll be serving the web page from a file in SPIFFS now. Download this file, rename it to `index.html` and put it in your sketch "data" directory with `config.json`:
+The first change here is that we'll be serving the web page from a file in SPIFFS now. Download the file below, rename it to `index.html` and put it in your sketch "data" directory with `config.json`:
 
-<blockquote><a href="index.html.txt">Web page</a></blockquote>
+```html{line-numbers}{file-index.html.txt}
+```
 
 Make sure the window with your sketch is active and then do _ESP32 Sketch Data Upload_ again.
 
 That brings us to the final version of the code:
 
-<blockquote><a href="code_final.ino">Final code version</a></blockquote>
-
-```c{19,22-73,131-133,156-161}{numberLines: true}
-#include <WiFi.h>
-#include <ESPmDNS.h>
-#include <AsyncTCP.h>
-#include <ESPAsyncWebServer.h>
-#include <FS.h>
-#include <SPIFFS.h>
-#include <ArduinoJson.h>
-
-#define POT_PIN 36
-#define POT_AVG_MAX 30
-
-int potVal = 0;
-
-int potAvg = 5;
-int potVals[POT_AVG_MAX];
-int potValPtr = 0;
-
-AsyncWebServer server(80);
-AsyncWebSocket ws("/ws");
-
-void handleRoot(AsyncWebServerRequest* request) {
-  request->send(SPIFFS, "/index.html", "text/html");
-}
-
-void onWSEvent(AsyncWebSocket* server,
-               AsyncWebSocketClient* client,
-               AwsEventType type,
-               void* arg,
-               uint8_t* data,
-               size_t length) {
-  switch (type) {
-    case WS_EVT_CONNECT:
-      {
-        Serial.println("WS client connect");
-        DynamicJsonDocument doc(1024);
-        doc["potVal"] = potVal;
-        doc["potAvg"] = potAvg;
-        doc["potAvgMax"] = POT_AVG_MAX;
-        char json[1024];
-        serializeJsonPretty(doc, json);
-        client->text(json);
-      }
-      break;
-    case WS_EVT_DISCONNECT:
-      Serial.println("WS client disconnect");
-      break;
-    case WS_EVT_DATA:
-      {
-        AwsFrameInfo* info = (AwsFrameInfo*)arg;
-        if (info->final && (info->index == 0) && (info->len == length)) {
-          if (info->opcode == WS_TEXT) {
-            data[length] = 0;
-            Serial.print("data is ");
-            Serial.println((char*)data);
-            DynamicJsonDocument doc(1024);
-            deserializeJson(doc, (char*)data);
-            if (doc.containsKey("potAvg")) {
-              potAvg = doc["potAvg"];
-              char json[1024];
-              serializeJsonPretty(doc, json);
-              Serial.print("Sending ");
-              Serial.println(json);
-              ws.textAll(json);
-            }
-          } else {
-            Serial.println("Received a ws message, but it isn't text");
-          }
-        } else {
-          Serial.println("Received a ws message, but it didn't fit into one frame");
-        }
-      }
-      break;
-  }
-}
-
-void setup() {
-  for (int i = 0; i < POT_AVG_MAX; i++) {
-    potVals[i] = 0;
-  }
-
-  Serial.begin(115200);
-
-  const char* ssid = "default";
-  const char* key =  "default";
-
-  if(!SPIFFS.begin(true)){
-    Serial.println("An Error has occurred while mounting SPIFFS");
-    return;
-  }
-
-  File configFile = SPIFFS.open("/config.json", "r");
-  DynamicJsonDocument doc(1024);
-  if(!configFile){
-    Serial.println("Failed to open config.json for reading");
-    return;
-  } else {
-    DeserializationError error = deserializeJson(doc, configFile);
-    if (error) {
-      Serial.print("Error parsing config.json [");
-      Serial.print(error.c_str());
-      Serial.println("]");
-    }
-
-    ssid = doc["ssid"];
-    key = doc["key"];
-
-    configFile.close();
-  }
-
-  Serial.print("ssid: '");
-  Serial.print(ssid);
-  Serial.println("'");
-  Serial.print("key: '");
-  Serial.print(key);
-  Serial.println("'");
-  WiFi.begin(ssid, key);
-
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.println("Connecting to WiFi..");
-  }
-
-  Serial.println(WiFi.localIP());
-
-  if (!MDNS.begin("esp32")) {
-    Serial.println("Error setting up mDNS responder");
-  } else {
-    Serial.println("mDNS responder started: esp32.local");
-  }
-
-  ws.onEvent(onWSEvent);
-  server.addHandler(&ws);
-
-  server.on("/", HTTP_GET, handleRoot);
-
-  server.begin();
-
-  MDNS.addService("http", "tcp", 80);
-}
-
-void loop(){
-  potVals[potValPtr] = analogRead(POT_PIN);
-  int tmp = 0;
-  for (int i = 0; i < potAvg; i++) {
-    tmp += potVals[i];
-  }
-  int tmpPotVal = tmp / potAvg;
-
-  potValPtr++;
-  if (!(potValPtr < potAvg)) {
-    potValPtr = 0;
-  }
-
-  if (tmpPotVal != potVal) {
-    potVal = tmpPotVal;
-
-    DynamicJsonDocument doc(1024);
-    doc["potVal"] = potVal;
-    char json[1024];
-    serializeJsonPretty(doc, json);
-    ws.textAll(json);
-  }
-
-  delay(100);
-}
+```c{19,22-73,131-133,156-161}{line-numbers}{file-code_final.ino}
 ```
 
 The first change you'll notice is that we've added an AsyncWebSocket. The "/ws" is the URL where the web socket can be found. Since it is a relative path, that means relative to the web server, so the full URL would be "ws://esp32.local/ws"

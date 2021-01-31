@@ -1,5 +1,6 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { withPrefix, Link, graphql } from "gatsby"
+import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
 import styled from "styled-components"
 import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
@@ -9,6 +10,7 @@ import { MDXRenderer } from "gatsby-plugin-mdx"
 import { MDXProvider } from "@mdx-js/react"
 import PageTOC from "../components/page-toc"
 import SmartQuote from "../components/smart-quote"
+import path from "path"
 
 const StyledElectronicsIcon = styled(IdeaUpElectronicsIcon)`
   width: 5em;
@@ -77,39 +79,31 @@ const MDXWrapper = styled.div`
   grid-column: 2 / span 1;
   min-width: 0;
   margin: 0 0;
-  .gatsby-highlight-code-line::after {
-    content: " ";
-  }
-  .gatsby-highlight-code-line {
-    display: block;
-    margin-right: -1em;
-    margin-left: -3.75em;
-    padding-right: 1em;
-    padding-left: 3.5em;
-    border-left: 0.25em solid coral;
+  div.code-toolbar > .toolbar {
+    position: absolute;
+    top: .3em;
+    right: 1em;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
   }
   code {
-    background-color: rgb(64, 64, 64);
-  }
-  code.language-text {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    color: #ccc;
     background-color: #98562d;
     font-size: 0.75em;
+    padding: .2em;
+    border-radius: .3em;
+    white-space: normal;
   }
   pre {
     code {
       padding: 0;
     }
     margin: 0.5em;
-    background-color: rgb(64, 64, 64);
     border-radius: 0.5em;
     padding: 0.3em;
-    font-size: 0.65em;
     overflow: auto;
-    max-height: 50vh;
-  }
-  span.line-numbers-rows {
-    padding-top: 0.35em;
-    padding-left: 0.8em;
+    max-height: 50em;
   }
   .anchor {
     stroke: rgb(80, 80, 80);
@@ -313,15 +307,6 @@ function showModalImage(e) {
   caption.innerText = e.target.alt;
 }
 
-const components = {
-  a: props => {
-    if (props.className === "gatsby-resp-image-link") {
-      return (<span className="modal-image-wrapper" title={props.href}>{props.children}</span>)
-    } else {
-      return (<a {...props} />)
-    }
-  }
-}
 class BlogPostTemplate extends React.Component {
   componentDidMount() {
     var modal = document.getElementById("image-modal")
@@ -342,12 +327,80 @@ class BlogPostTemplate extends React.Component {
     const post = this.props.data.mdx
     const { previous, next } = this.props.pageContext
 
+    const components = {
+      a: props => {
+        if (props.className === "gatsby-resp-image-link") {
+          return (<span className="modal-image-wrapper" title={props.href}>{props.children}</span>)
+        } else {
+          return (<a {...props} />)
+        }
+      },
+      code: props => {
+        var myProps = JSON.parse(JSON.stringify(props))
+        var match
+        var dataLine = null
+        var dataSrc = null
+        var dataLink = null
+
+        do {
+          match = myProps.className.match(/\{[^[{}]*\}/)
+          if (match === null) {
+            break
+          }
+          var matchLen = match[0].length
+          var baseMatch = match[0].substr(1, matchLen - 2)
+          if ((baseMatch === "line-numbers") || (baseMatch === "no-line-numbers")) {
+            myProps.className = myProps.className.substring(0, match.index).concat(" ", baseMatch, " ", myProps.className.substring(match.index + matchLen))
+          } else {
+            const fileTarget = "file-"
+            myProps.className = myProps.className.substring(0, match.index).concat(myProps.className.substring(match.index + matchLen))
+            if (baseMatch.startsWith(fileTarget)) {
+              dataSrc = baseMatch.substring(fileTarget.length)
+              dataLink = "data-download-link"
+            } else {
+              dataLine = baseMatch
+            }
+          }
+        } while (true)
+
+        if (dataSrc !== null) {
+          var browserPath = "/".concat(post.internal.contentDigest, "/", dataSrc);
+          if (typeof window === `undefined`) {
+            // not in a browser, copy the file
+            const pathsNew = [process.cwd(), "public", browserPath]
+            const pathsSource = [post.parent.dir, dataSrc]
+            var newFilePath = path.posix.join(...pathsNew)
+            var sourceFilePath = path.posix.join(...pathsSource)
+
+            const fs = require("fs-extra")
+            try {
+              fs.ensureDir(path.dirname(newFilePath))
+              fs.copy(sourceFilePath, newFilePath)
+            } catch (err) {
+              console.error(`error copying file`, err)
+            }
+          }
+
+          return (<pre data-line={dataLine} data-src={browserPath} data-download-link="true" className={myProps.className}></pre>)
+        } else {
+          return (<pre data-line={dataLine} className={myProps.className}><code  {...myProps} /></pre>)
+        }
+      },
+      pre: props => {
+        return (props.children)
+      }
+    }
+
     return (
       <Layout
         title={post.frontmatter.title}
         showStyle="compact"
         content={
           <div>
+            <Helmet>
+              <link rel="stylesheet" href={withPrefix('prism.css')} />
+              <script src={withPrefix('prism.js')}></script>
+            </Helmet>
             <Modal id="image-modal">
               <span className="modal-close" id="modal-close">&times;</span>
               <img className="modal-content" id="image-modal-content" alt="" />
@@ -427,6 +480,14 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         description
         category
+      }
+      internal {
+        contentDigest
+      }
+      parent {
+        ... on File {
+          dir
+        }
       }
     }
   }
