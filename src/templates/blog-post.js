@@ -308,6 +308,12 @@ function showModalImage(e) {
 }
 
 class BlogPostTemplate extends React.Component {
+  onKeyDown(e) {
+    if (e.key === "Escape") {
+      modalClose()
+    }
+  }
+
   componentDidMount() {
     var modal = document.getElementById("image-modal")
     modal.onclick = modalClick
@@ -321,6 +327,12 @@ class BlogPostTemplate extends React.Component {
     for (var i = 0; i < elems.length; i++) {
       elems[i].onclick = showModalImage
     }
+
+    document.addEventListener("keydown", this.onKeyDown, false);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.onKeyDown, false);
   }
 
   render() {
