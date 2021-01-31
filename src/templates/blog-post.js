@@ -340,7 +340,6 @@ class BlogPostTemplate extends React.Component {
         var match
         var dataLine = null
         var dataSrc = null
-        var dataLink = null
 
         do {
           match = myProps.className.match(/\{[^[{}]*\}/)
@@ -356,7 +355,6 @@ class BlogPostTemplate extends React.Component {
             myProps.className = myProps.className.substring(0, match.index).concat(myProps.className.substring(match.index + matchLen))
             if (baseMatch.startsWith(fileTarget)) {
               dataSrc = baseMatch.substring(fileTarget.length)
-              dataLink = "data-download-link"
             } else {
               dataLine = baseMatch
             }
