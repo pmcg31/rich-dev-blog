@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { withPrefix, Link, graphql } from "gatsby"
 import { Helmet } from "react-helmet"
 import Layout from "../components/layout"
@@ -306,7 +306,6 @@ function showModalImage(e) {
   modalImg.alt = e.target.alt;
   caption.innerText = e.target.alt;
 }
-
 class BlogPostTemplate extends React.Component {
   onKeyDown(e) {
     if (e.key === "Escape") {
@@ -315,6 +314,7 @@ class BlogPostTemplate extends React.Component {
   }
 
   componentDidMount() {
+    console.log("componentDidMount() called")
     var modal = document.getElementById("image-modal")
     modal.onclick = modalClick
 
@@ -329,13 +329,27 @@ class BlogPostTemplate extends React.Component {
     }
 
     document.addEventListener("keydown", this.onKeyDown, false);
+
+    var tag = document.createElement("link");
+    tag.rel = "stylesheet"
+    tag.href = "/prism.css"
+    document.getElementsByTagName("head")[0].appendChild(tag);
+    tag = document.createElement("script");
+    tag.src = "/prism.js";
+    document.getElementsByTagName("head")[0].appendChild(tag);
+  }
+
+  componentDidUpdate() {
+    console.log("componentDidUpdate() called")
   }
 
   componentWillUnmount() {
+    console.log("componentWillUnmount() called")
     document.removeEventListener("keydown", this.onKeyDown, false);
   }
 
   render() {
+    console.log("render() called: ".concat(this.props.pageContext.slug))
     const post = this.props.data.mdx
     const { previous, next } = this.props.pageContext
 
@@ -407,10 +421,6 @@ class BlogPostTemplate extends React.Component {
         showStyle="compact"
         content={
           <div>
-            <Helmet>
-              <link rel="stylesheet" href={withPrefix('prism.css')} />
-              <script src={withPrefix('prism.js')}></script>
-            </Helmet>
             <Modal id="image-modal">
               <span className="modal-close" id="modal-close">&times;</span>
               <img className="modal-content" id="image-modal-content" alt="" />
