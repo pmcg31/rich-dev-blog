@@ -6,7 +6,7 @@
   "author": "Rich Seiffert <seiffertrkm@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "gatsby build",
+    "build": "gatsby clean && gatsby build",
     "develop": "gatsby develop -H $HOSTNAME -p 8000",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "gatsby develop -H $HOSTNAME -p 8000",
