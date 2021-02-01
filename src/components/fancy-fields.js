@@ -61,9 +61,19 @@ const FieldControl = styled.input`
   text-align: center;
 `
 
+const FieldControlRO = styled(FieldControl)`
+  background: #686868;
+  color: #282828;
+`
+
 const FieldRightDecoratedControl = styled(FieldControl)`
   border-bottom-left-radius: 0.4em;
   border-bottom-right-radius: 0;
+`
+
+const FieldRightDecoratedControlRO = styled(FieldRightDecoratedControl)`
+  background: #686868;
+  color: #282828;
 `
 
 const FieldLeftDecoratedControl = styled(FieldControl)`
@@ -71,8 +81,34 @@ const FieldLeftDecoratedControl = styled(FieldControl)`
   border-bottom-right-radius: 0.4em;
 `
 
+const FieldLeftDecoratedControlC2 = styled(FieldLeftDecoratedControl)`
+  grid-area: control2;
+`
+
+const FieldLeftDecoratedControlRO = styled(FieldLeftDecoratedControl)`
+  background: #686868;
+  color: #282828;
+`
+
+const FieldLeftDecoratedControlROC2 = styled(FieldLeftDecoratedControlRO)`
+  grid-area: control2;
+`
+
 const FieldDoubleDecoratedControl = styled(FieldControl)`
   border-radius: 0;
+`
+
+const FieldDoubleDecoratedControlC2 = styled(FieldDoubleDecoratedControl)`
+  grid-area: control2;
+`
+
+const FieldDoubleDecoratedControlRO = styled(FieldDoubleDecoratedControl)`
+  background: #686868;
+  color: #282828;
+`
+
+const FieldDoubleDecoratedControlROC2 = styled(FieldDoubleDecoratedControlRO)`
+  grid-area: control2;
 `
 
 //
@@ -137,7 +173,7 @@ const FieldContainer = styled.div``
 // style
 //
 
-const NakedField = props => {
+const NakedField = (props) => {
   const isReadOnly =
     props.inputProps.readOnly !== null ? props.inputProps.readOnly : false
 
@@ -146,10 +182,7 @@ const NakedField = props => {
     if (props.decoratorPosition && props.decoratorPosition === "left") {
       Group = FieldLeftDecoratedControlGroup
       if (isReadOnly) {
-        Control = styled(FieldLeftDecoratedControl)`
-          background: #686868;
-          color: #282828;
-        `
+        Control = FieldLeftDecoratedControlRO
       } else {
         Control = FieldLeftDecoratedControl
       }
@@ -157,10 +190,7 @@ const NakedField = props => {
     } else {
       Group = FieldRightDecoratedControlGroup
       if (isReadOnly) {
-        Control = styled(FieldRightDecoratedControl)`
-          background: #686868;
-          color: #282828;
-        `
+        Control = FieldRightDecoratedControlRO
       } else {
         Control = FieldRightDecoratedControl
       }
@@ -189,10 +219,7 @@ const NakedField = props => {
     )
   } else {
     if (isReadOnly) {
-      Control = styled(FieldControl)`
-        background: #686868;
-        color: #282828;
-      `
+      Control = FieldControlRO
     } else {
       Control = FieldControl
     }
@@ -230,7 +257,7 @@ export const Field = styled(NakedField)`
 // style
 //
 
-const NakedDoubleField = props => {
+const NakedDoubleField = (props) => {
   const isLeftReadOnly =
     props.inputPropsLeft.readOnly !== null
       ? props.inputPropsLeft.readOnly
@@ -245,45 +272,27 @@ const NakedDoubleField = props => {
     if (props.decoratorPosition && props.decoratorPosition === "left") {
       Group = FieldDoubleLeftDecoratedControlGroup
       if (isLeftReadOnly) {
-        Control1 = styled(FieldDoubleDecoratedControl)`
-          background: #686868;
-          color: #282828;
-        `
+        Control1 = FieldDoubleDecoratedControlRO
       } else {
         Control1 = FieldDoubleDecoratedControl
       }
       if (isRightReadOnly) {
-        Control2 = styled(FieldLeftDecoratedControl)`
-          background: #686868;
-          color: #282828;
-          grid-area: control2;
-        `
+        Control2 = FieldLeftDecoratedControlROC2
       } else {
-        Control2 = styled(FieldLeftDecoratedControl)`
-          grid-area: control2;
-        `
+        Control2 = FieldLeftDecoratedControlC2
       }
       Decorator = FieldLeftDecorator
     } else {
       Group = FieldDoubleRightDecoratedControlGroup
       if (isLeftReadOnly) {
-        Control1 = styled(FieldRightDecoratedControl)`
-          background: #686868;
-          color: #282828;
-        `
+        Control1 = FieldRightDecoratedControlRO
       } else {
         Control1 = FieldRightDecoratedControl
       }
       if (isRightReadOnly) {
-        Control2 = styled(FieldDoubleDecoratedControl)`
-          background: #686868;
-          color: #282828;
-          grid-area: control2;
-        `
+        Control2 = FieldDoubleDecoratedControlROC2
       } else {
-        Control2 = styled(FieldDoubleDecoratedControl)`
-          grid-area: control2;
-        `
+        Control2 = FieldDoubleDecoratedControlC2
       }
       Decorator = FieldRightDecorator
     }
@@ -324,16 +333,10 @@ const NakedDoubleField = props => {
     Control1 = FieldRightDecoratedControl
     Control2 = FieldLeftDecoratedControl
     if (isLeftReadOnly) {
-      Control1 = styled(FieldRightDecoratedControl)`
-        background: #686868;
-        color: #282828;
-      `
+      Control1 = FieldRightDecoratedControlRO
     }
     if (isRightReadOnly) {
-      Control2 = styled(FieldLeftDecoratedControl)`
-        background: #686868;
-        color: #282828;
-      `
+      Control2 = FieldLeftDecoratedControlRO
     }
     return (
       <FieldContainer className={props.className}>
@@ -440,7 +443,7 @@ const DropArrow = styled(FieldRightDecorator)`
   cursor: pointer;
 `
 
-const NakedDropDownSelectField = props => {
+const NakedDropDownSelectField = (props) => {
   const Group = FieldRightDecoratedControlGroup
 
   function close() {
