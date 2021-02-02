@@ -38,6 +38,7 @@
     "gatsby-remark-smartypants": "^2.9.0",
     "gatsby-source-filesystem": "^2.10.0",
     "gatsby-transformer-sharp": "^2.11.0",
+    "mdast-util-to-string": "^2.0.0",
     "normalize.css": "^8.0.1",
     "npm-cli": "^0.1.0",
     "prismjs": "^1.23.0",
@@ -47,7 +48,8 @@
     "retext": "^7.0.1",
     "retext-smartypants": "^4.0.0",
     "styled-components": "^5.2.1",
-    "svgr.macro": "^1.0.4"
+    "svgr.macro": "^1.0.4",
+    "unist-util-visit": "^2.0.3"
   },
   "devDependencies": {
     "prettier": "^2.2.1"

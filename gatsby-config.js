@@ -43,7 +43,7 @@ module.exports = {
               urlOverrides: [
                 {
                   id: "youtube",
-                  embedURL: videoId =>
+                  embedURL: (videoId) =>
                     `https://www.youtube-nocookie.com/embed/${videoId}`,
                 },
               ], //Optional: Override URL of a service provider, e.g to enable youtube-nocookie support
@@ -59,7 +59,13 @@ module.exports = {
           {
             resolve: `gatsby-remark-copy-linked-files`,
             options: {
-              destinationDir: f => `blogData/${f.name}`
+              destinationDir: (f) => `blogData/${f.name}`,
+            },
+          },
+          {
+            resolve: require.resolve(`./plugins/gatsby-remark-image-slugger`),
+            options: {
+              basePath: "../../images",
             },
           },
           {

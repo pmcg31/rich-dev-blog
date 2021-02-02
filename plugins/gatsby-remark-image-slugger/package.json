@@ -1,0 +1,11 @@
+{
+  "name": "gatsby-remark-image-slugger",
+  "version": "1.0.0",
+  "description": "Add slug for the current post to image path. Allows image storage in parallel folder structure to posts.",
+  "main": "index.js",
+  "scripts": {
+    "test": "crossYoFingersBro"
+  },
+  "author": "me",
+  "license": "MIT"
+}
