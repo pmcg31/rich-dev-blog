@@ -157,7 +157,7 @@ function onNext(e) {
   }
 }
 
-const TestPhotoFlipper = props => {
+const TestPhotoFlipper = (props) => {
   const data = useStaticQuery(graphql`
     {
       fullSize: allFile(
@@ -204,6 +204,8 @@ const TestPhotoFlipper = props => {
     updateControlBlock()
   })
 
+  testPoints.length = 0
+
   data.fullSize.edges.forEach(({ node }) => {
     var timeStr, time
 
@@ -223,7 +225,7 @@ const TestPhotoFlipper = props => {
 
     const idxDot = node.name.indexOf(".")
     timeStr = node.name.substring("500-rule-".length, idxDot)
-    testPoints.forEach(testPoint => {
+    testPoints.forEach((testPoint) => {
       if (testPoint.timeStr === timeStr) {
         testPoint.centralCropName = node.name
         testPoint.centralCropFluid = node.childImageSharp.fluid

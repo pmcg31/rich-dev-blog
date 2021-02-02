@@ -81,18 +81,18 @@ const MDXWrapper = styled.div`
   margin: 0 0;
   div.code-toolbar > .toolbar {
     position: absolute;
-    top: .3em;
+    top: 0.3em;
     right: 1em;
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
   }
   code {
-    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
     color: #ccc;
     background-color: #98562d;
     font-size: 0.75em;
-    padding: .2em;
-    border-radius: .3em;
+    padding: 0.2em;
+    border-radius: 0.3em;
     white-space: normal;
   }
   pre {
@@ -231,8 +231,8 @@ const Modal = styled.div`
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.9); /* Black w/ opacity */
 
   .modal-content {
     margin: auto;
@@ -300,11 +300,11 @@ function showModalImage(e) {
   var modalImg = document.getElementById("image-modal-content")
   var caption = document.getElementById("modal-caption")
   modal.style.display = "block"
-  modalImg.loading = e.target.loading;
-  modalImg.srcset = e.target.srcset;
-  modalImg.src = e.target.src;
-  modalImg.alt = e.target.alt;
-  caption.innerText = e.target.alt;
+  modalImg.loading = e.target.loading
+  modalImg.srcset = e.target.srcset
+  modalImg.src = e.target.src
+  modalImg.alt = e.target.alt
+  caption.innerText = e.target.alt
 }
 class BlogPostTemplate extends React.Component {
   onKeyDown(e) {
@@ -314,7 +314,6 @@ class BlogPostTemplate extends React.Component {
   }
 
   componentDidMount() {
-    console.log("componentDidMount() called")
     var modal = document.getElementById("image-modal")
     modal.onclick = modalClick
 
@@ -328,40 +327,38 @@ class BlogPostTemplate extends React.Component {
       elems[i].onclick = showModalImage
     }
 
-    document.addEventListener("keydown", this.onKeyDown, false);
+    document.addEventListener("keydown", this.onKeyDown, false)
 
-    var tag = document.createElement("link");
+    var tag = document.createElement("link")
     tag.rel = "stylesheet"
     tag.href = "/prism.css"
-    document.getElementsByTagName("head")[0].appendChild(tag);
-    tag = document.createElement("script");
-    tag.src = "/prism.js";
-    document.getElementsByTagName("head")[0].appendChild(tag);
-  }
-
-  componentDidUpdate() {
-    console.log("componentDidUpdate() called")
+    document.getElementsByTagName("head")[0].appendChild(tag)
+    tag = document.createElement("script")
+    tag.src = "/prism.js"
+    document.getElementsByTagName("head")[0].appendChild(tag)
   }
 
   componentWillUnmount() {
-    console.log("componentWillUnmount() called")
-    document.removeEventListener("keydown", this.onKeyDown, false);
+    document.removeEventListener("keydown", this.onKeyDown, false)
   }
 
   render() {
-    console.log("render() called: ".concat(this.props.pageContext.slug))
     const post = this.props.data.mdx
     const { previous, next } = this.props.pageContext
 
     const components = {
-      a: props => {
+      a: (props) => {
         if (props.className === "gatsby-resp-image-link") {
-          return (<span className="modal-image-wrapper" title={props.href}>{props.children}</span>)
+          return (
+            <span className="modal-image-wrapper" title={props.href}>
+              {props.children}
+            </span>
+          )
         } else {
-          return (<a {...props} />)
+          return <a {...props} />
         }
       },
-      code: props => {
+      code: (props) => {
         var myProps = JSON.parse(JSON.stringify(props))
         var match
         var dataLine = null
@@ -374,11 +371,20 @@ class BlogPostTemplate extends React.Component {
           }
           var matchLen = match[0].length
           var baseMatch = match[0].substr(1, matchLen - 2)
-          if ((baseMatch === "line-numbers") || (baseMatch === "no-line-numbers")) {
-            myProps.className = myProps.className.substring(0, match.index).concat(" ", baseMatch, " ", myProps.className.substring(match.index + matchLen))
+          if (baseMatch === "line-numbers" || baseMatch === "no-line-numbers") {
+            myProps.className = myProps.className
+              .substring(0, match.index)
+              .concat(
+                " ",
+                baseMatch,
+                " ",
+                myProps.className.substring(match.index + matchLen)
+              )
           } else {
             const fileTarget = "file-"
-            myProps.className = myProps.className.substring(0, match.index).concat(myProps.className.substring(match.index + matchLen))
+            myProps.className = myProps.className
+              .substring(0, match.index)
+              .concat(myProps.className.substring(match.index + matchLen))
             if (baseMatch.startsWith(fileTarget)) {
               dataSrc = baseMatch.substring(fileTarget.length)
             } else {
@@ -388,7 +394,11 @@ class BlogPostTemplate extends React.Component {
         } while (true)
 
         if (dataSrc !== null) {
-          var browserPath = "/".concat(post.internal.contentDigest, "/", dataSrc);
+          var browserPath = "/".concat(
+            post.internal.contentDigest,
+            "/",
+            dataSrc
+          )
           if (typeof window === `undefined`) {
             // not in a browser, copy the file
             const pathsNew = [process.cwd(), "public", browserPath]
@@ -405,14 +415,25 @@ class BlogPostTemplate extends React.Component {
             }
           }
 
-          return (<pre data-line={dataLine} data-src={browserPath} data-download-link="true" className={myProps.className}></pre>)
+          return (
+            <pre
+              data-line={dataLine}
+              data-src={browserPath}
+              data-download-link="true"
+              className={myProps.className}
+            ></pre>
+          )
         } else {
-          return (<pre data-line={dataLine} className={myProps.className}><code  {...myProps} /></pre>)
+          return (
+            <pre data-line={dataLine} className={myProps.className}>
+              <code {...myProps} />
+            </pre>
+          )
         }
       },
-      pre: props => {
-        return (props.children)
-      }
+      pre: (props) => {
+        return props.children
+      },
     }
 
     return (
@@ -422,7 +443,9 @@ class BlogPostTemplate extends React.Component {
         content={
           <div>
             <Modal id="image-modal">
-              <span className="modal-close" id="modal-close">&times;</span>
+              <span className="modal-close" id="modal-close">
+                &times;
+              </span>
               <img className="modal-content" id="image-modal-content" alt="" />
               <div id="modal-caption"></div>
             </Modal>
