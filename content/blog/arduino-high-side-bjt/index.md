@@ -7,7 +7,7 @@ description: "Circuit diagram and explanation for accomplishing high-side 12V sw
 
 I have an application that reqires high-side switching of nominal 12V (10-15V) from a lead acid battery with an Arduino compatible board. Obviously, the GPIOs of a 3.3 or 5V Arduino can't accomplish this task alone. This post describes a circuit utilizing two bipolar junction transistors (BJTs) to accomplish switching 15mA of nominal 12V from a 3.3V Arduino GPIO. The switch is non-inverting.
 
-![Circuit Diagram](https://res.cloudinary.com/pmcg31/image/upload/v1570291894/ArduinoHighSideSwitchBJT_u6kp3u.jpg)
+![Circuit Diagram](./ArduinoHighSideSwitchBJT.jpg)
 
 Having no formal training in electronics and limited experience with transistors sent me straight to Google. Transistors have always been mysterious devices that required wizard level skills to use, or so I had always thought. I was determined to demystify these useful devices, and after hours of reading I finally had my "a-ha" moment. There are three modes a BJT can be operating in. Once I realized that, accomplishing my goal was relatively simple.
 
