@@ -1,6 +1,5 @@
-import React, { useEffect } from "react"
-import { withPrefix, Link, graphql } from "gatsby"
-import { Helmet } from "react-helmet"
+import React from "react"
+import { Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import styled from "styled-components"
 import IdeaUpElectronicsIcon from "../components/icons/idea-up-electronics-icon"
@@ -355,7 +354,7 @@ class BlogPostTemplate extends React.Component {
             </span>
           )
         } else {
-          return <a {...props} />
+          return <a {...props} /> // eslint-disable-line
         }
       },
       code: (props) => {
